@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "Magnuts": {
+            "applicationId": "B8REOlxs4tSA2DuOF2khBjOO6aB1nIB4x1rlwcnT", 
+            "masterKey": "mTDsPexarHQGeMJ3YAfBMYMQNAmKIkuTlY6Hwuf3"
+        }, 
+        "_default": {
+            "link": "Magnuts"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.3.5"
+    }
+}

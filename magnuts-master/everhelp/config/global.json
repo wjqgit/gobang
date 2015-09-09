@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "EverHelp": {
+            "applicationId": "tOQcWFtNOQpSExXFPOAyRfdWw6HUw5tC4gxSiCib", 
+            "masterKey": "cNHfZXf6ke5wyyxrXXTpXYUxcnnzTqUMpAwW0RTG"
+        }, 
+        "_default": {
+            "link": "EverHelp"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.4.0"
+    }
+}
