@@ -8,8 +8,41 @@
 	</head>
 	<body>
 		<script src="js/three.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
 		<script>
-			// Our Javascript will go here.
+			var io = io();
+
+			var ip = '127.0.0.1',
+				port = ':1337',
+				current_url = window.location.href;
+
+			io.on('connect', function() {
+				console.log('Connected to server!');
+				
+
+				var game = function(ip){
+					io.emit('game_connect');
+
+					var game_connected = function() {
+						var url = "http://" + ip + port + "?id=" + io.id;
+						document.body.innerHTML += url;
+						io.removeListener('game_connected', game_connected);
+					};
+					io.on('game_connected', game_connected);
+				};
+
+				if(current_url.indexOf('?id') > 0){
+					io.emit('controller_connect', current_url.split('?id=')[1]);
+				} else {
+					game(ip);
+				}
+
+			});
+
+
+			
+
+			// Graphics code
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 			camera.position.set(5, 5, 5);

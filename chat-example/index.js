@@ -11,7 +11,7 @@ app.get('/', (function(req, res){
 io.on('connection', function(socket) {
 	console.log('a user connected...');
 	var user_id = "user0" + (++user_count);
-	socket.emit('chat message', "hello, " + user_id)
+	socket.emit('chat message', "hello, " + user_id);
 	socket.broadcast.emit('chat message', user_id + " connected...");
 	socket.on('disconnect', function() {
 		console.log(user_id + ' disconnected...');
