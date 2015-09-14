@@ -19,8 +19,8 @@
 		<script>
 			var io = io();
 
-			// var ip = '192.168.0.13',
-			var ip = '127.0.0.1',
+			var ip = '192.168.0.13',
+			// var ip = '127.0.0.1',
 				port = ':1337',
 				current_url = window.location.href;
 
@@ -62,6 +62,7 @@
 
 					floor = new THREE.Mesh( new THREE.PlaneBufferGeometry(300, 300), new THREE.MeshLambertMaterial( {color : 0x22ff11, wireframe: false} )),
 
+					//Define the grid
 					size = 500,
 					step = 50,
 					grid_geometry = new THREE.Geometry(),
@@ -76,16 +77,33 @@
 
 					var grid = new THREE.Line( grid_geometry, grid_material, THREE.LinePieces),
 
+					//Define the geometry
 					geometry = new THREE.BoxGeometry( 30, 30, 30 ),
 					material = new THREE.MeshNormalMaterial(),
 					mesh = new THREE.Mesh( geometry, material),
 
+					speed = 0,
+					controller_state = {},
+
 					render = function() {
 						renderer.render(scene, camera);
-
+						// console.log(controller_state.acclerate);
 						if(mesh){
-							// mesh.rotation.x += 0.01;
-							mesh.rotation.y += 0.01;	
+							if (controller_state.accelerate) {
+								if(speed < 0.1){
+									speed += 0.01;
+								} else {
+									speed = 0.1;
+								}
+							} else {
+								if( 0 < speed){
+									speed -= 0.01;
+								} else {
+									speed = 0;
+								}
+							}
+
+							mesh.rotateY(speed);
 						}
 
 						requestAnimationFrame(render);
@@ -123,48 +141,61 @@
 					//I/O listeners
 					io.on('game_connected', game_connected);
 
-					io.on("controller_connected", function(connected) {
+					io.on('controller_connected', function(connected) {
 						if(connected) {
 							console.log('controller connected!');
 							QR_code_element.style.display = "none";
 						} else {
 							console.log('controller not connected!');
 							QR_code_element.style.display = "block";
+							controller_state = {};
 						}
+					});
+
+					io.on('controller_state_change', function(state) {
+						controller_state = state;
 					});
 				},
 
 				controller = function(game_id) {
-					io.emit('controller_connect', game_id)
+					io.emit('controller_connect', game_id);
 
 					io.on('controller_connected', function(connected) {
+
 						if(connected){
+							console.log('Controller connected!');
 							var controller_state = {
 								accelerate: false,
 								steer: 0
 							},
 							emit_updates = function() {
-								io.emit('controller_state_change', controller_state)
+								io.emit('controller_state_change', controller_state);
 							},
 							touchstart = function(e) {
 								e.preventDefault();
 
-								controller_state.acceleration = true;
+								console.log('touchstart...');
+								controller_state.accelerate = true;
 								emit_updates();
 							},
 							touchend = function(e) {
 								e.preventDefault();
 
-								controller_state.acceleration = false;
+								console.log('touchend...');
+								controller_state.accelerate = false;
 								emit_updates();
-							}
+							},
 							devicemotion = function(e) {
 								controller_state.steer = e.accelerationIncludingGravity.y / 100;
-							}
+							};
 
+							document.body.addEventListener('touchstart', touchstart, false);
+							document.body.addEventListener('MSPointerDown', touchstart, false);
+							document.body.addEventListener('touchend', touchend, false);
+							document.body.addEventListener('MSPointerUp', touchend, false);
 						}
-					})
-				}
+					});
+				};
 
 
 
