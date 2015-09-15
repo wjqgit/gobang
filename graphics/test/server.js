@@ -14,6 +14,10 @@ app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/:tagId', function(req, res) {
+	res.sendFile(__dirname + '\\' + req.params.tagId + '.html');
+});
+
 io.on('connection', function(socket) {
 	// console.log('A user connected...');
 
