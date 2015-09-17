@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>kovansystem visulization</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<script src="/public/js/three.min.js"></script>
+	<script src="/public/js/Detector.js"></script>
+	<script src="/public/js/controls/TrackballControls.js"></script>
+	<script src="/public/js/libs/stats.min.js"></script>
+	<style>
+		body {
+			color: #000;
+
+			background-color: #000;
+			margin: 0px; 
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		if(!Detector.webgl)Detector.addGetWebGLMessage();
+
+		//PARAMS WAREHOUSE
+		var BAY_TOTAL =  12, 
+			FLOOR_TOTAL = 6,
+			UNIT_TOTAL = BAY_TOTAL * FLOOR_TOTAL, // 72
+			PICKER_TOTAL = UNIT_TOTAL, // 72
+			// MOVER_TOTAL = 300,
+			RACK_PER_ROW = 100,
+			VT_TOTAL = 2,
+			STATION_PER_FLOOR = 5,
+			STATION_FLOOR_TOTAL = 3,
+			STATION_TOTAL = STATION_PER_FLOOR * STATION_FLOOR_TOTAL;
+
+		var RACK_HEIGHT = 1800,
+			RACK_WIDTH = 1000,
+			RACK_DEPTH = 500,
+			RACK_SPACING = 50,
+			RACK_ROW_DISTANCE = 2000,
+			UNIT_HEIGHT = 2000,
+			UNIT_WIDTH =  3500,
+			UNIT_DEPTH =  ( RACK_DEPTH + RACK_SPACING) * RACK_PER_ROW,
+			FLOOR_WIDTH = 45000,
+			FLOOR_DEPTH = 60000;
+
+		var BAY_DATUM_X = 1500,
+			BAY_DATUM_Y = 0,
+			BAY_DATUM_Z = -5000;
+
+		// PARAMS GRAPHICS
+		var MARGIN = 0;
+
+		var SCREEN_WIDTH = window.innerWidth,
+			SCREEN_HEIGHT = window.window.innerHeight - 2 * MARGIN;
+
+		// COMPONENTS GRAPHICS
+		var container, stats;
+
+		var renderer, scene, camera, control;
+
+		var ambientLight, directionalLight;
+
+		var grid_geometry, grid_material, grid;
+
+		var rack_geometry, rack_material; //rack;
+
+		init();
+
+		animate();
+
+		generateRack();
+
+		function init() {
+			// CONTAINER
+			container  = document.createElement('div');
+			document.body.appendChild(container);
+
+			// GRID
+			var step = 1000;
+			grid_geometry = new THREE.Geometry();
+			
+			for ( var i = 0; i <= FLOOR_WIDTH; i += step) {
+				grid_geometry.vertices.push(new THREE.Vector3( i, 0, 0 ));
+				grid_geometry.vertices.push(new THREE.Vector3( i, 0, -FLOOR_DEPTH ));
+			}
+
+			for ( var j = 0; j <= FLOOR_DEPTH; j += step ) {
+				grid_geometry.vertices.push(new THREE.Vector3( 0, 0, -j ));
+				grid_geometry.vertices.push(new THREE.Vector3( FLOOR_WIDTH, 0, -j ));
+			}
+
+			grid_material = new THREE.LineBasicMaterial( { color : 0xffffff, opacity: 0.4, transparent: true});
+
+			grid = new THREE.LineSegments( grid_geometry, grid_material);
+
+			//RACK
+			rack_geometry = new THREE.BoxGeometry(1000, 1800, 500);
+			// rack_material = new THREE.MeshBasicMaterial( { color : 0xffffff, opacity: 0.4, transparent: false, wireframe: false } );	
+			rack_material = new THREE.MeshNormalMaterial( );
+			// var rack = new THREE.Mesh(rack_geometry, rack_material);
+			// rack.position.set(22500, 0, -30000);
+
+			// LIGHT
+			ambientLight = new THREE.AmbientLight( 0x606060 );
+
+			directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+			directionalLight.position.set(22500, 12000, 0);
+
+			// RENDERER
+			renderer = new THREE.WebGLRenderer( {
+				antialias: true
+			} );
+
+			renderer.shadowMap.enabled = true;
+
+			// SCENE
+			scene = new THREE.Scene();
+
+			// CAMERA
+			camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH/SCREEN_HEIGHT, 1, 200000 );
+
+			camera.position.set(22500, 10000, 20000);
+			// camera.lookAt(rack.position);
+
+			// CONTROL
+			control = new THREE.TrackballControls( camera );
+
+			control.rotateSpeed= 1.0;
+			control.zoomSpeed = 1.2;
+			control.panSpeed = 1.0;
+
+			control.noZoom = false;
+			control.noPan = false;
+
+			control.staticMoving = true;
+			control.dynamicDampingFactor = 0.3;
+
+			control.keys = [65, 83, 68]; //rotateKey, zoomKey, panKey
+
+			control.target =new THREE.Vector3( 22500, 0, -30000 ) ; //confliction of camera and control, do not use camera.lookAt.
+
+			// ADD MESH TO SCENE
+			scene.add(grid);
+			// scene.add(rack);
+
+			scene.add(ambientLight);
+
+			// RENDERER SETUP
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+			container.appendChild(renderer.domElement);		
+			
+			// STATS
+			stats = new Stats();
+			stats.domElement.style.position = 'absolute';
+			stats.domElement.style.top = '0px';
+			stats.domElement.style.zIndex = 100;
+			container.appendChild(stats.domElement);
+
+			// LISTENER
+
+			// RESIZE LISTENER
+			window.addEventListener('resize', onWindowResize, false);
+
+		}
+
+		function generateRack() {
+			for (var floor_count = 0; floor_count < FLOOR_TOTAL; floor_count++) {
+				for (var bay_count = 0; bay_count < BAY_TOTAL; bay_count++){
+					for (var i = 0; i < RACK_PER_ROW; i++) {
+						for (var j = 0; j < 2; j++) {
+							var rack = new THREE.Mesh( rack_geometry, rack_material);
+
+							rack.position.set(
+								BAY_DATUM_X + UNIT_WIDTH * bay_count + (UNIT_WIDTH - RACK_ROW_DISTANCE) / 2 + RACK_ROW_DISTANCE * j,
+								BAY_DATUM_Y + UNIT_HEIGHT * (floor_count + 1) - RACK_HEIGHT / 2 ,
+								BAY_DATUM_Z - (RACK_DEPTH + RACK_SPACING) * i - RACK_DEPTH / 2);
+
+							scene.add(rack);
+
+							// console.log(rack.position);
+						}
+					}
+				}
+			}
+			render();
+		}
+
+		function onWindowResize() {
+			SCREEN_WIDTH = window.innerWidth;
+			SCREEN_HEIGHT = window.innerHeight;
+
+			camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		}
+
+		function animate() {
+			requestAnimationFrame(animate);
+			render();
+		}
+
+		function render() {
+			control.update();
+			stats.update();
+			renderer.render(scene, camera);
+		}
+	</script>
+</body>
+</html>

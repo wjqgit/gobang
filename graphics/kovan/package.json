@@ -1,9 +1,9 @@
 {
-  "name": "kovan-warehouse",
+  "name": "kovan-system",
   "version": "0.0.1",
-  "description": "test of threejs",
+  "description": "kovansystem warehouse visualization with three.js",
   "dependencies": {
-    "express": "4.13.3",
+    "express": "^4.13.3",
     "socket.io": "^1.3.6"
   }
 }
