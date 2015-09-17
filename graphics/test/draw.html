@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<title>three.js draw</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<script src="/public/js/three.min.js"></script>
+	<script src="/public/js/Detector.js"></script>
+	<script src="/public/js/controls/TrackballControls.js"></script>
+	<script src="/public/js/libs/stats.min.js"></script>
+	<style>
+		body {
+			color: #000;
+
+			background-color: #000;
+			margin: 0px; 
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<script >
+		if(!Detector.webgl)Detector.addGetWebGLMessage();
+
+		var MARGIN = 0;
+
+		var SCREEN_WIDTH = window.innerWidth,
+			SCREEN_HEIGHT = window.innerHeight - 2 * MARGIN;
+
+		var container, stats;
+
+		var renderer, scene, camera, control;
+
+		var ambientLight, directionalLight;
+
+		var	grid_geometry, grid_material, grid_mesh;
+
+		var plane_geometry, plane_material, plane_mesh;
+
+		var rollover_geometry, rollover_material, rollover_mesh;
+
+		var geometry, material; //mesh;
+
+		var objects = [];
+		
+		var mouse, raycaster, isShiftDown = false;
+
+		init();
+		animate();
+
+		function init() {
+			// CONTAINER
+			container  = document.createElement('div');
+			document.body.appendChild(container);
+
+			// GRID
+			var size = 500,
+				step = 50;
+			grid_geometry = new THREE.Geometry();
+			
+			for ( var i = -size; i <= size; i += step) {
+				grid_geometry.vertices.push( new THREE.Vector3( - size, 0, i));
+				grid_geometry.vertices.push( new THREE.Vector3( size, 0, i ));
+				grid_geometry.vertices.push(new THREE.Vector3( i, 0, - size ));
+				grid_geometry.vertices.push(new THREE.Vector3( i, 0, size ));
+			}
+
+			grid_material = new THREE.LineBasicMaterial( { color : 0xffffff, opacity: 0.4, transparent: true});
+
+			grid_mesh = new THREE.LineSegments( grid_geometry, grid_material);
+
+			// PLANE
+			plane_geometry = new THREE.PlaneBufferGeometry(1000, 1000);
+			plane_material = new THREE.MeshBasicMaterial( {visible: false} );
+
+			plane_geometry.rotateX( - Math.PI / 2 );
+			plane_mesh = new THREE.Mesh( plane_geometry, plane_material);
+			
+
+			objects.push(plane_mesh);
+
+			// ROLLOVER
+			rollover_geometry = new THREE.Geometry();
+			rollover_geometry.vertices.push(
+				new THREE.Vector3( 0, 0, 0 ),
+				new THREE.Vector3( 0, 50, 0 )
+			);
+
+			rollover_material = new THREE.LineBasicMaterial( { color : 0xffffff, opacity: 0.4, transparent: true} );
+
+			rollover_mesh = new THREE.LineSegments(rollover_geometry, rollover_material);
+
+			// CUBE
+			geometry = new THREE.BoxGeometry(50, 50, 50);
+			
+			material = new THREE.MeshBasicMaterial( {color: 0xffffff, opacity: 0.4, transparent: true, wireframe: true} );
+			
+
+			// RAYCASTER
+			raycaster = new THREE.Raycaster();
+			mouse = new THREE.Vector2();
+
+			// RENDERER
+			renderer = new THREE.WebGLRenderer( {
+				antialias: true
+			} );
+
+			// SCENE
+			scene = new THREE.Scene();
+
+			// CAMERA
+			camera = new THREE.PerspectiveCamera( 40, SCREEN_WIDTH/SCREEN_HEIGHT, 1, 10000 );
+
+			camera.position.set(500, 800, 1300);
+			camera.lookAt(new THREE.Vector3( 0, 0, 0 ));
+
+			// CONTROL
+			control = new THREE.TrackballControls( camera );
+
+			control.rotateSpeed= 1.0;
+			control.zoomSpeed = 1.2;
+			control.panSpeed = 1.0;
+
+			control.noZoom = false;
+			control.noPan = false;
+
+			control.staticMoving = true;
+			control.dynamicDampingFactor = 0.3;
+
+			control.keys = [65, 83, 68]; //rotateKey, zoomKey, panKey
+
+			// ADD MESH TO SCENE
+			scene.add(grid_mesh);
+			scene.add(plane_mesh);
+			scene.add(rollover_mesh);
+			// scene.add(mesh);
+
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+			container.appendChild(renderer.domElement);
+
+			// STATS
+			stats = new Stats();
+			stats.domElement.style.position = 'absolute';
+			stats.domElement.style.top = '0px';
+			stats.domElement.style.zIndex = 100;
+			container.appendChild(stats.domElement);
+
+			// Listener
+			document.addEventListener('mousemove', onDocumentMouseMove, false);
+			document.addEventListener('click', onDocumentClick, false);
+			document.addEventListener('keydown', onDocumentKeyDown, false);
+			document.addEventListener('keyup', onDocumentKeyUp, false);
+
+			// RESIZE LISTENER
+			window.addEventListener('resize', onWindowResize, false);
+		}
+
+		function onDocumentMouseMove(event) {
+			event.preventDefault();
+
+			mouse.set( 2 * event.clientX / renderer.domElement.width - 1, - 2 * event.clientY /  renderer.domElement.height + 1);
+
+			raycaster.setFromCamera(mouse, camera);
+
+			var intersects = raycaster.intersectObjects(objects);
+
+			if(intersects.length > 0){
+				var intersect = intersects[0];
+
+				rollover_mesh.position.copy(intersect.point).add(intersect.face.normal);
+				rollover_mesh.position.divideScalar( 50 ).floor().multiplyScalar( 50 ).add( new THREE.Vector3( 25, 0, 25 ));
+			}
+
+			render();
+		}
+
+		function onDocumentClick(event) {
+			event.preventDefault();
+
+			// Set the center to be the origin
+			mouse.x = 2 * event.clientX / renderer.domElement.width - 1;
+			mouse.y =  - 2 * event.clientY / renderer.domElement.height + 1;
+
+			// console.log(mouse.x + ',' + mouse.y );
+			raycaster.setFromCamera(mouse, camera);	
+
+			var intersects = raycaster.intersectObjects(objects);
+
+			if(intersects.length > 0){
+				var intersect = intersects[0];
+
+				if(isShiftDown){
+					if(intersect.object != plane_mesh){
+						scene.remove(intersect.object);
+						objects.splice(objects.indexOf(intersect.object), 1);
+					}
+				} else {
+					var mesh = new THREE.Mesh(geometry, material);
+					mesh.position.copy(intersect.point).add(intersect.face.normal);
+					mesh.position.divideScalar(50).floor().multiplyScalar(50).addScalar(25);
+
+					scene.add(mesh);
+					objects.push(mesh);
+				}
+
+				render();
+			}
+
+
+		}
+
+		function onDocumentKeyDown(event) {
+			event.preventDefault();
+
+			switch(event.keyCode){
+				case 16: isShiftDown = true; break;
+			}
+		}
+
+		function onDocumentKeyUp(event) {
+			event.preventDefault();
+
+			switch(event.keyCode){
+				case 16: isShiftDown = false; break;
+			}
+		}
+
+		function onWindowResize() {
+			SCREEN_WIDTH = window.innerWidth;
+			SCREEN_HEIGHT = window.innerHeight;
+
+			camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		}
+
+		function animate() {
+			requestAnimationFrame(animate);
+			render();
+		}
+
+		function render() {
+			control.update();
+			stats.update();
+			renderer.render(scene, camera);
+		}
+	</script>
+</body>
+</html>

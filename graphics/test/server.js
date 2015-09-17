@@ -15,7 +15,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/:tagId', function(req, res) {
-	res.sendFile(__dirname + '\\' + req.params.tagId + '.html');
+	res.sendFile(__dirname + '/' + req.params.tagId + '.html');
 });
 
 io.on('connection', function(socket) {
