@@ -66,6 +66,8 @@
 
 		var rack_geometry, rack_material; //rack;
 
+		var light_x = -1, flag = 'add';
+
 		init();
 
 		animate();
@@ -98,15 +100,15 @@
 			//RACK
 			rack_geometry = new THREE.BoxGeometry(1000, 1800, 500);
 			// rack_material = new THREE.MeshBasicMaterial( { color : 0xffffff, opacity: 0.4, transparent: false, wireframe: false } );	
-			rack_material = new THREE.MeshNormalMaterial( );
+			rack_material = new THREE.MeshLambertMaterial( {color: 0x666666} );
 			// var rack = new THREE.Mesh(rack_geometry, rack_material);
 			// rack.position.set(22500, 0, -30000);
 
 			// LIGHT
 			ambientLight = new THREE.AmbientLight( 0x606060 );
 
-			directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
-			directionalLight.position.set(22500, 12000, 0);
+			directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
+			directionalLight.position.set(light_x, 1, 1);
 
 			// RENDERER
 			renderer = new THREE.WebGLRenderer( {
@@ -146,6 +148,7 @@
 			// scene.add(rack);
 
 			scene.add(ambientLight);
+			scene.add(directionalLight);
 
 			// RENDERER SETUP
 			renderer.setPixelRatio(window.devicePixelRatio);
@@ -205,6 +208,20 @@
 		}
 
 		function render() {
+			
+			if(flag == 'add'){
+				light_x += 0.01;
+				if(light_x > 2){
+					flag = 'subtract';
+				}
+			} else if(flag == 'subtract'){
+				light_x -= 0.01;
+				if(light_x < -2){
+					flag = 'add'; 
+				}
+			}
+
+			directionalLight.position.set(light_x, 1, 1);
 			control.update();
 			stats.update();
 			renderer.render(scene, camera);

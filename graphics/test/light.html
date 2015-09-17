@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>three.js light</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<script src="/public/js/three.min.js"></script>
+	<script src="/public/js/Detector.js"></script>
+	<script src="/public/js/controls/TrackballControls.js"></script>
+	<script src="/public/js/libs/stats.min.js"></script>
+	<style>
+		body {
+			color: #000;
+
+			background-color: #000;
+			margin: 0px; 
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		if(!Detector.webgl)Detector.addGetWebGLMessage();
+
+		var MARGIN = 0;
+
+		var SCREEN_WIDTH = window.innerWidth,
+			SCREEN_HEIGHT = window.innerHeight - 2 * MARGIN;
+
+		var container, stats;
+
+		var renderer, scene, camera, control;
+
+		var ambientLight, directionalLight;
+
+		var plane_geometry, plane_material, plane_mesh;
+
+		var geometry, material, mesh;
+
+		init();
+		animate();
+
+		function init() {
+			// CONTAINER
+			container  = document.createElement('div');
+			document.body.appendChild(container);
+
+			// MESH
+			geometry = new THREE.BoxGeometry(1, 1, 1);
+			material = new THREE.MeshLambertMaterial( { color: 0x666666, morphTargets: true, overdraw: 0.5 } ) ;
+
+			mesh = new THREE.Mesh( geometry, material);
+
+			// LIGHT 
+			directionalLight = new THREE.DirectionalLight( 0x00ffff, 2 );
+			directionalLight.position.set( 1, 2, 3 ).normalize();
+
+			// RENDERER
+			renderer = new THREE.WebGLRenderer( {
+				antialias: true
+			} );
+
+			// SCENE
+			scene = new THREE.Scene();
+
+			// CAMERA
+			camera = new THREE.PerspectiveCamera( 40, SCREEN_WIDTH/SCREEN_HEIGHT, 1, 100 );
+
+			camera.position.set(10, 10, 10);
+
+			// CONTROL
+			control = new THREE.TrackballControls( camera );
+
+			control.rotateSpeed= 1.0;
+			control.zoomSpeed = 1.2;
+			control.panSpeed = 1.0;
+
+			control.noZoom = false;
+			control.noPan = false;
+
+			control.staticMoving = true;
+			control.dynamicDampingFactor = 0.3;
+
+			control.keys = [65, 83, 68]; //rotateKey, zoomKey, panKey
+
+			control.target = new THREE.Vector3( 0, 0, 0 );
+
+			// ADD MESH TO SCENE
+			scene.add(mesh);
+			scene.add( new THREE.AmbientLight( 0x000000 ) );
+			scene.add(directionalLight);
+
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+			container.appendChild(renderer.domElement);
+
+			// STATS
+			stats = new Stats();
+			stats.domElement.style.position = 'absolute';
+			stats.domElement.style.top = '0px';
+			stats.domElement.style.zIndex = 100;
+			container.appendChild(stats.domElement);
+
+
+			// RESIZE LISTENER
+			window.addEventListener('resize', onWindowResize, false);
+		}
+
+		function onWindowResize() {
+			SCREEN_WIDTH = window.innerWidth;
+			SCREEN_HEIGHT = window.innerHeight;
+
+			camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		}
+
+		function animate() {
+			requestAnimationFrame(animate);
+			render();
+		}
+
+		function render() {
+			// mesh.rotateY(0.01);
+			control.update();
+			stats.update();
+			renderer.render(scene, camera);
+		}
+	</script>
+</body>
+</html>

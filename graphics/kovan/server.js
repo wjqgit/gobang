@@ -3,7 +3,7 @@ var express = require('express'),
 	server = require('http').Server(app),
 	io = require('socket.io')(server);
 
-var port = 9000;
+var port = 9001;
 
 app.use('/public', express.static(__dirname + '/public'));
 
