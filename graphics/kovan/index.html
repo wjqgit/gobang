@@ -135,14 +135,14 @@
 			beam_x_geometry.vertices.push(
 				new THREE.Vector3( 0, 0, 0 ),
 				new THREE.Vector3( BAY_TOTAL_WIDTH, 0, 0 )
-			)
+			);
 
 			// BEAM_Y
 			beam_z_geometry = new THREE.Geometry();
 			beam_z_geometry.vertices.push(
 				new THREE.Vector3( 0, 0, 0 ),
 				new THREE.Vector3( 0, 0, - UNIT_DEPTH )
-			)
+			);
 
 			// BEAM_RACK
 			beam_rack_geometry = beam_z_geometry;
@@ -163,7 +163,7 @@
 			// RAILWAY_C
 			railway_c_geometry = new THREE.Geometry();
 			var segments = 32;
-			for(var i = 0; i <= 32; i++ ) {
+			for(var i = 0; i <= segments; i++ ) {
 				railway_c_geometry.vertices.push(
 					new THREE.Vector3( - Math.sin(Math.PI / segments * i) * RAILWAY_WIDTH / 2,
 					0,
@@ -207,7 +207,7 @@
 			// CAMERA
 			camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH/SCREEN_HEIGHT, 1, 200000 );
 
-			camera.position.set(22500, 10000, 20000);
+			camera.position.set(FLOOR_WIDTH / 2, FLOOR_DEPTH / 6, FLOOR_DEPTH / 3);
 			// camera.lookAt(rack.position);
 
 			// CONTROL

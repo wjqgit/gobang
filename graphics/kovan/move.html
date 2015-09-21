@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>kovansystem movement test</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<script src="/public/js/three.min.js"></script>
+	<script src="/public/js/Detector.js"></script>
+	<script src="/public/js/controls/TrackballControls.js"></script>
+	<script src="/public/js/libs/stats.min.js"></script>
+	<style>
+		body {
+			color: #000;
+
+			background-color: #000;
+			margin: 0px; 
+			overflow: hidden;
+		}
+	</style>
+</head>
+<body>
+	<script >
+		if(!Detector.webgl)Detector.addGetWebGLMessage();
+
+		//PARAMS WAREHOUSE
+		var BAY_TOTAL =  12, 
+			FLOOR_TOTAL = 6,
+			UNIT_TOTAL = BAY_TOTAL * FLOOR_TOTAL, // 72
+			PICKER_TOTAL = UNIT_TOTAL, // 72
+			// MOVER_TOTAL = 300,
+			RACK_PER_ROW = 100,
+			VT_TOTAL = 2,
+			STATION_PER_FLOOR = 5,
+			STATION_FLOOR_TOTAL = 3,
+			STATION_TOTAL = STATION_PER_FLOOR * STATION_FLOOR_TOTAL;
+
+		var RACK_HEIGHT = 1800,
+			RACK_WIDTH = 1000,
+			RACK_DEPTH = 500,
+			RACK_SPACING = 50,
+			RACK_ROW_DISTANCE = 2000,
+			UNIT_HEIGHT = 2000,
+			UNIT_WIDTH =  3500,
+			UNIT_DEPTH =  ( RACK_DEPTH + RACK_SPACING) * RACK_PER_ROW,
+			BAY_TOTAL_WIDTH = UNIT_WIDTH * BAY_TOTAL,
+			BAY_HEIGHT = UNIT_HEIGHT * FLOOR_TOTAL,
+			FLOOR_WIDTH = 45000,
+			FLOOR_DEPTH = 60000;
+			BEAM_IO_LENGTH = 1000;
+			BEAM_STATION_LENGTH = BEAM_IO_LENGTH;
+			RAILWAY_WIDTH = 2000;
+			STATION_WIDTH = 3000;
+			STATION_DISTANCE = UNIT_WIDTH * 2;
+
+		var BAY_DATUM_X = 1500,
+			BAY_DATUM_Y = 0,
+			BAY_DATUM_Z = -5000,
+			STATION_DATUM_X = BAY_DATUM_X + UNIT_WIDTH * 2,
+			STATION_DATUM_Y = 0,
+			STATION_DATUM_Z = BAY_DATUM_Z + BEAM_IO_LENGTH + RAILWAY_WIDTH;
+
+		// PARAMS GRAPHICS
+		var MARGIN = 0;
+
+		var SCREEN_WIDTH = window.innerWidth,
+			SCREEN_HEIGHT = window.window.innerHeight - 2 * MARGIN;
+
+		// COMPONENTS GRAPHICS
+		var container, stats;
+
+		var renderer, scene, camera, control;
+
+		var ambientLight, directionalLight;
+
+		var grid_geometry, grid_material, grid;
+
+		var pillar_geometry, beam_x_geometry, beam_z_geometry, beam_rack_geometry,
+			beam_picker_geometry, beam_io_geometry, beam_station_geometry, vt_geometry;
+
+		var railway_path, railway_geometry,
+			railway_l_geometry, railway_c_geometry;
+
+		var rack_geometry, rack_material, //rack;
+			station_geometry, station_material;
+
+		var line_material;
+
+		var racks = new THREE.Mesh(), 
+			structure = new THREE.Mesh(), 
+			railways = new THREE.Mesh(), 
+			stations = new THREE.Mesh();
+
+		var light_x = -1, flag = 'add';
+
+		var view_angle = 0;
+
+		init();
+
+		animate();
+
+		buildWarehouse();
+
+		function init() {
+			// CONTAINER
+			container  = document.createElement('div');
+			document.body.appendChild(container);
+
+			// GRID
+			var step = 1000;
+			grid_geometry = new THREE.Geometry();
+			
+			for ( var i = 0; i <= FLOOR_WIDTH; i += step) {
+				grid_geometry.vertices.push(new THREE.Vector3( i, 0, 0 ));
+				grid_geometry.vertices.push(new THREE.Vector3( i, 0, -FLOOR_DEPTH ));
+			}
+
+			for ( var j = 0; j <= FLOOR_DEPTH; j += step ) {
+				grid_geometry.vertices.push(new THREE.Vector3( 0, 0, -j ));
+				grid_geometry.vertices.push(new THREE.Vector3( FLOOR_WIDTH, 0, -j ));
+			}
+
+			grid_material = new THREE.LineBasicMaterial( { color : 0xffffff, opacity: 0.4, transparent: true});
+
+			grid = new THREE.LineSegments( grid_geometry, grid_material);
+
+			// STRUCTURE
+			line_material = new THREE.LineBasicMaterial( { color : 0xffffff, opacity: 0.8, transparent: true} );
+
+			// RACK
+			rack_geometry = new THREE.BoxGeometry(RACK_WIDTH, RACK_HEIGHT, RACK_DEPTH);
+			rack_material = new THREE.MeshLambertMaterial( {color: 0x666666} );
+
+			// RAILWAY
+			// railway_path = new THREE.CurvePath();
+			// railway_path.add( new THREE.EllipseCurve(
+			// 	0, 0,
+			// 	RAILWAY_WIDTH / 2, RAILWAY_WIDTH / 2,
+			// 	Math.PI / 2,  - Math.PI / 2,
+			// 	false,
+			// 	0));
+			// railway_path.add( new THREE.LineCurve(
+			// 	new THREE.Vector2( 0, - RAILWAY_WIDTH / 2 ), 
+			// 	new THREE.Vector2( BAY_TOTAL_WIDTH, - RAILWAY_WIDTH / 2 )));
+			// railway_path.add( new THREE.EllipseCurve(
+			// 	BAY_TOTAL_WIDTH, 0,
+			// 	RAILWAY_WIDTH / 2, RAILWAY_WIDTH / 2,
+			// 	- Math.PI / 2, Math.PI / 2,
+			// 	false,
+			// 	0 ));
+			// railway_path.closePath();
+			railway_path = new THREE.Path();
+			railway_path.moveTo( new THREE.Vector2( 0, RAILWAY_WIDTH / 2 ));
+			railway_path.absarc(0, 0, RAILWAY_WIDTH / 2, Math.PI / 2, 3 * Math.PI / 2, false);
+			railway_path.lineTo(BAY_TOTAL_WIDTH, RAILWAY_WIDTH / 2);
+			railway_path.arc(0, - RAILWAY_WIDTH / 2, RAILWAY_WIDTH / 2, Math.PI / 2, - Math.PI / 2, true);
+			railway_path.lineTo(0, - RAILWAY_WIDTH / 2);
+			railway_geometry = railway_path.createPointsGeometry(1024);
+			// console.log(railway_path.rotation);
+			
+			// LIGHT
+			ambientLight = new THREE.AmbientLight( 0x606060 );
+
+			directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
+			directionalLight.position.set(light_x, 1, 1);
+
+			// RENDERER
+			renderer = new THREE.WebGLRenderer( {
+				antialias: true
+			} );
+
+			renderer.shadowMap.enabled = true;
+
+			// SCENE
+			scene = new THREE.Scene();
+
+			// CAMERA
+			camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH/SCREEN_HEIGHT, 1, 200000 );
+			camera.position.set(FLOOR_WIDTH / 2, FLOOR_DEPTH / 6, FLOOR_DEPTH / 3);
+
+			// CONTROL
+			control = new THREE.TrackballControls( camera );
+
+			control.rotateSpeed= 1.0;
+			control.zoomSpeed = 1.2;
+			control.panSpeed = 1.0;
+
+			control.noZoom = false;
+			control.noPan = false;
+
+			control.staticMoving = true;
+			control.dynamicDampingFactor = 0.3;
+
+			control.keys = [65, 83, 68]; //rotateKey, zoomKey, panKey
+
+			control.target =new THREE.Vector3( FLOOR_WIDTH / 2, 0, -FLOOR_DEPTH / 2 ) ; //confliction of camera and control, do not use camera.lookAt.
+
+			// ADD MESH TO SCENE
+			scene.add(grid);
+			// scene.add(rack);
+
+			scene.add(ambientLight);
+			scene.add(directionalLight);
+
+			// RENDERER SETUP
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+			container.appendChild(renderer.domElement);		
+			
+			// STATS
+			stats = new Stats();
+			stats.domElement.style.position = 'absolute';
+			stats.domElement.style.top = '0px';
+			stats.domElement.style.zIndex = 100;
+			container.appendChild(stats.domElement);
+
+			// LISTENER
+
+			// RESIZE LISTENER
+			window.addEventListener('resize', onWindowResize, false);
+		}
+
+		function buildWarehouse(){
+			// GENERATE
+			generateRailway();
+
+			// ADD TO SCENE
+			scene.add(railways);
+			render();
+		}
+
+		function generateRailway() {
+			var railway = new THREE.Line(railway_geometry, line_material);
+			// railway.position.set(
+			// 	BAY_DATUM_X,
+			// 	BAY_DATUM_Y + UNIT_HEIGHT,
+			// 	BAY_DATUM_Z + BEAM_IO_LENGTH + RAILWAY_WIDTH / 2
+			// );
+			// railway.position.x = 2000;
+			railways.add(railway);
+		}
+
+		function generateRacks() {
+			// RACKS
+			for (var floor_count = 0; floor_count < FLOOR_TOTAL; floor_count++) {
+				for (var bay_count = 0; bay_count < BAY_TOTAL; bay_count++){
+					var railway = new THREE.Mesh();
+					for (var i = 0; i < RACK_PER_ROW; i++) {
+						for (var j = 0; j < 2; j++) {
+							var rack = new THREE.Mesh( rack_geometry, rack_material);
+
+							rack.position.set(
+								BAY_DATUM_X + UNIT_WIDTH * bay_count + (UNIT_WIDTH - RACK_ROW_DISTANCE) / 2 + RACK_ROW_DISTANCE * j,
+								BAY_DATUM_Y + UNIT_HEIGHT * (floor_count + 1) - RACK_HEIGHT / 2 ,
+								BAY_DATUM_Z - (RACK_DEPTH + RACK_SPACING) * i - RACK_DEPTH / 2);
+
+							racks.add(rack);
+
+							// console.log(rack.position);
+						}
+					}
+				}
+			}
+		}
+
+		function onWindowResize() {
+			SCREEN_WIDTH = window.innerWidth;
+			SCREEN_HEIGHT = window.innerHeight;
+
+			camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		}
+
+		function animate() {
+			requestAnimationFrame(animate);
+			render();
+		}
+
+		function render() {
+			// MOVE OBJECT
+			var time = Date.now(),
+				loop_time = 20 * 1000,
+				t = (time % loop_time) / loop_time;
+
+			// console.log(railway_geometry.parameters);
+
+
+			control.update();
+			stats.update();
+			renderer.render(scene, camera);
+		}
+	</script>
+</body>
+</html>
