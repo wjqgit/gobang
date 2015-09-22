@@ -94,11 +94,15 @@
 
 		var view_angle = 0;
 
+		var rack_move;
+
 		init();
+
+		buildWarehouse();
 
 		animate();
 
-		buildWarehouse();
+		
 
 		function init() {
 			// CONTAINER
@@ -131,31 +135,30 @@
 			rack_material = new THREE.MeshLambertMaterial( {color: 0x666666} );
 
 			// RAILWAY
-			// railway_path = new THREE.CurvePath();
-			// railway_path.add( new THREE.EllipseCurve(
-			// 	0, 0,
-			// 	RAILWAY_WIDTH / 2, RAILWAY_WIDTH / 2,
-			// 	Math.PI / 2,  - Math.PI / 2,
-			// 	false,
-			// 	0));
-			// railway_path.add( new THREE.LineCurve(
-			// 	new THREE.Vector2( 0, - RAILWAY_WIDTH / 2 ), 
-			// 	new THREE.Vector2( BAY_TOTAL_WIDTH, - RAILWAY_WIDTH / 2 )));
-			// railway_path.add( new THREE.EllipseCurve(
-			// 	BAY_TOTAL_WIDTH, 0,
-			// 	RAILWAY_WIDTH / 2, RAILWAY_WIDTH / 2,
-			// 	- Math.PI / 2, Math.PI / 2,
-			// 	false,
-			// 	0 ));
-			// railway_path.closePath();
-			railway_path = new THREE.Path();
-			railway_path.moveTo( new THREE.Vector2( 0, RAILWAY_WIDTH / 2 ));
-			railway_path.absarc(0, 0, RAILWAY_WIDTH / 2, Math.PI / 2, 3 * Math.PI / 2, false);
-			railway_path.lineTo(BAY_TOTAL_WIDTH, RAILWAY_WIDTH / 2);
-			railway_path.arc(0, - RAILWAY_WIDTH / 2, RAILWAY_WIDTH / 2, Math.PI / 2, - Math.PI / 2, true);
-			railway_path.lineTo(0, - RAILWAY_WIDTH / 2);
+			railway_path = new THREE.CurvePath();
+			railway_path.add( new THREE.EllipseCurve(
+				0, 0,
+				RAILWAY_WIDTH / 2, RAILWAY_WIDTH / 2,
+				Math.PI / 2,  - Math.PI / 2,
+				false,
+				0));
+			railway_path.add( new THREE.LineCurve(
+				new THREE.Vector2( 0, - RAILWAY_WIDTH / 2 ), 
+				new THREE.Vector2( BAY_TOTAL_WIDTH, - RAILWAY_WIDTH / 2 )));
+			railway_path.add( new THREE.EllipseCurve(
+				BAY_TOTAL_WIDTH, 0,
+				RAILWAY_WIDTH / 2, RAILWAY_WIDTH / 2,
+				- Math.PI / 2, Math.PI / 2,
+				false,
+				0 ));
+			railway_path.closePath();
+			// railway_path = new THREE.Path();
+			// railway_path.moveTo( new THREE.Vector2( 0, RAILWAY_WIDTH / 2 ));
+			// railway_path.absarc(0, 0, RAILWAY_WIDTH / 2, Math.PI / 2, 3 * Math.PI / 2, false);
+			// railway_path.lineTo(BAY_TOTAL_WIDTH, RAILWAY_WIDTH / 2);
+			// railway_path.arc(0, - RAILWAY_WIDTH / 2, RAILWAY_WIDTH / 2, Math.PI / 2, - Math.PI / 2, true);
+			// railway_path.lineTo(0, - RAILWAY_WIDTH / 2);
 			railway_geometry = railway_path.createPointsGeometry(1024);
-			// console.log(railway_path.rotation);
 			
 			// LIGHT
 			ambientLight = new THREE.AmbientLight( 0x606060 );
@@ -222,20 +225,33 @@
 
 		function buildWarehouse(){
 			// GENERATE
+			generateRacks();
 			generateRailway();
+			rack_move = new THREE.Mesh(rack_geometry, rack_material);
+			// rack_move.position.set(
+			// 	BAY_DATUM_X,
+			// 	BAY_DATUM_Y + UNIT_HEIGHT - RACK_HEIGHT / 2,
+			// 	BAY_DATUM_Z + BEAM_IO_LENGTH + RAILWAY_WIDTH / 2
+			// );
 
+			racks.visible = false;
 			// ADD TO SCENE
+			scene.add(racks);
 			scene.add(railways);
+			scene.add(rack_move);
 			render();
 		}
 
 		function generateRailway() {
 			var railway = new THREE.Line(railway_geometry, line_material);
-			// railway.position.set(
-			// 	BAY_DATUM_X,
-			// 	BAY_DATUM_Y + UNIT_HEIGHT,
-			// 	BAY_DATUM_Z + BEAM_IO_LENGTH + RAILWAY_WIDTH / 2
-			// );
+			railway.rotateX(- Math.PI / 2);
+			railway.position.set(
+				BAY_DATUM_X,
+				BAY_DATUM_Y + UNIT_HEIGHT,
+				BAY_DATUM_Z + BEAM_IO_LENGTH + RAILWAY_WIDTH / 2
+			);
+			railway.name = 'rack';
+			// console.log(railway.name);
 			// railway.position.x = 2000;
 			railways.add(railway);
 		}
@@ -280,12 +296,29 @@
 
 		function render() {
 			// MOVE OBJECT
-			var time = Date.now(),
-				loop_time = 20 * 1000,
-				t = (time % loop_time) / loop_time;
+			var speed = 1000,
+				distance = railway_path.getLength(),
+				time =  distance / speed;
 
-			// console.log(railway_geometry.parameters);
+			var time_now = Date.now(),
+				loop_time = time * 1000,
+				t = (time_now % loop_time) / loop_time;
 
+			// console.log(time);
+
+			// LOCATION
+			var point = railway_path.getPointAt(t);
+			// console.log(rack_move.position);
+			rack_move.position.copy(railways.getObjectByName('rack').position)
+			rack_move.position.x += point.x;
+			rack_move.position.y -= RACK_HEIGHT / 2;
+			rack_move.position.z += - point.y;
+
+			// DIRECTION
+			var dir = railway_path.getTangentAt(t);
+			var angle = Math.atan(dir.y / dir.x)
+			rack_move.rotation.y = angle;
+			// console.log(angle);
 
 			control.update();
 			stats.update();
