@@ -10,9 +10,10 @@
 	<script src="/public/js/libs/stats.min.js"></script>
 	<style>
 		body {
-			color: #000;
+			font-family: monospace;
+			color: #ccc;
 
-			background-color: #000;
+			background-color: #fff;
 			margin: 0px; 
 			overflow: hidden;
 		}
@@ -66,7 +67,7 @@
 			SCREEN_HEIGHT = window.window.innerHeight - 2 * MARGIN;
 
 		// COMPONENTS GRAPHICS
-		var container, stats;
+		var container, info, stats;
 
 		var renderer, scene, camera, control;
 
@@ -96,6 +97,10 @@
 
 		var rack_move;
 
+		var speed = 1000; // 1m/s
+
+		var clock = 0;
+
 		init();
 
 		buildWarehouse();
@@ -109,6 +114,16 @@
 			container  = document.createElement('div');
 			document.body.appendChild(container);
 
+			// INFO
+			info = document.createElement('div');
+			info.style.position = 'absolute';
+			info.style.top = '10px';
+			info.style.width = '100%';
+			info.style.textAlign = 'center';
+			info.innerHTML = 'Kovan System - Movement by wjq';
+			info.innerHTML += '<br/><br/>Speed <a onClick="speedUp()">+</a> / <a onClick="speedDown()">-</a>'
+
+			container.appendChild(info)
 			// GRID
 			var step = 1000;
 			grid_geometry = new THREE.Geometry();
@@ -205,6 +220,7 @@
 			scene.add(directionalLight);
 
 			// RENDERER SETUP
+			renderer.setClearColor( 0x000000 );
 			renderer.setPixelRatio(window.devicePixelRatio);
 			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -279,25 +295,21 @@
 			}
 		}
 
-		function onWindowResize() {
-			SCREEN_WIDTH = window.innerWidth;
-			SCREEN_HEIGHT = window.innerHeight;
-
-			camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
-			camera.updateProjectionMatrix();
-
-			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		function speedUp () {
+			speed += 1000;
+			console.log('speed up!');
 		}
 
-		function animate() {
-			requestAnimationFrame(animate);
-			render();
+		function speedDown() {
+			if(speed > 0 ){
+				speed -= 1000;
+			}
+			console.log('speed down...');
 		}
 
-		function render() {
+		function move() {
 			// MOVE OBJECT
-			var speed = 1000,
-				distance = railway_path.getLength(),
+			var	distance = railway_path.getLength(),
 				time =  distance / speed;
 
 			var time_now = Date.now(),
@@ -319,7 +331,25 @@
 			var angle = Math.atan(dir.y / dir.x)
 			rack_move.rotation.y = angle;
 			// console.log(angle);
+		}
 
+		function onWindowResize() {
+			SCREEN_WIDTH = window.innerWidth;
+			SCREEN_HEIGHT = window.innerHeight;
+
+			camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		}
+
+		function animate() {
+			requestAnimationFrame(animate);
+			move();
+			render();
+		}
+
+		function render() {
 			control.update();
 			stats.update();
 			renderer.render(scene, camera);
