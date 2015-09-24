@@ -78,7 +78,8 @@
 		var pillar_geometry, beam_x_geometry, beam_z_geometry, beam_rack_geometry,
 			beam_picker_geometry, beam_io_geometry, beam_station_geometry, vt_geometry;
 
-		var railway_path, railway_geometry,
+		var railway1_path, railway1_geometry,
+			railway2_path, railway2_geometry,
 			railway_l_geometry, railway_c_geometry;
 
 		var rack_geometry, rack_material, //rack;
@@ -95,15 +96,19 @@
 
 		var view_angle = 0;
 
-		var rack_move;
+		var rack1_move, rack2_move;
 
-		var speed = 1000; // 1m/s
+		var speed1 = 1000, speed2 = 0; // 1m/s
 
-		var count = 0;
+		var count1 = 0, count2 = 0;
+
+		var clock = 0;
 
 		init();
 
 		buildWarehouse();
+
+		// var clock = Date.now();
 
 		animate();
 
@@ -121,7 +126,10 @@
 			info.style.width = '100%';
 			info.style.textAlign = 'center';
 			info.innerHTML = 'Kovan System - Movement by wjq';
-			info.innerHTML += '<br/><br/>Speed <a onClick="speedUp()">+</a> / <a onClick="speedDown()">-</a>'
+			info.innerHTML += '<br/><br/>Speed <a onClick="speedUp()">+</a> / <a onClick="speedDown()">-  </a>';
+			// info.innerHTML += '<br/><br/><input id="view" type="button" onClick="racks.visible = !racks.visible" value="View Racks"/>';
+			info.innerHTML += '<input id="view" type="button" onClick="viewRacks(true)" value="View Racks: ON" />';
+
 
 			container.appendChild(info)
 			// GRID
@@ -150,30 +158,37 @@
 			rack_material = new THREE.MeshLambertMaterial( {color: 0x666666} );
 
 			// RAILWAY
-			railway_path = new THREE.CurvePath();
-			railway_path.add( new THREE.EllipseCurve(
+			railway1_path = new THREE.CurvePath();
+			railway1_path.add( new THREE.EllipseCurve(
 				0, 0,
 				RAILWAY_WIDTH / 2, RAILWAY_WIDTH / 2,
 				Math.PI / 2,  - Math.PI / 2,
 				false,
 				0));
-			railway_path.add( new THREE.LineCurve(
+			railway1_path.add( new THREE.LineCurve(
 				new THREE.Vector2( 0, - RAILWAY_WIDTH / 2 ), 
 				new THREE.Vector2( BAY_TOTAL_WIDTH, - RAILWAY_WIDTH / 2 )));
-			railway_path.add( new THREE.EllipseCurve(
+			railway1_path.add( new THREE.EllipseCurve(
 				BAY_TOTAL_WIDTH, 0,
 				RAILWAY_WIDTH / 2, RAILWAY_WIDTH / 2,
 				- Math.PI / 2, Math.PI / 2,
 				false,
 				0 ));
-			railway_path.closePath();
+			railway1_path.closePath();
 			// railway_path = new THREE.Path();
 			// railway_path.moveTo( new THREE.Vector2( 0, RAILWAY_WIDTH / 2 ));
 			// railway_path.absarc(0, 0, RAILWAY_WIDTH / 2, Math.PI / 2, 3 * Math.PI / 2, false);
 			// railway_path.lineTo(BAY_TOTAL_WIDTH, RAILWAY_WIDTH / 2);
 			// railway_path.arc(0, - RAILWAY_WIDTH / 2, RAILWAY_WIDTH / 2, Math.PI / 2, - Math.PI / 2, true);
 			// railway_path.lineTo(0, - RAILWAY_WIDTH / 2);
-			railway_geometry = railway_path.createPointsGeometry(1024);
+			railway1_geometry = railway1_path.createPointsGeometry(1024);
+
+			railway2_path = new THREE.CurvePath();
+			railway2_path.add(new THREE.LineCurve(
+				new THREE.Vector2( 0, 0 ),
+				new THREE.Vector2( BAY_TOTAL_WIDTH, 0 )
+			));
+			railway2_geometry = railway2_path.createPointsGeometry(1024);
 			
 			// LIGHT
 			ambientLight = new THREE.AmbientLight( 0x606060 );
@@ -243,47 +258,55 @@
 			// GENERATE
 			generateRacks();
 			generateRailway();
-			rack_move = new THREE.Mesh(rack_geometry, rack_material);
-			// rack_move.position.set(
-			// 	BAY_DATUM_X,
-			// 	BAY_DATUM_Y + UNIT_HEIGHT - RACK_HEIGHT / 2,
-			// 	BAY_DATUM_Z + BEAM_IO_LENGTH + RAILWAY_WIDTH / 2
-			// );
+			rack1_move = new THREE.Mesh(rack_geometry, rack_material);
+			rack2_move = new THREE.Mesh(rack_geometry, rack_material);
 
 			racks.visible = false;
 			// ADD TO SCENE
 			scene.add(racks);
 			scene.add(railways);
-			scene.add(rack_move);
+			scene.add(rack1_move);
+			scene.add(rack2_move);
 			render();
 		}
 
 		function generateRailway() {
-			var railway = new THREE.Line(railway_geometry, line_material);
-			railway.rotateX(- Math.PI / 2);
-			railway.position.set(
+			// RAILWAY#1
+			var railway1 = new THREE.Line(railway1_geometry, line_material);
+			railway1.rotateX(- Math.PI / 2);
+			railway1.position.set(
 				BAY_DATUM_X,
 				BAY_DATUM_Y + UNIT_HEIGHT,
 				BAY_DATUM_Z + BEAM_IO_LENGTH + RAILWAY_WIDTH / 2
 			);
-			railway.name = 'rack';
+			railway1.name = 'railway1';
 			// console.log(railway.name);
 			// railway.position.x = 2000;
-			railways.add(railway);
+			railways.add(railway1);
+
+			// RAILWAY#2
+			var railway2 = new THREE.Line(railway2_geometry, line_material);
+			railway2.position.set(
+				BAY_DATUM_X,
+				BAY_DATUM_Y + UNIT_HEIGHT * 2,
+				BAY_DATUM_Z + BEAM_IO_LENGTH + RAILWAY_WIDTH / 2
+			);
+			railway2.name = 'railway2';
+			railways.add(railway2);
 		}
 
 		function generateRacks() {
 			// RACKS
-			for (var floor_count = 0; floor_count < FLOOR_TOTAL; floor_count++) {
-				for (var bay_count = 0; bay_count < BAY_TOTAL; bay_count++){
+			for (var floor_count1 = 0; floor_count1 < FLOOR_TOTAL; floor_count1++) {
+				for (var bay_count1 = 0; bay_count1 < BAY_TOTAL; bay_count1++){
 					var railway = new THREE.Mesh();
 					for (var i = 0; i < RACK_PER_ROW; i++) {
 						for (var j = 0; j < 2; j++) {
 							var rack = new THREE.Mesh( rack_geometry, rack_material);
 
 							rack.position.set(
-								BAY_DATUM_X + UNIT_WIDTH * bay_count + (UNIT_WIDTH - RACK_ROW_DISTANCE) / 2 + RACK_ROW_DISTANCE * j,
-								BAY_DATUM_Y + UNIT_HEIGHT * (floor_count + 1) - RACK_HEIGHT / 2 ,
+								BAY_DATUM_X + UNIT_WIDTH * bay_count1 + (UNIT_WIDTH - RACK_ROW_DISTANCE) / 2 + RACK_ROW_DISTANCE * j,
+								BAY_DATUM_Y + UNIT_HEIGHT * (floor_count1 + 1) - RACK_HEIGHT / 2 ,
 								BAY_DATUM_Z - (RACK_DEPTH + RACK_SPACING) * i - RACK_DEPTH / 2);
 
 							racks.add(rack);
@@ -296,41 +319,90 @@
 		}
 
 		function speedUp () {
-			speed += 1000;
-			console.log('speed up!');
+			speed1 += 1000;
+			console.log('speed up to ' + speed1 + '!');
 		}
 
 		function speedDown() {
-			if(speed > 0 ){
-				speed -= 1000;
+			if(speed1 > 0 ){
+				speed1 -= 1000;
 			}
-			console.log('speed down...');
+			console.log('speed down to ' + speed1 + '...');
 		}
 
-		function move() {
-			// MOVE OBJECT
-			var	distance = railway_path.getLength(),				
-				division = 10 * 1000,
-				increment = division * speed / (distance * 60);
+		function accelerate(a) {
+			a_converted = a / 60;
+			speed2 += a_converted;
+			console.log('speed 2: ' + speed2);
+		}
 
-			var t = ( count % division) / division;
+		function move1() {
+			// MOVE OBJECT
+			var	distance = railway1_path.getLength(),				
+				division = 10 * 1000,
+				increment = division * speed1 / (distance * 60); // 60 FPS
+
+			var t = ( count1 % division ) / division;
 
 			// LOCATION
-			var point = railway_path.getPointAt(t);
-			// console.log(rack_move.position);
-			rack_move.position.copy(railways.getObjectByName('rack').position)
-			rack_move.position.x += point.x;
-			rack_move.position.y -= RACK_HEIGHT / 2;
-			rack_move.position.z += - point.y;
+			var point = railway1_path.getPointAt(t);
+
+			rack1_move.position.copy(railways.getObjectByName('railway1').position);
+			// console.log(rack1_move.position);
+			rack1_move.position.x += point.x;
+			rack1_move.position.y -= RACK_HEIGHT / 2;
+			rack1_move.position.z += - point.y;
 
 			// DIRECTION
-			var dir = railway_path.getTangentAt(t);
-			var angle = Math.atan(dir.y / dir.x)
-			rack_move.rotation.y = angle;
+			var dir = railway1_path.getTangentAt(t);
+			var angle = Math.atan(dir.y / dir.x);
+			rack1_move.rotation.y = angle;
 			// console.log(angle);
 
 			// CALCULATE NEXT STEP
-			count += increment;
+			count1 += increment;
+		}
+
+		function move2() {
+			var distance = railway2_path.getLength(),
+				division = 10 * 1000,
+				increment = division * speed2 / (distance * 60);
+
+			var t = ( count2 % division ) / division;
+
+			var point = railway2_path.getPointAt(t);
+
+			rack2_move.position.copy(railways.getObjectByName('railway2').position);
+			rack2_move.position.x += point.x;
+			rack2_move.position.y -= RACK_HEIGHT / 2;
+			rack2_move.position.z += - point.y;
+
+			// DIRECTION
+			var dir = railway2_path.getTangentAt(t);
+			var angle = Math.atan(dir.y / dir.x);
+			rack2_move.rotation.y = angle;
+
+			// CALCULATE NEXT STEP
+			count2 += increment;
+
+			// SPEED CHANGE
+			var interval = 19 * 1000,
+				time = clock  % interval;
+
+			if ( 0 <= time && time <= 7000) {
+				accelerate(500);
+			} else if(12000 <= time && time <= 19000){
+				accelerate(-500);
+			}
+
+			clock += 1000 / 60;
+		}
+
+		function viewRacks(toggle) {
+			if(toggle){
+				racks.visible = racks.visible === false;
+				document.getElementById('view').value = 'View Racks: ' + (racks.visible ? 'OFF' : 'ON');
+			}
 		}
 
 		function onWindowResize() {
@@ -345,7 +417,8 @@
 
 		function animate() {
 			requestAnimationFrame(animate);
-			move();
+			move1();
+			move2();
 			render();
 		}
 
