@@ -96,7 +96,7 @@
 
 		var view_angle = 0;
 
-		var rack1_move, rack2_move;
+		var rack1_move, rack2_move, rack3_move;
 
 		var speed1 = 1000, speed2 = 0; // 1m/s
 
@@ -262,6 +262,7 @@
 			generateRailway();
 			rack1_move = new THREE.Mesh(rack_geometry, rack_material);
 			rack2_move = new THREE.Mesh(rack_geometry, rack_material);
+			rack3_move = new THREE.Mesh(rack_geometry, rack_material);
 
 			racks.visible = false;
 			// ADD TO SCENE
@@ -269,6 +270,7 @@
 			scene.add(railways);
 			scene.add(rack1_move);
 			scene.add(rack2_move);
+			scene.add(rack3_move);
 			render();
 		}
 
@@ -403,6 +405,29 @@
 			clock += 1000 / 60;
 		}
 
+		function drag() {
+			var distance = railway1_path.getLength(),
+				division = 10 * 1000,
+				gap = 1500,
+				gap_division = (gap / distance) * division;
+
+			var t = ((count1 - gap_division) % division) / division;
+
+			// LOCATION
+			var point = railway1_path.getPointAt(t);
+
+			rack3_move.position.copy(railways.getObjectByName('railway1').position);
+			// console.log(rack1_move.position);
+			rack3_move.position.x += point.x;
+			rack3_move.position.y -= RACK_HEIGHT / 2;
+			rack3_move.position.z += - point.y;
+
+			// DIRECTION
+			var dir = railway1_path.getTangentAt(t);
+			var angle = Math.atan(dir.y / dir.x);
+			rack3_move.rotation.y = angle;
+		}
+
 		function viewRacks(toggle) {
 			if(toggle){
 				racks.visible = racks.visible === false;
@@ -443,6 +468,7 @@
 			startTime = updateFPS();
 			console.log(fps);
 			move1();
+			drag();
 			move2();
 			render();
 		}
