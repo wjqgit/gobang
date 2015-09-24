@@ -104,6 +104,8 @@
 
 		var clock = 0;
 
+		var fps = 0, startTime = Date.now(), prevTime = startTime, frames = 0;
+
 		init();
 
 		buildWarehouse();
@@ -340,7 +342,8 @@
 			// MOVE OBJECT
 			var	distance = railway1_path.getLength(),				
 				division = 10 * 1000,
-				increment = division * speed1 / (distance * 60); // 60 FPS
+				// increment = division * speed1 / (distance * 60); // 60 FPS
+				increment = division * speed1 / (distance * fps); // Dynamic FPS
 
 			var t = ( count1 % division ) / division;
 
@@ -366,7 +369,9 @@
 		function move2() {
 			var distance = railway2_path.getLength(),
 				division = 10 * 1000,
-				increment = division * speed2 / (distance * 60);
+				// increment = division * speed2 / (distance * 60); // Static FPS
+				increment = division * speed2 / (distance * fps); // Dynamic FPS
+
 
 			var t = ( count2 % division ) / division;
 
@@ -405,6 +410,24 @@
 			}
 		}
 
+		function updateFPS() {
+			var time = Date.now();
+			frames ++;
+
+			if(time > prevTime + 200) {
+				fps = roundTo(((frames * 1000) / (time - prevTime)), 3);
+
+				prevTime = time;
+				frames = 0;
+			}
+
+			return time;
+		}
+
+		function roundTo(x, d) {
+			return +(Math.round(x + "e+" + d) + "e-" + d); // append "e+3" equals to multiply the number by 1000, and +() convert a string back to number.
+		}
+
 		function onWindowResize() {
 			SCREEN_WIDTH = window.innerWidth;
 			SCREEN_HEIGHT = window.innerHeight;
@@ -417,6 +440,8 @@
 
 		function animate() {
 			requestAnimationFrame(animate);
+			startTime = updateFPS();
+			console.log(fps);
 			move1();
 			move2();
 			render();
