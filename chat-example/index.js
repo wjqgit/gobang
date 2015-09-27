@@ -2,6 +2,9 @@ var app = require('express')(),
 	http = require('http').Server(app),
 	io = require('socket.io')(http);
 
+var port = process.env.PORT || 3001,
+	ip = '119.9.94.163';
+
 var user_count = 0;
 
 app.get('/', (function(req, res){
@@ -22,6 +25,6 @@ io.on('connection', function(socket) {
 	});
 });
 
-http.listen(3000, function() {
-	console.log('http server running on port 3000...');
+http.listen(port, ip, function() {
+	console.log('http server running on %s:%d', ip, port);
 });
