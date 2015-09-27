@@ -4,7 +4,8 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 3000;
-var ip = '127.0.0.1'
+// var ip = '127.0.0.1'
+var ip = '119.9.94.163';
 
 server.listen(port, ip, function () {
   console.log('Server listening on %s:%d', ip, port);
