@@ -3,7 +3,8 @@ var app = require('express')(),
 	io = require('socket.io')(http);
 
 var port = process.env.PORT || 3001,
-	ip = '119.9.94.163';
+	// ip = '119.9.94.163';
+	ip = '127.0.0.1'
 
 var user_count = 0;
 
