@@ -6,6 +6,184 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 <body ontouchstart="">
-	<link rel="stylesheet" href="/public/css/main.js">
+	<link rel="stylesheet" href="/public/css/main.css">
+
+	<script src="/public/js/three.min.js"></script>
+	<script src="/public/js/Detector.js"></script>
+	<script src="/public/js/controls/TrackballControls.js"></script>
+	<script src="/public/js/libs/stats.min.js"></script>
+
+	<script src="/public/js/Mover.js"></script>
+	<script src="/public/js/StraightRail.js"></script>
+
+	<script>
+		if(!Detector.webgl)Detector.addGetWebGLMessage();
+
+		// PARAMS WAREHOUSE
+		var FLOOR_WIDTH = 50000; // x 
+			FLOOR_DEPTH = 50000; // y
+
+		// PARAMS GRAPHICS
+		var MARGIN = 0;
+
+		var SCREEN_WIDTH = window.innerWidth,
+			SCREEN_HEIGHT = window.window.innerHeight - 2 * MARGIN;
+
+		// COMPONENTS GRAPHICS
+		var container, info, stats;
+
+		var renderer, scene, camera, control;
+
+		var ambientLight, directionalLight;
+
+		var grid_geometry, grid_material, grid;
+
+		var light_x = -1, flag = 'add';
+
+		var mover;
+
+		var rail; 
+
+		init();
+
+		buildWarehouse();
+
+		animate();
+
+		function init() {
+			// CONTAINER
+			container  = document.createElement('div');
+			document.body.appendChild(container);
+
+			// INFO
+			info = document.createElement('div');
+			info.style.position = 'absolute';
+			info.style.top = '10px';
+			info.style.width = '100%';
+			info.style.textAlign = 'center';
+			info.innerHTML = 'Kovan System - Movement by wjq';
+
+			container.appendChild(info);
+
+			// GRID
+			var step = 1000;
+			grid_geometry = new THREE.Geometry();
+			
+			for ( var i = 0; i <= FLOOR_WIDTH; i += step) {
+				grid_geometry.vertices.push(new THREE.Vector3( i, 0, 0 ));
+				grid_geometry.vertices.push(new THREE.Vector3( i, FLOOR_DEPTH, 0 ));
+			}
+
+			for ( var j = 0; j <= FLOOR_DEPTH; j += step ) {
+				grid_geometry.vertices.push(new THREE.Vector3( 0, j, 0 ));
+				grid_geometry.vertices.push(new THREE.Vector3( FLOOR_WIDTH, j, 0 ));
+			}
+
+			grid_material = new THREE.LineBasicMaterial( { color : 0xffffff, opacity: 0.4, transparent: true});
+
+			grid = new THREE.LineSegments( grid_geometry, grid_material);
+
+
+			// LIGHT
+			ambientLight = new THREE.AmbientLight( 0x606060 );
+
+			directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
+			directionalLight.position.set(light_x, 1, 1);
+
+			// RENDERER
+			renderer = new THREE.WebGLRenderer( {
+				antialias: true
+			} );
+
+			renderer.shadowMap.enabled = true;
+
+			// SCENE
+			scene = new THREE.Scene();
+
+			// CAMERA
+			camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH/SCREEN_HEIGHT, 1, 200000 );
+			camera.position.set(FLOOR_WIDTH / 2, - FLOOR_DEPTH / 2, FLOOR_DEPTH / 3);
+
+			// CONTROL
+			control = new THREE.TrackballControls( camera );
+
+			control.rotateSpeed= 1.0;
+			control.zoomSpeed = 1.2;
+			control.panSpeed = 1.0;
+
+			control.noZoom = false;
+			control.noPan = false;
+
+			control.staticMoving = true;
+			control.dynamicDampingFactor = 0.3;
+
+			control.keys = [65, 83, 68]; //rotateKey, zoomKey, panKey
+
+			control.target =new THREE.Vector3( FLOOR_WIDTH / 2, FLOOR_DEPTH / 2, 0 ) ; //confliction of camera and control, do not use camera.lookAt.
+
+			// ADD MESH TO SCENE
+			scene.add(grid);
+
+			scene.add(ambientLight);
+			scene.add(directionalLight);
+
+			// RENDERER SETUP
+			renderer.setClearColor( 0x000000 );
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+			container.appendChild(renderer.domElement);		
+			
+			// STATS
+			stats = new Stats();
+			stats.domElement.style.position = 'absolute';
+			stats.domElement.style.top = '0px';
+			stats.domElement.style.zIndex = 100;
+			container.appendChild(stats.domElement);
+
+			// LISTENER
+
+			// RESIZE LISTENER
+			window.addEventListener('resize', onWindowResize, false);
+		}
+
+		function buildWarehouse() {
+			mover = new THREE.Mover();
+
+			var pointA = new THREE.Vector3( FLOOR_WIDTH / 2 - 15000, FLOOR_DEPTH / 2, 2000),
+				pointB = new THREE.Vector3( FLOOR_WIDTH / 2 + 15000, FLOOR_DEPTH / 2, 2000 );
+
+			rail = new THREE.StraightRail(pointA, pointB);
+
+			// rail.position.set(0, 0, pointA.z);
+			console.log(rail.position);
+
+
+			scene.add(mover);
+			scene.add(rail);
+		}
+
+		function onWindowResize() {
+			SCREEN_WIDTH = window.innerWidth;
+			SCREEN_HEIGHT = window.innerHeight;
+
+			camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		}
+
+		function animate() {
+			requestAnimationFrame(animate);
+			render();
+		}
+
+		function render() {
+			control.update();
+			stats.update();
+			renderer.render(scene, camera);
+		}
+
+	</script>
 </body>
 </html>
