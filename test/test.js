@@ -11,7 +11,7 @@ socket.on('connect', function () {
 
 
 socket.on('test', function (receiveTime) {
-	// console.log(receiveTime);
+	var receiveTime = Date.now();
 	console.log('Delay %d', (receiveTime - sendTime));
 });
 
@@ -21,5 +21,5 @@ function test() {
 } 
 
 for(var i = 0; i < 100; i++) {
-	setTimeout(test, i*100);
+	setTimeout(test, i * 100);
 }
