@@ -8,15 +8,34 @@
 <body ontouchstart="">
 	<link rel="stylesheet" href="/public/css/main.css">
 
+	<script src="/socket.io/socket.io.js"></script>
+
 	<script src="/public/js/three.min.js"></script>
 	<script src="/public/js/Detector.js"></script>
 	<script src="/public/js/controls/TrackballControls.js"></script>
 	<script src="/public/js/libs/stats.min.js"></script>
 
-	<script src="/public/js/Mover.js"></script>
-	<script src="/public/js/StraightRail.js"></script>
+	<script src="/public/js/Path.js"></script>
 
+	<script src="/public/js/BaseRail.js"></script>
+	<script src="/public/js/StraightRail.js"></script>
+	<script src="/public/js/CurvedRail.js"></script>
+
+	<script src="/public/js/BaseBox.js"></script>
+	<script src="/public/js/Rack.js"></script>
+	<script src="/public/js/Mover.js"></script>
+	
 	<script>
+		var io = io(); 
+
+		io.on('connect', function () {
+			console.log('Connected to server.');
+			
+			init();
+			buildWarehouse();
+			animate();
+		});
+
 		if(!Detector.webgl)Detector.addGetWebGLMessage();
 
 		// PARAMS WAREHOUSE
@@ -40,15 +59,18 @@
 
 		var light_x = -1, flag = 'add';
 
+		var rack;
+
 		var mover;
 
-		var rail; 
+		var rail1, c_rail, rail2;
 
-		init();
+		var rails; 
 
-		buildWarehouse();
+		var path;
 
-		animate();
+		// FPS
+		var fps = 0, startTime = Date.now(), prevTime = startTime, frames = 0;
 
 		function init() {
 			// CONTAINER
@@ -62,6 +84,7 @@
 			info.style.width = '100%';
 			info.style.textAlign = 'center';
 			info.innerHTML = 'Kovan System - Movement by wjq';
+			info.innerHTML += '<br/><br/><input id="reset" type="button" onClick="reset()" value="Reset"/>';
 
 			container.appendChild(info);
 
@@ -148,19 +171,67 @@
 		}
 
 		function buildWarehouse() {
+			// RACK
+			rack = new THREE.Rack();
+
+			// MOVER
 			mover = new THREE.Mover();
 
+			// STRAIGHT RAIL
 			var pointA = new THREE.Vector3( FLOOR_WIDTH / 2 - 15000, FLOOR_DEPTH / 2, 2000),
-				pointB = new THREE.Vector3( FLOOR_WIDTH / 2 + 15000, FLOOR_DEPTH / 2, 2000 );
+				pointB = new THREE.Vector3( FLOOR_WIDTH / 2 + 15000, FLOOR_DEPTH / 2, 2000);
 
-			rail = new THREE.StraightRail(pointA, pointB);
+			rail1 = new THREE.StraightRail(pointA, pointB);
 
-			// rail.position.set(0, 0, pointA.z);
-			console.log(rail.position);
+			// CURVED RAIL
+			var radius = 1400;
+			var center = pointB.clone();
+			center.y -= radius;
+ 
+			c_rail = new THREE.CurvedRail(center, radius, Math.PI / 2, Math.PI * 2, true);
 
+			// ANOTHER STRAIGHT RAIL
+			pointA.copy(pointB);
+			pointA.x += radius;
+			pointA.y -= radius;
+			pointB.x += radius;
+			pointB.y -= ( radius + 10000);
+			rail2 = new THREE.StraightRail(pointA, pointB);
 
+		  	rails = [rail1, c_rail, rail2];
+		  	// console.log(rails.length);
+		  	// console.log(rails[0]);
+		  	path = new Path(rails);
+
+			mover.position.copy(rail1.pointA);
+
+			scene.add(rack);
 			scene.add(mover);
-			scene.add(rail);
+			scene.add(rail1);
+			scene.add(rail2);
+			scene.add(c_rail);
+		}
+
+		function reset() {
+			mover.reset();
+		}
+
+		function updateFPS() {
+			var time = Date.now();
+			frames ++;
+
+			if(time > prevTime + 200) {
+				fps = roundTo(((frames * 1000) / (time - prevTime)), 3);
+
+				prevTime = time;
+				frames = 0;
+			}
+
+			return time;
+		}
+
+		function roundTo(x, d) {
+			return +(Math.round(x + "e+" + d) + "e-" + d); // append "e+3" equals to multiply the number by 1000, and +() convert a string back to number.
 		}
 
 		function onWindowResize() {
@@ -175,6 +246,8 @@
 
 		function animate() {
 			requestAnimationFrame(animate);
+			startTime = updateFPS();
+			mover.executePath(fps, path);
 			render();
 		}
 

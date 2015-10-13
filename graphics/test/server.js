@@ -49,7 +49,7 @@ io.on('connection', function(socket) {
 
 		socket.on('controller_state_change', function(data) {
 			if(game_sockets[game_socket_id]){
-				game_sockets[game_socket_id].socket.emit('controller_state_change', data)	
+				game_sockets[game_socket_id].socket.emit('controller_state_change', data);
 			}
 		});
 
