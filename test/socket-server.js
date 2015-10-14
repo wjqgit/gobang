@@ -1,4 +1,4 @@
-var express = require('express'),
+ var express = require('express'),
 	app = express(),
 	server = require('http').Server(app),
 	io = require('socket.io')(server);
@@ -7,6 +7,7 @@ io.on('connection', function (socket) {
 	console.log('A user connected...');
 
 	socket.on('test', function(time) {
+    console.log('Message received @ %d', Date.now());
 		socket.emit('test', Date.now());
 	});
 })

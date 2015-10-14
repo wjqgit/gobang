@@ -17,9 +17,10 @@ socket.on('test', function (receiveTime) {
 
 function test() {
 	sendTime = Date.now();
+	console.log('Send @ %d', sendTime);
 	socket.emit('test', sendTime);
 }
 
-for(var i = 0; i < 100; i++) {
-	setTimeout(test, i * 100);
+for(var i = 0; i < 10; i++) {
+	setTimeout(test, i * 1000);
 }
