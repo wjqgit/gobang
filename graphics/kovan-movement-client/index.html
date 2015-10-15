@@ -24,8 +24,13 @@
     socket.on('connect', function() {
       console.log('Connected to server at port: %d', port);
       init();
-			buildWarehouse();
 			animate();
+    })
+
+    socket.on('send_map', function(map) {
+      console.log('Received map from server!');
+      console.log(map.rails.length);
+      buildWarehouse();
     })
 
     if(!Detector.webgl)Detector.addGetWebGLMessage();
@@ -64,7 +69,8 @@
 			info.style.width = '100%';
 			info.style.textAlign = 'center';
 			info.innerHTML = 'Kovan System - Movement by wjq';
-			info.innerHTML += '<br/><br/><input id="reset" type="button" onClick="reset()" value="Reset"/>';
+			info.innerHTML += '<br/><br/><input id="RequestMap" type="button" onClick="requestMap()" value="Request Map"/>';
+      info.innerHTML += '<br/><br/><input id="RequestPath" type="button" onClick="requestPath()" value="Request Path"/>';
 
 			container.appendChild(info);
 
@@ -150,6 +156,14 @@
     }
 
     function buildWarehouse() {
+
+    }
+
+    function requestMap() {
+      socket.emit('request_map')
+    }
+
+    function requestPath() {
 
     }
 

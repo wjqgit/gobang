@@ -6,7 +6,7 @@
 io.on('connection', function (socket) {
 	console.log('A user connected...');
 
-	socket.on('test', function(time) {
+	socket.on('test', function(msgObj) {
     console.log('Message received @ %d', Date.now());
     var msgObj = {};
     msgObj.time = Date.now();
