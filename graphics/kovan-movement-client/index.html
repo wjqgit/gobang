@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>kovansystem Movement Demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <link type="text/css" rel="stylesheet" href="css/main.css">
+
+  <script src="js/socket.io/socket.io.js"></script>
+
+  <script src="js/three.min.js"></script>
+  <script src="js/Detector.js"></script>
+  <script src="js/controls/TrackballControls.js"></script>
+  <script src="js/libs/stats.min.js"></script>
+
+</head>
+
+<body>
+  <script>
+    var port = 9002;
+    var socket = io.connect('http://localhost:' + port);
+
+    socket.on('connect', function() {
+      console.log('Connected to server at port: %d', port);
+      init();
+			buildWarehouse();
+			animate();
+    })
+
+    if(!Detector.webgl)Detector.addGetWebGLMessage();
+
+    // PARAMS WAREHOUSE
+    var FLOOR_WIDTH = 50000; // x
+      FLOOR_DEPTH = 50000; // y
+
+    // PARAMS GRAPHICS
+    var MARGIN = 0;
+
+    var SCREEN_WIDTH = window.innerWidth,
+      SCREEN_HEIGHT = window.window.innerHeight - 2 * MARGIN;
+
+    // COMPONENTS GRAPHICS
+    var container, info, stats;
+
+    var renderer, scene, camera, control;
+
+    var ambientLight, directionalLight;
+
+    var grid_geometry, grid_material, grid;
+
+    // FPS
+    var fps = 0, startTime = Date.now(), prevTime = startTime, frames = 0;
+
+    function init() {
+      // CONTAINER
+			container  = document.createElement('div');
+			document.body.appendChild(container);
+
+			// INFO
+			info = document.createElement('div');
+			info.style.position = 'absolute';
+			info.style.top = '10px';
+			info.style.width = '100%';
+			info.style.textAlign = 'center';
+			info.innerHTML = 'Kovan System - Movement by wjq';
+			info.innerHTML += '<br/><br/><input id="reset" type="button" onClick="reset()" value="Reset"/>';
+
+			container.appendChild(info);
+
+			// GRID
+			var step = 1000;
+			grid_geometry = new THREE.Geometry();
+
+			for ( var i = 0; i <= FLOOR_WIDTH; i += step) {
+				grid_geometry.vertices.push(new THREE.Vector3( i, 0, 0 ));
+				grid_geometry.vertices.push(new THREE.Vector3( i, FLOOR_DEPTH, 0 ));
+			}
+
+			for ( var j = 0; j <= FLOOR_DEPTH; j += step ) {
+				grid_geometry.vertices.push(new THREE.Vector3( 0, j, 0 ));
+				grid_geometry.vertices.push(new THREE.Vector3( FLOOR_WIDTH, j, 0 ));
+			}
+
+			grid_material = new THREE.LineBasicMaterial( { color : 0xffffff, opacity: 0.4, transparent: true});
+
+			grid = new THREE.LineSegments( grid_geometry, grid_material);
+
+      // LIGHT
+			ambientLight = new THREE.AmbientLight( 0x606060 );
+
+			directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
+			directionalLight.position.set(-1, 1, 1);
+
+			// RENDERER
+			renderer = new THREE.WebGLRenderer( {
+				antialias: true
+			} );
+
+			renderer.shadowMap.enabled = true;
+
+			// SCENE
+			scene = new THREE.Scene();
+
+			// CAMERA
+			camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH/SCREEN_HEIGHT, 1, 200000 );
+			camera.position.set(FLOOR_WIDTH / 2, - FLOOR_DEPTH / 2, FLOOR_DEPTH / 3);
+
+			// CONTROL
+			control = new THREE.TrackballControls( camera );
+
+			control.rotateSpeed= 1.0;
+			control.zoomSpeed = 1.2;
+			control.panSpeed = 1.0;
+
+			control.noZoom = false;
+			control.noPan = false;
+
+			control.staticMoving = true;
+			control.dynamicDampingFactor = 0.3;
+
+			control.keys = [65, 83, 68]; //rotateKey, zoomKey, panKey
+
+			control.target =new THREE.Vector3( FLOOR_WIDTH / 2, FLOOR_DEPTH / 2, 0 ) ; //confliction of camera and control, do not use camera.lookAt.
+
+			// ADD MESH TO SCENE
+			scene.add(grid);
+
+			scene.add(ambientLight);
+			scene.add(directionalLight);
+
+			// RENDERER SETUP
+			renderer.setClearColor( 0x000000 );
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+			container.appendChild(renderer.domElement);
+
+			// STATS
+			stats = new Stats();
+			stats.domElement.style.position = 'absolute';
+			stats.domElement.style.top = '0px';
+			stats.domElement.style.zIndex = 100;
+			container.appendChild(stats.domElement);
+
+			// LISTENER
+
+			// RESIZE LISTENER
+			window.addEventListener('resize', onWindowResize, false);
+    }
+
+    function buildWarehouse() {
+
+    }
+
+    function updateFPS() {
+			var time = Date.now();
+			frames ++;
+
+			if(time > prevTime + 200) {
+				fps = roundTo(((frames * 1000) / (time - prevTime)), 3);
+
+				prevTime = time;
+				frames = 0;
+			}
+
+			return time;
+		}
+
+    function roundTo(x, d) {
+      return +(Math.round(x + "e+" + d) + "e-" + d); // append "e+3" equals to multiply the number by 1000, and +() convert a string back to number.
+    }
+
+    function onWindowResize() {
+      SCREEN_WIDTH = window.innerWidth;
+      SCREEN_HEIGHT = window.innerHeight;
+
+      camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      startTime = updateFPS();
+      // mover.executePath(fps, path);
+      render();
+    }
+
+    function render() {
+      control.update();
+      stats.update();
+      renderer.render(scene, camera);
+    }
+
+  </script>
+</body>
+
+</html>

@@ -10,15 +10,18 @@ socket.on('connect', function () {
 });
 
 
-socket.on('test', function (receiveTime) {
-	var receiveTime = Date.now();
-	console.log('Delay %d', (receiveTime - sendTime));
+socket.on('test', function (msgObj) {
+	// var receiveTime = Date.now();
+	// console.log('Delay %d', (receiveTime - sendTime));
+	console.log('Messeage received at: %d', msgObj.time);
 });
 
 function test() {
+	var msgObj = {};
 	sendTime = Date.now();
+	msgObj.time = sendTime;
 	console.log('Send @ %d', sendTime);
-	socket.emit('test', sendTime);
+	socket.emit('test', msgObj);
 }
 
 for(var i = 0; i < 10; i++) {
