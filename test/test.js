@@ -1,7 +1,7 @@
 var http = require('http'),
 	io = require('socket.io-client');
 
-var socket = io.connect('http://localhost:9002');
+var socket = io.connect('http://wangjiaqi.xyz:9002');
 
 var sendTime;
 
@@ -21,6 +21,6 @@ function test() {
 	socket.emit('test', sendTime);
 }
 
-for(var i = 0; i < 10; i++) {
-	setTimeout(test, i * 1000);
+for(var i = 0; i < 100; i++) {
+	setTimeout(test, i * 100);
 }
