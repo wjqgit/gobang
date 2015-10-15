@@ -10,7 +10,7 @@ io.on('connection', function (socket) {
     console.log('Message received @ %d', Date.now());
     var msgObj = {};
     msgObj.time = Date.now();
-		socket.emit('test', Date.now());
+		socket.emit('test', msgObj);
 	});
 })
 
