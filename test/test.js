@@ -12,8 +12,8 @@ socket.on('connect', function () {
 
 socket.on('test', function (msgObj) {
 	// var receiveTime = Date.now();
-	// console.log('Delay %d', (receiveTime - sendTime));
-	console.log('Messeage received at: %d', msgObj.time);
+	console.log('Messeage received: %d', msgObj.time);
+	console.log('Delay: %d', (Date.now() - sendTime));
 });
 
 function test() {
@@ -24,6 +24,6 @@ function test() {
 	socket.emit('test', msgObj);
 }
 
-for(var i = 0; i < 100; i++) {
-	setTimeout(test, i * 100);
+for(var i = 0; i < 10; i++) {
+	setTimeout(test, i * 1000);
 }

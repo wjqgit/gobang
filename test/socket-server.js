@@ -8,6 +8,8 @@ io.on('connection', function (socket) {
 
 	socket.on('test', function(time) {
     console.log('Message received @ %d', Date.now());
+    var msgObj = {};
+    msgObj.time = Date.now();
 		socket.emit('test', Date.now());
 	});
 })
