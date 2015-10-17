@@ -23,9 +23,9 @@
 
     socket.on('connect', function() {
       console.log('Connected to server at port: %d', port);
-      init();
-			animate();
     })
+
+
 
     socket.on('send_map', function(map) {
       console.log('Received map from server!');
@@ -56,6 +56,9 @@
 
     // FPS
     var fps = 0, startTime = Date.now(), prevTime = startTime, frames = 0;
+
+    init();
+    animate();
 
     function init() {
       // CONTAINER
