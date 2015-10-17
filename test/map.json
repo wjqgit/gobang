@@ -17,7 +17,7 @@
     {
       "railSeq": "rail02",
       "radius": 1400,
-      "pointALocation": {
+      "centerLocation": {
         "x": 10000,
         "y": 25000,
         "z": 2000

@@ -14,6 +14,15 @@
   <script src="js/controls/TrackballControls.js"></script>
   <script src="js/libs/stats.min.js"></script>
 
+  <script src="js/Path.js"></script>
+
+  <script src="js/BaseRail.js"></script>
+  <script src="js/StraightRail.js"></script>
+  <script src="js/CurvedRail.js"></script>
+
+  <script src="js/BaseBox.js"></script>
+  <script src="js/Rack.js"></script>
+  <script src="js/Mover.js"></script>
 </head>
 
 <body>
@@ -25,12 +34,15 @@
       console.log('Connected to server at port: %d', port);
     })
 
-
-
     socket.on('send_map', function(map) {
       console.log('Received map from server!');
-      console.log(map.rails.length);
-      buildWarehouse();
+      buildWarehouse(map.nodes);
+      initializeMover();
+    })
+
+    socket.on('send_path', function(path) {
+      console.log('Received path from server!');
+      executePath(path.nodes);
     })
 
     if(!Detector.webgl)Detector.addGetWebGLMessage();
@@ -53,6 +65,12 @@
     var ambientLight, directionalLight;
 
     var grid_geometry, grid_material, grid;
+
+    var rails = new THREE.Mesh();
+
+    var mover;
+
+    var path;
 
     // FPS
     var fps = 0, startTime = Date.now(), prevTime = startTime, frames = 0;
@@ -158,16 +176,66 @@
 			window.addEventListener('resize', onWindowResize, false);
     }
 
-    function buildWarehouse() {
+    function buildWarehouse(nodes) {
+      if (rails.children.length > 0) return;
 
+      for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+
+        if ( node.radius == -1) {
+          var pointA = new THREE.Vector3(node.pointALocation.x,
+              node.pointALocation.y,node.pointALocation.z),
+              pointB = new THREE.Vector3(node.pointBLocation.x,
+              node.pointBLocation.y,node.pointBLocation.z);
+
+          var rail = new THREE.StraightRail(pointA, pointB);
+          rail.name = node.railSeq;
+          rail.speedLimit = node.speedLimit;
+          rails.add(rail);
+        } else {
+          var center = new THREE.Vector3(node.centerLocation.x,
+              node.centerLocation.y, node.centerLocation.z);
+
+          var startAngle = Math.PI * node.startAngle / 180,
+              endAngle = Math.PI * node.endAngle / 180;
+
+          var rail = new THREE.CurvedRail(center, node.radius,
+              startAngle, endAngle, node.clockwise);
+
+          rail.name = node.railSeq;
+          rail.speedLimit = node.speedLimit;
+          rails.add(rail);
+        }
+      }
+      scene.add(rails);
+      console.log("Digital map is SUCCESSFULLY loaded!");
+    }
+
+    function initializeMover() {
+      mover = new THREE.Mover();
+      mover.position.copy(rails.getObjectByName("rail-io-0-00").pointA);
+      mover.rotation.z += Math.PI / 2;
+
+      scene.add(mover);
+    }
+
+    function executePath(nodes) {
+        var waypoints = []
+        for(var i = 0; i < nodes.length; i++) {
+          waypoints[i] = rails.getObjectByName(nodes[i].railSeq);
+        }
+        path = new Path(waypoints);
     }
 
     function requestMap() {
-      socket.emit('request_map')
+      socket.emit('request_map', {})
     }
 
     function requestPath() {
-
+      var msg = {}
+      msg.startNodeSeq = "unit-0";
+      msg.goalNodeSeq = "dock-station-1";
+      socket.emit('request_path', msg)
     }
 
     function updateFPS() {
@@ -201,7 +269,7 @@
     function animate() {
       requestAnimationFrame(animate);
       startTime = updateFPS();
-      // mover.executePath(fps, path);
+      if (path != null) mover.executePath(fps, path);
       render();
     }
 

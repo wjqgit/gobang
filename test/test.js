@@ -1,6 +1,8 @@
 var http = require('http'),
 	io = require('socket.io-client');
 
+var fs = require('fs');
+
 // var socket = io.connect('http://wangjiaqi.xyz:9002');
 var socket = io.connect('http://localhost:9002');
 
@@ -8,6 +10,8 @@ var sendTime;
 
 socket.on('connect', function () {
 	console.log('Connected to server!');
+
+	requestMap();
 });
 
 
@@ -17,9 +21,18 @@ socket.on('test', function (msgObj) {
 	console.log('Delay: %d', (Date.now() - sendTime));
 });
 
-socket.on('send-map' function (msgObj) {
+socket.on('send_map', function (msgObj) {
 	console.log("Map received!");
-	console.log('Node 1 Seq: %s', msg.nodes[0].getId());
+	// console.log('Node 1 Seq: %s', msgObj.rails[0].radius);
+	var nodes = msgObj.nodes;
+	for (var i = 0; i < nodes.length; i++) {
+		console.log(nodes[i].railSeq);
+	}
+
+})
+
+socket.on('send_path', function (msgObj) {
+
 })
 
 function test() {
@@ -31,8 +44,10 @@ function test() {
 }
 
 function requestMap() {
-	socket.emit('requestMap', {})
+	socket.emit('request_map', {})
 }
+
+
 
 // for(var i = 0; i < 10; i++) {
 // 	setTimeout(test, i * 1000);
