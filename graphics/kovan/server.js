@@ -6,6 +6,7 @@ var express = require('express'),
 
 var port = 9003;
 
+app.set('trust proxy', true);
 
 app.use('/public', express.static(__dirname + '/public'));
 
