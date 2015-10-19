@@ -1,8 +1,8 @@
 <html>
 	<head>
 		<title>My first Three.js app</title>
-		<script src="/socket.io/socket.io.js"></script>
-		<script src="/public/js/three.min.js"></script>
+		<script src="./public/js/socket.io/socket.io.js"></script>
+		<script src="./public/js/three.min.js"></script>
 		<script src="//davidshimjs.github.com/qrcodejs/qrcode.min.js"></script>
 		<style>
 			body { margin: 0; }
@@ -42,7 +42,7 @@
 
 						QR_code = new QRCode("QR_code");
 						QR_code.makeCode(url);
-					},	
+					},
 
 					game_connected = function() {
 						create_QR();
@@ -113,7 +113,7 @@
 
 					camera.position.set( 0, 400, 800 );
 					camera.lookAt(new THREE.Vector3( 0, 0, 0 ));
-					
+
 					directional_light.position.x = -100;
 					directional_light.position.y = 150;
 					directional_light.position.z = 60;
@@ -208,7 +208,7 @@
 			});
 
 
-			
+
 
 			// Graphics code
 			/*
@@ -223,7 +223,7 @@
 			var quaternion = new THREE.Quaternion();
 			quaternion.setFromAxisAngle( new THREE.Vector3( 0, 0, 1 ), Math.PI / 2 );
 
-			
+
 			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 			var material = new THREE.MeshNormalMaterial( );
 			var mesh = new THREE.Mesh( geometry, material);

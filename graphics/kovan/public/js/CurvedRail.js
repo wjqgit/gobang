@@ -17,13 +17,13 @@
  		this.endAngle = endAngle;
  	}
 
- 	this.pointA = new THREE.Vector3( 
- 		this.center.x + this.radius * Math.cos(this.startAngle), 
- 		this.center.y + this.radius * Math.sin(this.startAngle), 
+ 	this.pointA = new THREE.Vector3(
+ 		this.center.x + this.radius * Math.cos(this.startAngle),
+ 		this.center.y + this.radius * Math.sin(this.startAngle),
  		this.center.z );
- 	this.pointB = new THREE.Vector3( 
- 		this.center.x + this.radius * Math.cos(this.endAngle), 
- 		this.center.y + this.radius * Math.sin(this.endAngle), 
+ 	this.pointB = new THREE.Vector3(
+ 		this.center.x + this.radius * Math.cos(this.endAngle),
+ 		this.center.y + this.radius * Math.sin(this.endAngle),
  		this.center.z );
  	this.reference = this.center;
 

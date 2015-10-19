@@ -13,9 +13,17 @@ THREE.Mover = function ( geometry, material ) {
 
 	this.speed = 0;
 	this.acceleration = 500;
+	this.speedLimit = 2000;
 	// this.braking = false;
-	// this.path = new Path();
+	this.path;
 	this.pathIndex = 0;
+	this.rail;
+	this.reversed = false;
+	this.finished = false;
+
+	this.locationX = this.position.x;
+	this.locationY = this.position.y;
+	this.locationZ = this.position.z;
 
 	this.stopwatch = 0;
 
@@ -33,7 +41,7 @@ THREE.Mover.prototype.getDimension = function () {
 	return new THREE.Vector3( this.length, this.width, this.height);
 };
 
-// MOVE 
+// MOVE
 THREE.Mover.prototype.move = function ( fps, rail ) {
 	if ( fps <= 10 ) return false;
 
@@ -42,10 +50,11 @@ THREE.Mover.prototype.move = function ( fps, rail ) {
 		increment = division * this.speed / (distance * fps);
 
 	var t = (this.stopwatch % division) / division;
+	t = this.reversed ? 1 - t : t;
 
-	// LOCATION 
+	// LOCATION
 	this.position.copy(rail.reference);
-	var point = rail.curve.getPointAt(t);	
+	var point = rail.curve.getPointAt(t);
 	this.position.x += point.x;
 	this.position.y += point.y;
 
@@ -55,8 +64,8 @@ THREE.Mover.prototype.move = function ( fps, rail ) {
 	this.rotation.z = angle;
 
 	// ACCELERATE
-	if ( this.speed < rail.speedLimit ) this.accelerate(fps);
-	if ( this.speed > rail.speedLimit ) this.accelerate(fps, - this.acceleration);
+	if ( this.speed < rail.speedLimit && this.speed < this.speedLimit ) this.accelerate(fps);
+	if ( this.speed > rail.speedLimit || this.speed > this.speedLimit ) this.accelerate(fps, - this.acceleration);
 
 	// RUN STOPWATCH
 	if (this.stopwatch + increment > division) {
@@ -69,23 +78,25 @@ THREE.Mover.prototype.move = function ( fps, rail ) {
 
 THREE.Mover.prototype.moveAndStop = function ( fps, rail ) {
 	if ( fps <= 10 ) return false;
+	if (this.finished) return true;
 
 	var distance = rail.getLength(),
 		division = Math.floor(distance * 10), // 1/10 mm resolution
 		increment = division * this.speed / (distance * fps);
 
-	var brakingT = 0; 
+	var brakingT = 0;
 
 	var brakingTime = this.speed / this.acceleration,
 		brakingDistance = this.speed * brakingTime / 2;
 
 	brakingT = 1 - (brakingDistance / distance);
-	
-	var t = (this.stopwatch % division) / division; 
 
-	// LOCATION COPIED CODE 
+	var t = (this.stopwatch % division) / division;
+	t = this.reversed ? 1 - t : t;
+
+	// LOCATION COPIED CODE
 	this.position.copy(rail.reference);
-	var point = rail.curve.getPointAt(t);	
+	var point = rail.curve.getPointAt(t);
 	this.position.x += point.x;
 	this.position.y += point.y;
 
@@ -95,14 +106,17 @@ THREE.Mover.prototype.moveAndStop = function ( fps, rail ) {
 	this.rotation.z = angle;
 
 	// ACCELERATE
-	if ( t < brakingT ) {
-		if ( this.speed < rail.speedLimit ) this.accelerate(fps);
-		if ( this.speed > rail.speedLimit ) this.accelerate(fps, - this.acceleration);
+	if ( (t < brakingT && ! this.reversed) || ( (1 - t) < brakingT && this.reversed) ) {
+		if ( this.speed < rail.speedLimit && this.speed < this.speedLimit ) this.accelerate(fps);
+		if ( this.speed > rail.speedLimit || this.speed > this.speedLimit ) this.accelerate(fps, - this.acceleration);
 	} else {
 		if (this.speed > 0) this.accelerate(fps, - this.acceleration);
-		if (this.speed < 0) this.speed = 0;	
+		if (this.speed < 0) {
+			this.speed = 0;
+			this.finished = true;
+		}
 	}
-	
+
 	// RUN STOPWATCH
 	if (this.stopwatch + increment > division) {
 		return true;
@@ -110,6 +124,12 @@ THREE.Mover.prototype.moveAndStop = function ( fps, rail ) {
 
 	this.stopwatch += increment;
 	return false;
+};
+
+THREE.Mover.prototype.accelerate = function ( fps, acceleration ) {
+	var convertedAcceleration = acceleration / fps || this.acceleration / fps;
+
+	this.speed += convertedAcceleration;
 };
 
 THREE.Mover.prototype.executePath = function ( fps, path) {
@@ -124,18 +144,35 @@ THREE.Mover.prototype.executePath = function ( fps, path) {
 	}
 };
 
-THREE.Mover.prototype.accelerate = function ( fps, acceleration ) {
-	var convertedAcceleration = acceleration / fps || this.acceleration / fps;
+THREE.Mover.prototype.executePath = function (fps) {
+	if (path == undefined) return;
 
-	this.speed += convertedAcceleration;
+	this.rail = this.path.rails[this.pathIndex];
+	this.reversed = this.path.reversed[this.pathIndex];
+
+	if ( this.pathIndex < this.path.numOfRails - 1) {
+		var finished = this.move(fps, this.rail);
+		if ( finished ) {
+			this.stopwatch = 0;
+			this.pathIndex ++;
+		}
+	} else {
+		this.moveAndStop(fps, this.rail);
+	}
 };
 
 THREE.Mover.prototype.drag = function () {
-	// TODO	
+	// TODO
 };
 
 THREE.Mover.prototype.reset = function () {
 	this.speed = 0;
 	this.pathIndex = 0;
 	this.stopwatch = 0;
+}
+
+THREE.Mover.prototype.updateLocation = function () {
+	this.locationX = this.position.x;
+	this.locationY = this.position.y;
+	this.locationZ = this.position.z;
 }
