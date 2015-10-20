@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>kovansystem Movement Demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <link type="text/css" rel="stylesheet" href="./public/css/main.css">
+
+  <script src="./public/js/libs/dat.gui.min.js"></script>
+
+  <script src="./public/js/socket.io/socket.io.js"></script>
+
+  <script src="./public/js/three.min.js"></script>
+  <script src="./public/js/Detector.js"></script>
+  <!-- <script src="./public/js/controls/TrackballControls.js"></script> -->
+  <script src="./public/js/controls/OrbitControls.js"></script>
+  <script src="./public/js/libs/stats.min.js"></script>
+
+  <script src="./public/js/Path.js"></script>
+
+  <script src="./public/js/BaseRail.js"></script>
+  <script src="./public/js/StraightRail.js"></script>
+  <script src="./public/js/CurvedRail.js"></script>
+
+  <script src="./public/js/BaseBox.js"></script>
+  <script src="./public/js/Rack.js"></script>
+  <script src="./public/js/Mover.js"></script>
+</head>
+
+<body>
+  <script>
+    var port = 9002;
+    var socket = io.connect('http://localhost:' + port);
+
+    var RequestMessage = function () {
+      this.startNode = "unit-0";
+      this.goalNode = "dock-station-0";
+      this.automatic = false;
+    }
+
+    socket.on('connect', function() {
+      console.log('Connected to server at port: %d', port);
+    })
+
+    socket.on('send_map', function(map) {
+      console.log('Received map from server!');
+      buildWarehouse(map.nodes);
+      initializeMover();
+    })
+
+    socket.on('send_path', function(path) {
+      console.log('Received path from server!');
+      executePath(path.nodes);
+    })
+
+    socket.on('send_endpoints', function(endpoints) {
+      console.log('Received endpoints from server!');
+      attachEndpoints(endpoints.nodes);
+    })
+
+    if(!Detector.webgl)Detector.addGetWebGLMessage();
+
+    // PARAMS WAREHOUSE
+    var FLOOR_WIDTH = 50000; // x
+      FLOOR_DEPTH = 50000; // y
+
+    // PARAMS GRAPHICS
+    var MARGIN = 0;
+
+    var SCREEN_WIDTH = window.innerWidth,
+      SCREEN_HEIGHT = window.window.innerHeight - 2 * MARGIN;
+
+    // COMPONENTS GRAPHICS
+    var container, info, stats;
+
+    var renderer, scene, camera, control;
+
+    var ambientLight, directionalLight;
+
+    var grid_geometry, grid_material, grid;
+
+    var rails = new THREE.Mesh();
+
+    var mover;
+
+    var path;
+
+    // FPS
+    var fps = 0, startTime = Date.now(), prevTime = startTime, frames = 0;
+
+    // GUI
+    var controller_gui, mover_controller, path_controller;
+
+    // REQUEST
+    var requestMsg;
+
+    // RENDER RAIL
+    var renderRails = new THREE.Mesh();
+    var lineMaterial = new THREE.LineBasicMaterial( { color : 0xffffff, opacity: 0.8, transparent: true} ),
+        renderMaterial = new THREE.LineBasicMaterial( { color : 0x42A5F5, opacity: 0.8, transparent: true} );
+    var tempPathIndex = 0;
+
+    // LOAD
+    window.onload = function() {
+      requestMsg = new RequestMessage();
+      init();
+      animate();
+    }
+
+
+
+    function init() {
+      // CONTAINER
+			container  = document.createElement('div');
+			document.body.appendChild(container);
+
+			// INFO
+			info = document.createElement('div');
+			info.style.position = 'absolute';
+			info.style.top = '10px';
+			info.style.width = '100%';
+			info.style.textAlign = 'center';
+			info.innerHTML = 'Kovan System - Movement by wjq';
+			info.innerHTML += '<br/><br/><input id="RequestMap" type="button" onClick="requestMap()" value="Request Map"/>';
+      info.innerHTML += '<br/><br/><input id="RequestPath" type="button" onClick="requestPath()" value="Request Path"/>';
+
+			container.appendChild(info);
+
+			// GRID
+			var step = 1000;
+			grid_geometry = new THREE.Geometry();
+
+			for ( var i = 0; i <= FLOOR_WIDTH; i += step) {
+				grid_geometry.vertices.push(new THREE.Vector3( i, 0, 0 ));
+				grid_geometry.vertices.push(new THREE.Vector3( i, FLOOR_DEPTH, 0 ));
+			}
+
+			for ( var j = 0; j <= FLOOR_DEPTH; j += step ) {
+				grid_geometry.vertices.push(new THREE.Vector3( 0, j, 0 ));
+				grid_geometry.vertices.push(new THREE.Vector3( FLOOR_WIDTH, j, 0 ));
+			}
+
+			grid_material = new THREE.LineBasicMaterial( { color : 0xffffff, opacity: 0.4, transparent: true});
+
+			grid = new THREE.LineSegments( grid_geometry, grid_material);
+
+      // LIGHT
+			ambientLight = new THREE.AmbientLight( 0x606060 );
+
+			directionalLight = new THREE.DirectionalLight( 0xffffff, 2 );
+			directionalLight.position.set(-1, 1, 1);
+
+			// RENDERER
+			renderer = new THREE.WebGLRenderer( {
+				antialias: true
+			} );
+
+			renderer.shadowMap.enabled = true;
+
+			// SCENE
+			scene = new THREE.Scene();
+
+			// CAMERA
+			camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH/SCREEN_HEIGHT, 1, 200000 );
+			camera.position.set(FLOOR_WIDTH / 2, - FLOOR_DEPTH / 2, FLOOR_DEPTH / 3);
+      camera.lookAt(new THREE.Vector3( FLOOR_WIDTH / 2, FLOOR_DEPTH / 2, 0 ));
+			// CONTROL
+      control = new THREE.OrbitControls(camera, renderer.domElement);
+      control.target.set( FLOOR_WIDTH / 2, FLOOR_DEPTH / 2, 0 );
+      // control.target = new THREE.Vector3( FLOOR_WIDTH / 2, FLOOR_DEPTH / 2, 0 ) ;
+
+			// control = new THREE.TrackballControls( camera );
+      //
+			// control.rotateSpeed= 1.0;
+			// control.zoomSpeed = 1.2;
+			// control.panSpeed = 1.0;
+      //
+			// control.noZoom = false;
+			// control.noPan = false;
+      //
+			// control.staticMoving = true;
+			// control.dynamicDampingFactor = 0.3;
+      //
+			// control.keys = [65, 83, 68]; //rotateKey, zoomKey, panKey
+      //
+			// control.target =new THREE.Vector3( FLOOR_WIDTH / 2, FLOOR_DEPTH / 2, 0 ) ; //confliction of camera and control, do not use camera.lookAt.
+
+			// ADD MESH TO SCENE
+			scene.add(grid);
+
+			scene.add(ambientLight);
+			scene.add(directionalLight);
+
+			// RENDERER SETUP
+			renderer.setClearColor( 0x000000 );
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+			container.appendChild(renderer.domElement);
+
+			// STATS
+			stats = new Stats();
+			stats.domElement.style.position = 'absolute';
+			stats.domElement.style.top = '0px';
+			stats.domElement.style.zIndex = 100;
+			container.appendChild(stats.domElement);
+
+			// LISTENER
+
+			// RESIZE LISTENER
+			window.addEventListener('resize', onWindowResize, false);
+    }
+
+    function buildWarehouse(nodes) {
+      if (rails.children.length > 0) return;
+
+      for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+
+        if ( node.radius == -1) {
+          var pointA = new THREE.Vector3(node.pointALocation.x,
+              node.pointALocation.y,node.pointALocation.z),
+              pointB = new THREE.Vector3(node.pointBLocation.x,
+              node.pointBLocation.y,node.pointBLocation.z);
+
+          var rail = new THREE.StraightRail(pointA, pointB);
+          rail.name = node.railSeq;
+          rail.speedLimit = node.speedLimit;
+          rails.add(rail);
+        } else {
+          var center = new THREE.Vector3(node.centerLocation.x,
+              node.centerLocation.y, node.centerLocation.z);
+
+          var startAngle = Math.PI * node.startAngle / 180,
+              endAngle = Math.PI * node.endAngle / 180;
+
+          var rail = new THREE.CurvedRail(center, node.radius,
+              startAngle, endAngle, node.clockwise);
+
+          rail.name = node.railSeq;
+          rail.speedLimit = node.speedLimit;
+          rails.add(rail);
+        }
+      }
+      scene.add(rails);
+      console.log("Digital map is SUCCESSFULLY loaded!");
+    }
+
+    function initializeMover() {
+      mover = new THREE.Mover();
+      mover.name = "mover-01";
+      mover.position.copy(rails.getObjectByName("rail-io-0-00").pointA);
+      mover.rotation.z += Math.PI / 2;
+
+      scene.add(mover);
+      initializeController();
+    }
+
+    function attachEndpoints(endpoints) {
+      path.startNode = endpoints[0].nodeSeq;
+      path.goalNode = endpoints[1].nodeSeq;
+      updatePathController();
+    }
+
+    function executePath(nodes) {
+        var waypoints = [];
+        var reversed = [];
+        for(var i = 0; i < nodes.length; i++) {
+          waypoints[i] = rails.getObjectByName(nodes[i].railSeq);
+          reversed[i] = nodes[i].reversed;
+          // console.log(waypoints[i].name);
+        }
+        mover.reset();
+        path = new Path(waypoints, reversed);
+        mover.path = path;
+        renderPath(tempPathIndex, path)
+    }
+
+    function requestMap() {
+      if (rails.children.length > 0) {
+        console.log('A map already exists!');
+        return;
+      }
+
+      socket.emit('request_map', {})
+    }
+
+    function requestPath() {
+      if (mover.path != undefined) {
+        console.log('Mover is still executing path');
+        return;
+      }
+
+      if (requestMsg.goalNode == requestMsg.startNode) {
+        console.log("The goal cannot be the same as the start!");
+        return;
+      }
+
+      var msg = {}
+      // msg.startNodeSeq = "unit-0";
+      msg.startNodeSeq = requestMsg.startNode;
+      // msg.startNodeSeq = "dock-station-0";
+      // msg.goalNodeSeq = "dock-station-1";
+      msg.goalNodeSeq = requestMsg.goalNode;
+      // msg.goalNodeSeq = "unit-1";
+      socket.emit('request_path', msg)
+    }
+
+    function renderPath(index, path) {
+      if (index == 0 ){
+        for (var i = index; i < path.numOfRails; i++) {
+            var name = path.rails[i].name;
+            rails.getObjectByName(name).material = renderMaterial;
+          }
+        console.log('The path is rendered!');
+      } else {
+        var name = path.rails[index-1].name;
+        rails.getObjectByName(name).material = lineMaterial;
+        tempPathIndex = index;
+      }
+    }
+
+    function initializeController() {
+      controller_gui = new dat.GUI();
+      mover_controller = controller_gui.addFolder('Mover');
+      mover_controller.add(mover, 'name');
+      mover_controller.add(mover, 'speed', 0, 5000).listen();
+      mover_controller.add(mover, 'acceleration', 0, 3000);
+      mover_controller.add(mover, 'speedLimit', 0, 5000);
+      mover_controller.add(mover, 'locationX').listen();
+      mover_controller.add(mover, 'locationY').listen();
+      mover_controller.add(mover, 'locationZ').listen();
+
+      path_controller = controller_gui.addFolder('Path');
+
+
+      request_controller = controller_gui.addFolder('Request');
+      request_controller.add(requestMsg, 'startNode').listen();
+      request_controller.add(requestMsg, 'goalNode',
+      {'unit-0': 'unit-0', 'unit-1': 'unit-1', 'unit-2': 'unit-2', 'station-0': 'dock-station-0', 'station-1': 'dock-station-1' });
+      request_controller.add(requestMsg, 'automatic');
+
+      mover_controller.open();
+      path_controller.open();
+      request_controller.open();
+    }
+
+    function updatePathController () {
+      while (path_controller.__controllers.length > 0) {
+        for (var i in path_controller.__controllers) {
+          path_controller.remove(path_controller.__controllers[i]);
+        }
+      }
+
+      path_controller.add(path, 'numOfRails');
+      path_controller.add(mover, 'pathIndex').listen();
+      path_controller.add(path, 'startNode');
+      path_controller.add(mover, 'currentNode').listen();
+      path_controller.add(path, 'goalNode');
+
+      path_controller.open();
+
+
+    }
+
+    // function updateControllerDisplay () {
+    //   if (path_controller == undefined) return;
+    //   if (path_controller.__controllers.length == 0) return;
+    //
+    //   for (var i in path_controller.__controllers) {
+    //     if (i == 1 || i == 3) path_controller.__controllers[i].updateDisplay();
+    //   }
+    // }
+
+    function onFinishPathExecution () {
+      requestMsg.startNode = mover.path.goalNode;
+      path = undefined;
+      tempPathIndex = 0;
+      mover.reset();
+      console.log("Mover finished path execution!");
+    }
+
+
+    function updateFPS() {
+			var time = Date.now();
+			frames ++;
+
+			if(time > prevTime + 200) {
+				fps = roundTo(((frames * 1000) / (time - prevTime)), 3);
+
+				prevTime = time;
+				frames = 0;
+			}
+
+			return time;
+		}
+
+    function roundTo(x, d) {
+      return +(Math.round(x + "e+" + d) + "e-" + d); // append "e+3" equals to multiply the number by 1000, and +() convert a string back to number.
+    }
+
+    // function updateGUI() {
+    //     for (var i in gui.__controller) {
+    //       gui.__controller[i].updateDisplay();
+    //     }
+    // }
+
+    function onWindowResize() {
+      SCREEN_WIDTH = window.innerWidth;
+      SCREEN_HEIGHT = window.innerHeight;
+
+      camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      startTime = updateFPS();
+      if (mover != undefined ) {
+        if (mover.path != undefined) {
+          if (tempPathIndex != mover.pathIndex) renderPath(mover.pathIndex, mover.path);
+          mover.executePath(fps);
+          mover.updateLocation();
+          if (mover.finished) {
+            renderPath((mover.pathIndex + 1), mover.path);
+            onFinishPathExecution();
+          }
+        }
+      }
+
+      // updateControllerDisplay();
+      render();
+    }
+
+    function render() {
+      control.update();
+      stats.update();
+      renderer.render(scene, camera);
+    }
+
+  </script>
+</body>
+
+</html>

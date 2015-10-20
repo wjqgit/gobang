@@ -10,6 +10,8 @@
  	this.numOfRails = rails.length;
  	this.rails = [];
   this.reversed = [];
+  this.startNode;
+  this.goalNode;
 
  	for (var i in rails) {
  		this.rails[i] = rails[i];

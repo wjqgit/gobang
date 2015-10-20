@@ -19,11 +19,12 @@ THREE.Mover = function ( geometry, material ) {
 	this.pathIndex = 0;
 	this.rail;
 	this.reversed = false;
-	this.finished = false;
+	this.finished = true;
 
 	this.locationX = this.position.x;
 	this.locationY = this.position.y;
 	this.locationZ = this.position.z;
+	this.currentNode = "";
 
 	this.stopwatch = 0;
 
@@ -111,7 +112,7 @@ THREE.Mover.prototype.moveAndStop = function ( fps, rail ) {
 		if ( this.speed > rail.speedLimit || this.speed > this.speedLimit ) this.accelerate(fps, - this.acceleration);
 	} else {
 		if (this.speed > 0) this.accelerate(fps, - this.acceleration);
-		if (this.speed < 0) {
+		if (this.speed < 50) {
 			this.speed = 0;
 			this.finished = true;
 		}
@@ -145,7 +146,7 @@ THREE.Mover.prototype.executePath = function ( fps, path) {
 };
 
 THREE.Mover.prototype.executePath = function (fps) {
-	if (path == undefined) return;
+	if (this.path == undefined) return;
 
 	this.rail = this.path.rails[this.pathIndex];
 	this.reversed = this.path.reversed[this.pathIndex];
@@ -169,10 +170,16 @@ THREE.Mover.prototype.reset = function () {
 	this.speed = 0;
 	this.pathIndex = 0;
 	this.stopwatch = 0;
+	this.finished = false;
+	this.path = undefined;
+	this.rail = undefined;
+	this.reserved = false;
 }
 
 THREE.Mover.prototype.updateLocation = function () {
 	this.locationX = this.position.x;
 	this.locationY = this.position.y;
 	this.locationZ = this.position.z;
+	this.currentNode = this.path.rails[this.pathIndex].name;
+
 }

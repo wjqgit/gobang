@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dat Gui Demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <link type="text/css" rel="stylesheet" href="./public/css/test.css">
+
+  <script src="./public/js/libs/dat.gui.min.js"></script>
+
+  <script src="./public/js/three.min.js"></script>
+  <script src="./public/js/Detector.js"></script>
+  <script src="./public/js/boxs/TrackballControls.js"></script>
+  <script src="./public/js/libs/stats.min.js"></script>
+
+</head>
+
+<body>
+  <script type="text/javascript">
+    var renderer, scene, camera;
+    var box;
+
+    var Box = function () {
+      this.message =  'dat gui';
+      this.speed = 0.8;
+      this.displayOutline = false;
+      this.explode = function () {}
+
+      var geometry = new THREE.BoxGeometry( 30, 30, 30 ),
+      material = new THREE.MeshNormalMaterial();
+      this.mesh = new THREE.Mesh(geometry, material);
+      this.mesh.castShadow = true;
+    }
+
+    window.onload = function () {
+      box = new Box();
+      var gui = new dat.GUI();
+      gui.add(box, 'message');
+      gui.add(box, 'speed', 0, 2);
+      gui.add(box, 'displayOutline');
+      gui.add(box, 'explode');
+      gui.add(box, 'speed', {slow: 0.1, medium: 1, fast: 2})
+
+      if(!Detector.webgl)Detector.addGetWebGLMessage();
+
+      init();
+      animate(box);
+    }
+
+    function init() {
+      renderer = new THREE.WebGLRenderer({
+        antialias: true
+      });
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 1, 10000 );
+
+      ambient_light = new THREE.AmbientLight( 0x222222 ),
+      directional_light = new THREE.DirectionalLight( 0xffffff, 1 );
+
+
+
+      renderer.shadowMap.enabled = true;
+      camera.position.set( 0, 400, 800 );
+      camera.lookAt(new THREE.Vector3( 0, 0, 0 ));
+
+      directional_light.position.x = -100;
+      directional_light.position.y = 150;
+      directional_light.position.z = 60;
+
+      directional_light.castShadow = true;
+
+      camera.position.set( 0, 400, 800 );
+      camera.lookAt(new THREE.Vector3( 0, 0, 0 ));
+
+      directional_light.position.x = -100;
+      directional_light.position.y = 150;
+      directional_light.position.z = 60;
+
+      directional_light.castShadow = true
+
+      // scene.add(camera);
+      scene.add(ambient_light);
+      scene.add(directional_light);
+      scene.add(box.mesh);
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      document.body.appendChild(renderer.domElement);
+
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      box.mesh.rotateY(box.speed / 10);
+      render();
+    }
+
+    function render() {
+      renderer.render(scene, camera);
+    }
+
+  </script>
+</body>
+</html>
