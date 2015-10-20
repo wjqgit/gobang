@@ -34,8 +34,11 @@
     var socket = io.connect('http://localhost:' + port);
 
     var RequestMessage = function () {
-      this.startNode = "unit-0";
-      this.goalNode = "dock-station-0";
+      // this.startNode = "unit-0";
+      this.startNode = 'rail-io-0-01';
+      // this.goalNode = "dock-station-0";
+      this.goalNode = "rail-station-0-01"
+      // this.goalNode = "rail-traffic-04";
       this.automatic = false;
     }
 
