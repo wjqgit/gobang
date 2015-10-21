@@ -31,15 +31,111 @@
 <body>
   <script>
     var port = 9002;
-    var socket = io.connect('http://localhost:' + port);
+    // var socket = io.connect('http://localhost:' + port);
+    var socket = io.connect('http://192.168.0.10:' + port);
 
     var RequestMessage = function () {
-      // this.startNode = "unit-0";
-      this.startNode = 'rail-io-0-01';
-      // this.goalNode = "dock-station-0";
-      this.goalNode = "rail-station-0-01"
+      this.startNode = "unit-0";
+      // this.startNode = 'rail-io-0-01';
+      // this.startNode = 'switch-io-0-00';
+      this.goalNode = "dock-station-0";
+      // this.goalNode = "rail-station-0-01"
+      // this.goalNode = 'switch-station-0-01';
       // this.goalNode = "rail-traffic-04";
       this.automatic = false;
+    }
+
+    var GoalOptions = function () {
+        this.options = {
+            'station-0': 'dock-station-0',
+            'station-1': 'dock-station-1',
+            'unit-0': 'unit-0',
+            'unit-1': 'unit-1',
+            'unit-2': 'unit-2',
+            // 'rail-io-0-00': 'rail-io-0-00',
+            'rail-io-0-01': 'rail-io-0-01',
+            'rail-io-0-02': 'rail-io-0-02',
+            'rail-io-0-03': 'rail-io-0-03',
+            'rail-io-0-04': 'rail-io-0-04',
+            'rail-io-0-05': 'rail-io-0-05',
+            'rail-io-0-06': 'rail-io-0-06',
+            // 'rail-io-1-00': 'rail-io-1-00',
+            'rail-io-1-01': 'rail-io-1-01',
+            'rail-io-1-02': 'rail-io-1-02',
+            'rail-io-1-03': 'rail-io-1-03',
+            'rail-io-1-04': 'rail-io-1-04',
+            'rail-io-1-05': 'rail-io-1-05',
+            'rail-io-1-06': 'rail-io-1-06',
+            // 'rail-io-2-00': 'rail-io-2-00',
+            'rail-io-2-01': 'rail-io-2-01',
+            'rail-io-2-02': 'rail-io-2-02',
+            'rail-io-2-03': 'rail-io-2-03',
+            'rail-io-2-04': 'rail-io-2-04',
+            'rail-io-2-05': 'rail-io-2-05',
+            'rail-io-2-06': 'rail-io-2-06',
+            'rail-station-0-00': 'rail-station-0-00',
+            'rail-station-0-01': 'rail-station-0-01',
+            'rail-station-0-02': 'rail-station-0-02',
+            'rail-station-0-03': 'rail-station-0-03',
+            'rail-station-0-04': 'rail-station-0-04',
+            'rail-station-0-05': 'rail-station-0-05',
+            'rail-station-0-06': 'rail-station-0-06',
+            'rail-station-0-07': 'rail-station-0-07',
+            'rail-station-1-00': 'rail-station-1-00',
+            'rail-station-1-01': 'rail-station-1-01',
+            'rail-station-1-02': 'rail-station-1-02',
+            'rail-station-1-03': 'rail-station-1-03',
+            'rail-station-1-04': 'rail-station-1-04',
+            'rail-station-1-05': 'rail-station-1-05',
+            'rail-station-1-06': 'rail-station-1-06',
+            'rail-station-1-07': 'rail-station-1-07',
+            'rail-traffic-00': 'rail-traffic-00',
+            'rail-traffic-01': 'rail-traffic-01',
+            'rail-traffic-02': 'rail-traffic-02',
+            'rail-traffic-03': 'rail-traffic-03',
+            'rail-traffic-04': 'rail-traffic-04',
+            'rail-traffic-05': 'rail-traffic-05',
+            'rail-traffic-06': 'rail-traffic-06',
+            'rail-traffic-07': 'rail-traffic-07',
+            'rail-traffic-08': 'rail-traffic-08',
+            'rail-traffic-09': 'rail-traffic-09',
+            'rail-traffic-10': 'rail-traffic-10',
+            'rail-traffic-11': 'rail-traffic-11',
+            'rail-traffic-12': 'rail-traffic-12',
+            'rail-traffic-13': 'rail-traffic-13',
+            'rail-traffic-14': 'rail-traffic-14',
+            'rail-traffic-15': 'rail-traffic-15',
+            'rail-traffic-16': 'rail-traffic-16',
+            'rail-traffic-17': 'rail-traffic-17',
+            'rail-traffic-18': 'rail-traffic-18',
+            'rail-traffic-19': 'rail-traffic-19',
+            'rail-traffic-20': 'rail-traffic-20',
+            'rail-traffic-21': 'rail-traffic-21',
+            'rail-traffic-22': 'rail-traffic-22',
+            'rail-traffic-23': 'rail-traffic-23',
+            'rail-traffic-24': 'rail-traffic-24',
+            'rail-traffic-25': 'rail-traffic-25',
+            'rail-shunt-0-0-00': 'rail-shunt-0-0-00',
+            'rail-shunt-0-0-01': 'rail-shunt-0-0-01',
+            'rail-shunt-0-0-02': 'rail-shunt-0-0-02',
+            'rail-shunt-0-1-00': 'rail-shunt-0-1-00',
+            'rail-shunt-0-1-01': 'rail-shunt-0-1-01',
+            'rail-shunt-0-1-02': 'rail-shunt-0-1-02',
+            'rail-shunt-1-0-00': 'rail-shunt-1-0-00',
+            'rail-shunt-1-0-01': 'rail-shunt-1-0-01',
+            'rail-shunt-1-0-02': 'rail-shunt-1-0-02',
+            'rail-shunt-1-1-00': 'rail-shunt-1-1-00',
+            'rail-shunt-1-1-01': 'rail-shunt-1-1-01',
+            'rail-shunt-1-1-02': 'rail-shunt-1-1-02'
+          }
+        this.optionArray = [];
+        for (var i in this.options) {
+          this.optionArray.push(this.options[i])
+        }
+
+        this.getNext = function () {
+          return this.optionArray[Math.floor(Math.random() * this.optionArray.length)];
+        }
     }
 
     socket.on('connect', function() {
@@ -93,20 +189,21 @@
     var fps = 0, startTime = Date.now(), prevTime = startTime, frames = 0;
 
     // GUI
-    var controller_gui, mover_controller, path_controller;
+    var controller_gui, mover_controller, path_controller, automation_controller;
 
     // REQUEST
-    var requestMsg;
+    var requestMsg, goalOptions;
 
     // RENDER RAIL
     var renderRails = new THREE.Mesh();
     var lineMaterial = new THREE.LineBasicMaterial( { color : 0xffffff, opacity: 0.8, transparent: true} ),
-        renderMaterial = new THREE.LineBasicMaterial( { color : 0x42A5F5, opacity: 0.8, transparent: true} );
+        renderMaterial = new THREE.LineBasicMaterial( { color : 0x2FA1D6, opacity: 0.8, transparent: true} );
     var tempPathIndex = 0;
 
     // LOAD
     window.onload = function() {
       requestMsg = new RequestMessage();
+      goalOptions = new GoalOptions();
       init();
       animate();
     }
@@ -125,8 +222,8 @@
 			info.style.width = '100%';
 			info.style.textAlign = 'center';
 			info.innerHTML = 'Kovan System - Movement by wjq';
-			info.innerHTML += '<br/><br/><input id="RequestMap" type="button" onClick="requestMap()" value="Request Map"/>';
-      info.innerHTML += '<br/><br/><input id="RequestPath" type="button" onClick="requestPath()" value="Request Path"/>';
+			// info.innerHTML += '<br/><br/><input id="RequestMap" type="button" onClick="requestMap()" value="Request Map"/>';
+      // info.innerHTML += '<br/><br/><input id="RequestPath" type="button" onClick="requestPath()" value="Request Path"/>';
 
 			container.appendChild(info);
 
@@ -166,7 +263,7 @@
 
 			// CAMERA
 			camera = new THREE.PerspectiveCamera( 75, SCREEN_WIDTH/SCREEN_HEIGHT, 1, 200000 );
-			camera.position.set(FLOOR_WIDTH / 2, - FLOOR_DEPTH / 2, FLOOR_DEPTH / 3);
+			camera.position.set(FLOOR_WIDTH / 2, - FLOOR_DEPTH / 3, FLOOR_DEPTH / 4);
       camera.lookAt(new THREE.Vector3( FLOOR_WIDTH / 2, FLOOR_DEPTH / 2, 0 ));
 			// CONTROL
       control = new THREE.OrbitControls(camera, renderer.domElement);
@@ -326,26 +423,40 @@
 
     function initializeController() {
       controller_gui = new dat.GUI();
+      initializeMoverController();
+      initializePathController();
+      initializeRequestController();
+    }
+
+    function initializeMoverController() {
       mover_controller = controller_gui.addFolder('Mover');
       mover_controller.add(mover, 'name');
       mover_controller.add(mover, 'speed', 0, 5000).listen();
-      mover_controller.add(mover, 'acceleration', 0, 3000);
+      mover_controller.add(mover, 'acceleration', 0, 5000);
       mover_controller.add(mover, 'speedLimit', 0, 5000);
       mover_controller.add(mover, 'locationX').listen();
       mover_controller.add(mover, 'locationY').listen();
       mover_controller.add(mover, 'locationZ').listen();
 
-      path_controller = controller_gui.addFolder('Path');
-
-
-      request_controller = controller_gui.addFolder('Request');
-      request_controller.add(requestMsg, 'startNode').listen();
-      request_controller.add(requestMsg, 'goalNode',
-      {'unit-0': 'unit-0', 'unit-1': 'unit-1', 'unit-2': 'unit-2', 'station-0': 'dock-station-0', 'station-1': 'dock-station-1' });
-      request_controller.add(requestMsg, 'automatic');
-
       mover_controller.open();
+    }
+
+    function initializePathController() {
+      path_controller = controller_gui.addFolder('Path');
       path_controller.open();
+    }
+
+    function initializeRequestController() {
+      request_controller = controller_gui.addFolder('Request');
+      automation_controller = request_controller.add(requestMsg, 'automatic');
+      request_controller.add(requestMsg, 'startNode').listen();
+      request_controller.add(requestMsg, 'goalNode').listen();
+      request_controller.add(requestMsg, 'goalNode', goalOptions.options);
+
+      automation_controller.onFinishChange(function (automatic) {
+        if (automatic) requestRandomGoal();
+      })
+
       request_controller.open();
     }
 
@@ -376,12 +487,23 @@
     //   }
     // }
 
+    function requestRandomGoal () {
+      do {
+        requestMsg.goalNode = goalOptions.getNext();
+      } while (requestMsg.goalNode == requestMsg.startNode);
+      requestPath();
+    }
+
     function onFinishPathExecution () {
       requestMsg.startNode = mover.path.goalNode;
       path = undefined;
       tempPathIndex = 0;
       mover.reset();
       console.log("Mover finished path execution!");
+      if (requestMsg.automatic) {
+        console.log("Automation is on, looking for next goal");
+        requestRandomGoal();
+      }
     }
 
 
@@ -444,7 +566,17 @@
       renderer.render(scene, camera);
     }
 
+
+
   </script>
+  <div class="Request">
+    <div class="RequestButton" onClick="requestMap()">
+      Request Map
+    </div>
+    <div class="RequestButton" onClick="requestPath()">
+      Request Path
+    </div>
+  </div>
 </body>
 
 </html>

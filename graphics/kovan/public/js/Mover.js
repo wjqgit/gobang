@@ -12,7 +12,7 @@ THREE.Mover = function ( geometry, material ) {
 	this.height = 500;
 
 	this.speed = 0;
-	this.acceleration = 500;
+	this.acceleration = 1000;
 	this.speedLimit = 2000;
 	// this.braking = false;
 	this.path;
@@ -66,7 +66,7 @@ THREE.Mover.prototype.move = function ( fps, rail ) {
 
 	// ACCELERATE
 	if ( this.speed < rail.speedLimit && this.speed < this.speedLimit ) this.accelerate(fps);
-	if ( this.speed > rail.speedLimit || this.speed > this.speedLimit ) this.accelerate(fps, - this.acceleration);
+	if ( this.speed > rail.speedLimit || this.speed > this.speedLimit ) this.accelerate(fps, - this.acceleration); // this.speed = Math.min(rail.speedLimit,  this.speedLimit);
 
 	// RUN STOPWATCH
 	if (this.stopwatch + increment > division) {
@@ -109,10 +109,10 @@ THREE.Mover.prototype.moveAndStop = function ( fps, rail ) {
 	// ACCELERATE
 	if ( (t < brakingT && ! this.reversed) || ( (1 - t) < brakingT && this.reversed) ) {
 		if ( this.speed < rail.speedLimit && this.speed < this.speedLimit ) this.accelerate(fps);
-		if ( this.speed > rail.speedLimit || this.speed > this.speedLimit ) this.accelerate(fps, - this.acceleration);
+		if ( this.speed > rail.speedLimit || this.speed > this.speedLimit ) this.accelerate(fps, - this.acceleration); //this.speed = Math.min(rail.speedLimit,  this.speedLimit);
 	} else {
 		if (this.speed > 0) this.accelerate(fps, - this.acceleration);
-		if (this.speed < 50) {
+		if (this.speed < (this.acceleration / 10 )) {
 			this.speed = 0;
 			this.finished = true;
 		}
