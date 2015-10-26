@@ -36,11 +36,13 @@
     // var socket = io.connect('http://192.168.0.10:' + port);
 
     var RequestMessage = function () {
-      // this.startNode = "unit-floor-0-0";
-      this.startNode = "rail-floor-0-lift-0-03";
+      this.startNode = "unit-floor-0-0";
+      // this.startNode = "dock-floor-0-0"
+      // this.startNode = "rail-floor-0-lift-0-02";
       // this.startNode = 'rail-io-0-01';
       // this.startNode = 'switch-io-0-00';
-      this.goalNode = "dock-floor-1-0";
+      // this.goalNode = "dock-floor-2-1";
+      this.goalNode = "unit-floor-1-2";
       // this.goalNode = "rail-floor-0-traffic-05";
       // this.goalNode = "rail-floor-0-lift-0-02";
       // this.goalNode = "rail-station-0-01"
@@ -51,86 +53,317 @@
 
     var GoalOptions = function () {
         this.options = {
-            'station-0': 'dock-station-0',
-            'station-1': 'dock-station-1',
-            'unit-0': 'unit-0',
-            'unit-1': 'unit-1',
-            'unit-2': 'unit-2',
-            // 'rail-io-0-00': 'rail-io-0-00',
-            'rail-io-0-01': 'rail-io-0-01',
-            'rail-io-0-02': 'rail-io-0-02',
-            'rail-io-0-03': 'rail-io-0-03',
-            'rail-io-0-04': 'rail-io-0-04',
-            'rail-io-0-05': 'rail-io-0-05',
-            'rail-io-0-06': 'rail-io-0-06',
-            // 'rail-io-1-00': 'rail-io-1-00',
-            'rail-io-1-01': 'rail-io-1-01',
-            'rail-io-1-02': 'rail-io-1-02',
-            'rail-io-1-03': 'rail-io-1-03',
-            'rail-io-1-04': 'rail-io-1-04',
-            'rail-io-1-05': 'rail-io-1-05',
-            'rail-io-1-06': 'rail-io-1-06',
-            // 'rail-io-2-00': 'rail-io-2-00',
-            'rail-io-2-01': 'rail-io-2-01',
-            'rail-io-2-02': 'rail-io-2-02',
-            'rail-io-2-03': 'rail-io-2-03',
-            'rail-io-2-04': 'rail-io-2-04',
-            'rail-io-2-05': 'rail-io-2-05',
-            'rail-io-2-06': 'rail-io-2-06',
-            'rail-station-0-00': 'rail-station-0-00',
-            'rail-station-0-01': 'rail-station-0-01',
-            'rail-station-0-02': 'rail-station-0-02',
-            'rail-station-0-03': 'rail-station-0-03',
-            'rail-station-0-04': 'rail-station-0-04',
-            'rail-station-0-05': 'rail-station-0-05',
-            'rail-station-0-06': 'rail-station-0-06',
-            'rail-station-0-07': 'rail-station-0-07',
-            'rail-station-1-00': 'rail-station-1-00',
-            'rail-station-1-01': 'rail-station-1-01',
-            'rail-station-1-02': 'rail-station-1-02',
-            'rail-station-1-03': 'rail-station-1-03',
-            'rail-station-1-04': 'rail-station-1-04',
-            'rail-station-1-05': 'rail-station-1-05',
-            'rail-station-1-06': 'rail-station-1-06',
-            'rail-station-1-07': 'rail-station-1-07',
-            'rail-traffic-00': 'rail-traffic-00',
-            'rail-traffic-01': 'rail-traffic-01',
-            'rail-traffic-02': 'rail-traffic-02',
-            'rail-traffic-03': 'rail-traffic-03',
-            'rail-traffic-04': 'rail-traffic-04',
-            'rail-traffic-05': 'rail-traffic-05',
-            'rail-traffic-06': 'rail-traffic-06',
-            'rail-traffic-07': 'rail-traffic-07',
-            'rail-traffic-08': 'rail-traffic-08',
-            'rail-traffic-09': 'rail-traffic-09',
-            'rail-traffic-10': 'rail-traffic-10',
-            'rail-traffic-11': 'rail-traffic-11',
-            'rail-traffic-12': 'rail-traffic-12',
-            'rail-traffic-13': 'rail-traffic-13',
-            'rail-traffic-14': 'rail-traffic-14',
-            'rail-traffic-15': 'rail-traffic-15',
-            'rail-traffic-16': 'rail-traffic-16',
-            'rail-traffic-17': 'rail-traffic-17',
-            'rail-traffic-18': 'rail-traffic-18',
-            'rail-traffic-19': 'rail-traffic-19',
-            'rail-traffic-20': 'rail-traffic-20',
-            'rail-traffic-21': 'rail-traffic-21',
-            'rail-traffic-22': 'rail-traffic-22',
-            'rail-traffic-23': 'rail-traffic-23',
-            'rail-traffic-24': 'rail-traffic-24',
-            'rail-traffic-25': 'rail-traffic-25',
-            'rail-shunt-0-0-00': 'rail-shunt-0-0-00',
-            'rail-shunt-0-0-01': 'rail-shunt-0-0-01',
-            'rail-shunt-0-0-02': 'rail-shunt-0-0-02',
-            'rail-shunt-0-1-00': 'rail-shunt-0-1-00',
-            'rail-shunt-0-1-01': 'rail-shunt-0-1-01',
-            'rail-shunt-0-1-02': 'rail-shunt-0-1-02',
-            'rail-shunt-1-0-00': 'rail-shunt-1-0-00',
-            'rail-shunt-1-0-01': 'rail-shunt-1-0-01',
-            'rail-shunt-1-0-02': 'rail-shunt-1-0-02',
-            'rail-shunt-1-1-00': 'rail-shunt-1-1-00',
-            'rail-shunt-1-1-01': 'rail-shunt-1-1-01',
-            'rail-shunt-1-1-02': 'rail-shunt-1-1-02'
+          'unit-floor-0-0': 'unit-floor-0-0',
+          'unit-floor-0-1': 'unit-floor-0-1',
+          'unit-floor-0-2': 'unit-floor-0-2',
+          'dock-floor-0-0': 'dock-floor-0-0',
+          'dock-floor-0-1': 'dock-floor-0-1',
+          // 'rail-floor-0-io-0-00': 'rail-floor-0-io-0-00',
+          // 'rail-floor-0-io-0-01': 'rail-floor-0-io-0-01',
+          'rail-floor-0-io-0-02': 'rail-floor-0-io-0-02',
+          // 'rail-floor-0-io-0-03': 'rail-floor-0-io-0-03',
+          'rail-floor-0-io-0-04': 'rail-floor-0-io-0-04',
+          'rail-floor-0-io-0-05': 'rail-floor-0-io-0-05',
+          // 'rail-floor-0-io-0-06': 'rail-floor-0-io-0-06',
+          // 'rail-floor-0-io-0-07': 'rail-floor-0-io-0-07',
+          // 'rail-floor-0-io-1-00': 'rail-floor-0-io-1-00',
+          // 'rail-floor-0-io-1-01': 'rail-floor-0-io-1-01',
+          'rail-floor-0-io-1-02': 'rail-floor-0-io-1-02',
+          // 'rail-floor-0-io-1-03': 'rail-floor-0-io-1-03',
+          'rail-floor-0-io-1-04': 'rail-floor-0-io-1-04',
+          'rail-floor-0-io-1-05': 'rail-floor-0-io-1-05',
+          // 'rail-floor-0-io-1-06': 'rail-floor-0-io-1-06',
+          // 'rail-floor-0-io-1-07': 'rail-floor-0-io-1-07',
+          // 'rail-floor-0-io-2-00': 'rail-floor-0-io-2-00',
+          // 'rail-floor-0-io-2-01': 'rail-floor-0-io-2-01',
+          'rail-floor-0-io-2-02': 'rail-floor-0-io-2-02',
+          // 'rail-floor-0-io-2-03': 'rail-floor-0-io-2-03',
+          'rail-floor-0-io-2-04': 'rail-floor-0-io-2-04',
+          'rail-floor-0-io-2-05': 'rail-floor-0-io-2-05',
+          // 'rail-floor-0-io-2-06': 'rail-floor-0-io-2-06',
+          // 'rail-floor-0-io-2-07': 'rail-floor-0-io-2-07',
+          // 'rail-floor-0-station-0-00': 'rail-floor-0-station-0-00',
+          'rail-floor-0-station-0-01': 'rail-floor-0-station-0-01',
+          // 'rail-floor-0-station-0-02': 'rail-floor-0-station-0-02',
+          'rail-floor-0-station-0-03': 'rail-floor-0-station-0-03',
+          'rail-floor-0-station-0-04': 'rail-floor-0-station-0-04',
+          // 'rail-floor-0-station-0-05': 'rail-floor-0-station-0-05',
+          'rail-floor-0-station-0-06': 'rail-floor-0-station-0-06',
+          // 'rail-floor-0-station-0-07': 'rail-floor-0-station-0-07',
+          // 'rail-floor-0-station-1-00': 'rail-floor-0-station-1-00',
+          'rail-floor-0-station-1-01': 'rail-floor-0-station-1-01',
+          // 'rail-floor-0-station-1-02': 'rail-floor-0-station-1-02',
+          'rail-floor-0-station-1-03': 'rail-floor-0-station-1-03',
+          'rail-floor-0-station-1-04': 'rail-floor-0-station-1-04',
+          // 'rail-floor-0-station-1-05': 'rail-floor-0-station-1-05',
+          'rail-floor-0-station-1-06': 'rail-floor-0-station-1-06',
+          // 'rail-floor-0-station-1-07': 'rail-floor-0-station-1-07',
+          // 'rail-floor-0-lift-0-00': 'rail-floor-0-lift-0-00',
+          'rail-floor-0-lift-0-01': 'rail-floor-0-lift-0-01',
+          // 'rail-floor-0-lift-0-02': 'rail-floor-0-lift-0-02',
+          'rail-floor-0-lift-0-03': 'rail-floor-0-lift-0-03',
+          'rail-floor-0-lift-0-04': 'rail-floor-0-lift-0-04',
+          // 'rail-floor-0-lift-0-05': 'rail-floor-0-lift-0-05',
+          'rail-floor-0-lift-0-06': 'rail-floor-0-lift-0-06',
+          // 'rail-floor-0-lift-0-07': 'rail-floor-0-lift-0-07',
+          // 'rail-floor-0-lift-1-00': 'rail-floor-0-lift-1-00',
+          'rail-floor-0-lift-1-01': 'rail-floor-0-lift-1-01',
+          // 'rail-floor-0-lift-1-02': 'rail-floor-0-lift-1-02',
+          'rail-floor-0-lift-1-03': 'rail-floor-0-lift-1-03',
+          'rail-floor-0-lift-1-04': 'rail-floor-0-lift-1-04',
+          // 'rail-floor-0-lift-1-05': 'rail-floor-0-lift-1-05',
+          'rail-floor-0-lift-1-06': 'rail-floor-0-lift-1-06',
+          // 'rail-floor-0-lift-1-07': 'rail-floor-0-lift-1-07',
+          // 'rail-floor-0-shunt-0-0-00': 'rail-floor-0-shunt-0-0-00',
+          'rail-floor-0-shunt-0-0-01': 'rail-floor-0-shunt-0-0-01',
+          // 'rail-floor-0-shunt-0-0-02': 'rail-floor-0-shunt-0-0-02',
+          // 'rail-floor-0-shunt-0-1-00': 'rail-floor-0-shunt-0-1-00',
+          'rail-floor-0-shunt-0-1-01': 'rail-floor-0-shunt-0-1-01',
+          // 'rail-floor-0-shunt-0-1-02': 'rail-floor-0-shunt-0-1-02',
+          // 'rail-floor-0-shunt-1-0-00': 'rail-floor-0-shunt-1-0-00',
+          'rail-floor-0-shunt-1-0-01': 'rail-floor-0-shunt-1-0-01',
+          // 'rail-floor-0-shunt-1-0-02': 'rail-floor-0-shunt-1-0-02',
+          // 'rail-floor-0-shunt-1-1-00': 'rail-floor-0-shunt-1-1-00',
+          'rail-floor-0-shunt-1-1-01': 'rail-floor-0-shunt-1-1-01',
+          // 'rail-floor-0-shunt-1-1-02': 'rail-floor-0-shunt-1-1-02',
+          'rail-floor-0-traffic-00': 'rail-floor-0-traffic-00',
+          // 'rail-floor-0-traffic-01': 'rail-floor-0-traffic-01',
+          'rail-floor-0-traffic-02': 'rail-floor-0-traffic-02',
+          'rail-floor-0-traffic-03': 'rail-floor-0-traffic-03',
+          'rail-floor-0-traffic-04': 'rail-floor-0-traffic-04',
+          // 'rail-floor-0-traffic-05': 'rail-floor-0-traffic-05',
+          'rail-floor-0-traffic-06': 'rail-floor-0-traffic-06',
+          'rail-floor-0-traffic-07': 'rail-floor-0-traffic-07',
+          'rail-floor-0-traffic-08': 'rail-floor-0-traffic-08',
+          'rail-floor-0-traffic-09': 'rail-floor-0-traffic-09',
+          'rail-floor-0-traffic-10': 'rail-floor-0-traffic-10',
+          'rail-floor-0-traffic-11': 'rail-floor-0-traffic-11',
+          'rail-floor-0-traffic-12': 'rail-floor-0-traffic-12',
+          'rail-floor-0-traffic-13': 'rail-floor-0-traffic-13',
+          'rail-floor-0-traffic-14': 'rail-floor-0-traffic-14',
+          // 'rail-floor-0-traffic-15': 'rail-floor-0-traffic-15',
+          'rail-floor-0-traffic-16': 'rail-floor-0-traffic-16',
+          'rail-floor-0-traffic-17': 'rail-floor-0-traffic-17',
+          'rail-floor-0-traffic-18': 'rail-floor-0-traffic-18',
+          // 'rail-floor-0-traffic-19': 'rail-floor-0-traffic-19',
+          'rail-floor-0-traffic-20': 'rail-floor-0-traffic-20',
+          'rail-floor-0-traffic-21': 'rail-floor-0-traffic-21',
+          'rail-floor-0-traffic-22': 'rail-floor-0-traffic-22',
+          'rail-floor-0-traffic-23': 'rail-floor-0-traffic-23',
+          'rail-floor-0-traffic-24': 'rail-floor-0-traffic-24',
+          'rail-floor-0-traffic-25': 'rail-floor-0-traffic-25',
+          'rail-floor-0-traffic-26': 'rail-floor-0-traffic-26',
+          'rail-floor-0-traffic-27': 'rail-floor-0-traffic-27',
+          'rail-floor-0-traffic-28': 'rail-floor-0-traffic-28',
+          'rail-floor-0-traffic-29': 'rail-floor-0-traffic-29',
+          // '': '',
+          'unit-floor-1-0': 'unit-floor-1-0',
+          'unit-floor-1-1': 'unit-floor-1-1',
+          'unit-floor-1-2': 'unit-floor-1-2',
+          'dock-floor-1-0': 'dock-floor-1-0',
+          'dock-floor-1-1': 'dock-floor-1-1',
+          // 'rail-floor-1-io-0-00': 'rail-floor-1-io-0-00',
+          // 'rail-floor-1-io-0-01': 'rail-floor-1-io-0-01',
+          'rail-floor-1-io-0-02': 'rail-floor-1-io-0-02',
+          // 'rail-floor-1-io-0-03': 'rail-floor-1-io-0-03',
+          'rail-floor-1-io-0-04': 'rail-floor-1-io-0-04',
+          'rail-floor-1-io-0-05': 'rail-floor-1-io-0-05',
+          // 'rail-floor-1-io-0-06': 'rail-floor-1-io-0-06',
+          // 'rail-floor-1-io-0-07': 'rail-floor-1-io-0-07',
+          // 'rail-floor-1-io-1-00': 'rail-floor-1-io-1-00',
+          // 'rail-floor-1-io-1-01': 'rail-floor-1-io-1-01',
+          'rail-floor-1-io-1-02': 'rail-floor-1-io-1-02',
+          // 'rail-floor-1-io-1-03': 'rail-floor-1-io-1-03',
+          'rail-floor-1-io-1-04': 'rail-floor-1-io-1-04',
+          'rail-floor-1-io-1-05': 'rail-floor-1-io-1-05',
+          // 'rail-floor-1-io-1-06': 'rail-floor-1-io-1-06',
+          // 'rail-floor-1-io-1-07': 'rail-floor-1-io-1-07',
+          // 'rail-floor-1-io-2-00': 'rail-floor-1-io-2-00',
+          // 'rail-floor-1-io-2-01': 'rail-floor-1-io-2-01',
+          'rail-floor-1-io-2-02': 'rail-floor-1-io-2-02',
+          // 'rail-floor-1-io-2-03': 'rail-floor-1-io-2-03',
+          'rail-floor-1-io-2-04': 'rail-floor-1-io-2-04',
+          'rail-floor-1-io-2-05': 'rail-floor-1-io-2-05',
+          // 'rail-floor-1-io-2-06': 'rail-floor-1-io-2-06',
+          // 'rail-floor-1-io-2-07': 'rail-floor-1-io-2-07',
+          // 'rail-floor-1-station-0-00': 'rail-floor-1-station-0-00',
+          'rail-floor-1-station-0-01': 'rail-floor-1-station-0-01',
+          // 'rail-floor-1-station-0-02': 'rail-floor-1-station-0-02',
+          'rail-floor-1-station-0-03': 'rail-floor-1-station-0-03',
+          'rail-floor-1-station-0-04': 'rail-floor-1-station-0-04',
+          // 'rail-floor-1-station-0-05': 'rail-floor-1-station-0-05',
+          'rail-floor-1-station-0-06': 'rail-floor-1-station-0-06',
+          // 'rail-floor-1-station-0-07': 'rail-floor-1-station-0-07',
+          // 'rail-floor-1-station-1-00': 'rail-floor-1-station-1-00',
+          'rail-floor-1-station-1-01': 'rail-floor-1-station-1-01',
+          // 'rail-floor-1-station-1-02': 'rail-floor-1-station-1-02',
+          'rail-floor-1-station-1-03': 'rail-floor-1-station-1-03',
+          'rail-floor-1-station-1-04': 'rail-floor-1-station-1-04',
+          // 'rail-floor-1-station-1-05': 'rail-floor-1-station-1-05',
+          'rail-floor-1-station-1-06': 'rail-floor-1-station-1-06',
+          // 'rail-floor-1-station-1-07': 'rail-floor-1-station-1-07',
+          // 'rail-floor-1-lift-0-00': 'rail-floor-1-lift-0-00',
+          'rail-floor-1-lift-0-01': 'rail-floor-1-lift-0-01',
+          // 'rail-floor-1-lift-0-02': 'rail-floor-1-lift-0-02',
+          'rail-floor-1-lift-0-03': 'rail-floor-1-lift-0-03',
+          'rail-floor-1-lift-0-04': 'rail-floor-1-lift-0-04',
+          // 'rail-floor-1-lift-0-05': 'rail-floor-1-lift-0-05',
+          'rail-floor-1-lift-0-06': 'rail-floor-1-lift-0-06',
+          // 'rail-floor-1-lift-0-07': 'rail-floor-1-lift-0-07',
+          // 'rail-floor-1-lift-1-00': 'rail-floor-1-lift-1-00',
+          'rail-floor-1-lift-1-01': 'rail-floor-1-lift-1-01',
+          // 'rail-floor-1-lift-1-02': 'rail-floor-1-lift-1-02',
+          'rail-floor-1-lift-1-03': 'rail-floor-1-lift-1-03',
+          'rail-floor-1-lift-1-04': 'rail-floor-1-lift-1-04',
+          // 'rail-floor-1-lift-1-05': 'rail-floor-1-lift-1-05',
+          'rail-floor-1-lift-1-06': 'rail-floor-1-lift-1-06',
+          // 'rail-floor-1-lift-1-07': 'rail-floor-1-lift-1-07',
+          // 'rail-floor-1-shunt-0-0-00': 'rail-floor-1-shunt-0-0-00',
+          'rail-floor-1-shunt-0-0-01': 'rail-floor-1-shunt-0-0-01',
+          // 'rail-floor-1-shunt-0-0-02': 'rail-floor-1-shunt-0-0-02',
+          // 'rail-floor-1-shunt-0-1-00': 'rail-floor-1-shunt-0-1-00',
+          'rail-floor-1-shunt-0-1-01': 'rail-floor-1-shunt-0-1-01',
+          // 'rail-floor-1-shunt-0-1-02': 'rail-floor-1-shunt-0-1-02',
+          // 'rail-floor-1-shunt-1-0-00': 'rail-floor-1-shunt-1-0-00',
+          'rail-floor-1-shunt-1-0-01': 'rail-floor-1-shunt-1-0-01',
+          // 'rail-floor-1-shunt-1-0-02': 'rail-floor-1-shunt-1-0-02',
+          // 'rail-floor-1-shunt-1-1-00': 'rail-floor-1-shunt-1-1-00',
+          'rail-floor-1-shunt-1-1-01': 'rail-floor-1-shunt-1-1-01',
+          // 'rail-floor-1-shunt-1-1-02': 'rail-floor-1-shunt-1-1-02',
+          'rail-floor-1-traffic-00': 'rail-floor-1-traffic-00',
+          // 'rail-floor-1-traffic-01': 'rail-floor-1-traffic-01',
+          'rail-floor-1-traffic-02': 'rail-floor-1-traffic-02',
+          'rail-floor-1-traffic-03': 'rail-floor-1-traffic-03',
+          'rail-floor-1-traffic-04': 'rail-floor-1-traffic-04',
+          // 'rail-floor-1-traffic-05': 'rail-floor-1-traffic-05',
+          'rail-floor-1-traffic-06': 'rail-floor-1-traffic-06',
+          'rail-floor-1-traffic-07': 'rail-floor-1-traffic-07',
+          'rail-floor-1-traffic-08': 'rail-floor-1-traffic-08',
+          'rail-floor-1-traffic-09': 'rail-floor-1-traffic-09',
+          'rail-floor-1-traffic-10': 'rail-floor-1-traffic-10',
+          'rail-floor-1-traffic-11': 'rail-floor-1-traffic-11',
+          'rail-floor-1-traffic-12': 'rail-floor-1-traffic-12',
+          'rail-floor-1-traffic-13': 'rail-floor-1-traffic-13',
+          'rail-floor-1-traffic-14': 'rail-floor-1-traffic-14',
+          // 'rail-floor-1-traffic-15': 'rail-floor-1-traffic-15',
+          'rail-floor-1-traffic-16': 'rail-floor-1-traffic-16',
+          'rail-floor-1-traffic-17': 'rail-floor-1-traffic-17',
+          'rail-floor-1-traffic-18': 'rail-floor-1-traffic-18',
+          // 'rail-floor-1-traffic-19': 'rail-floor-1-traffic-19',
+          'rail-floor-1-traffic-20': 'rail-floor-1-traffic-20',
+          'rail-floor-1-traffic-21': 'rail-floor-1-traffic-21',
+          'rail-floor-1-traffic-22': 'rail-floor-1-traffic-22',
+          'rail-floor-1-traffic-23': 'rail-floor-1-traffic-23',
+          'rail-floor-1-traffic-24': 'rail-floor-1-traffic-24',
+          'rail-floor-1-traffic-25': 'rail-floor-1-traffic-25',
+          'rail-floor-1-traffic-26': 'rail-floor-1-traffic-26',
+          'rail-floor-1-traffic-27': 'rail-floor-1-traffic-27',
+          'rail-floor-1-traffic-28': 'rail-floor-1-traffic-28',
+          'rail-floor-1-traffic-29': 'rail-floor-1-traffic-29',
+          // '': '',
+          'unit-floor-2-0': 'unit-floor-2-0',
+          'unit-floor-2-1': 'unit-floor-2-1',
+          'unit-floor-2-2': 'unit-floor-2-2',
+          'dock-floor-2-0': 'dock-floor-2-0',
+          'dock-floor-2-1': 'dock-floor-2-1',
+          // 'rail-floor-2-io-0-00': 'rail-floor-2-io-0-00',
+          // 'rail-floor-2-io-0-01': 'rail-floor-2-io-0-01',
+          'rail-floor-2-io-0-02': 'rail-floor-2-io-0-02',
+          // 'rail-floor-2-io-0-03': 'rail-floor-2-io-0-03',
+          'rail-floor-2-io-0-04': 'rail-floor-2-io-0-04',
+          'rail-floor-2-io-0-05': 'rail-floor-2-io-0-05',
+          // 'rail-floor-2-io-0-06': 'rail-floor-2-io-0-06',
+          // 'rail-floor-2-io-0-07': 'rail-floor-2-io-0-07',
+          // 'rail-floor-2-io-1-00': 'rail-floor-2-io-1-00',
+          // 'rail-floor-2-io-1-01': 'rail-floor-2-io-1-01',
+          'rail-floor-2-io-1-02': 'rail-floor-2-io-1-02',
+          // 'rail-floor-2-io-1-03': 'rail-floor-2-io-1-03',
+          'rail-floor-2-io-1-04': 'rail-floor-2-io-1-04',
+          'rail-floor-2-io-1-05': 'rail-floor-2-io-1-05',
+          // 'rail-floor-2-io-1-06': 'rail-floor-2-io-1-06',
+          // 'rail-floor-2-io-1-07': 'rail-floor-2-io-1-07',
+          // 'rail-floor-2-io-2-00': 'rail-floor-2-io-2-00',
+          // 'rail-floor-2-io-2-01': 'rail-floor-2-io-2-01',
+          'rail-floor-2-io-2-02': 'rail-floor-2-io-2-02',
+          // 'rail-floor-2-io-2-03': 'rail-floor-2-io-2-03',
+          'rail-floor-2-io-2-04': 'rail-floor-2-io-2-04',
+          'rail-floor-2-io-2-05': 'rail-floor-2-io-2-05',
+          // 'rail-floor-2-io-2-06': 'rail-floor-2-io-2-06',
+          // 'rail-floor-2-io-2-07': 'rail-floor-2-io-2-07',
+          // 'rail-floor-2-station-0-00': 'rail-floor-2-station-0-00',
+          'rail-floor-2-station-0-01': 'rail-floor-2-station-0-01',
+          // 'rail-floor-2-station-0-02': 'rail-floor-2-station-0-02',
+          'rail-floor-2-station-0-03': 'rail-floor-2-station-0-03',
+          'rail-floor-2-station-0-04': 'rail-floor-2-station-0-04',
+          // 'rail-floor-2-station-0-05': 'rail-floor-2-station-0-05',
+          'rail-floor-2-station-0-06': 'rail-floor-2-station-0-06',
+          // 'rail-floor-2-station-0-07': 'rail-floor-2-station-0-07',
+          // 'rail-floor-2-station-1-00': 'rail-floor-2-station-1-00',
+          'rail-floor-2-station-1-01': 'rail-floor-2-station-1-01',
+          // 'rail-floor-2-station-1-02': 'rail-floor-2-station-1-02',
+          'rail-floor-2-station-1-03': 'rail-floor-2-station-1-03',
+          'rail-floor-2-station-1-04': 'rail-floor-2-station-1-04',
+          // 'rail-floor-2-station-1-05': 'rail-floor-2-station-1-05',
+          'rail-floor-2-station-1-06': 'rail-floor-2-station-1-06',
+          // 'rail-floor-2-station-1-07': 'rail-floor-2-station-1-07',
+          // 'rail-floor-2-lift-0-00': 'rail-floor-2-lift-0-00',
+          'rail-floor-2-lift-0-01': 'rail-floor-2-lift-0-01',
+          // 'rail-floor-2-lift-0-02': 'rail-floor-2-lift-0-02',
+          'rail-floor-2-lift-0-03': 'rail-floor-2-lift-0-03',
+          'rail-floor-2-lift-0-04': 'rail-floor-2-lift-0-04',
+          // 'rail-floor-2-lift-0-05': 'rail-floor-2-lift-0-05',
+          'rail-floor-2-lift-0-06': 'rail-floor-2-lift-0-06',
+          // 'rail-floor-2-lift-0-07': 'rail-floor-2-lift-0-07',
+          // 'rail-floor-2-lift-1-00': 'rail-floor-2-lift-1-00',
+          'rail-floor-2-lift-1-01': 'rail-floor-2-lift-1-01',
+          // 'rail-floor-2-lift-1-02': 'rail-floor-2-lift-1-02',
+          'rail-floor-2-lift-1-03': 'rail-floor-2-lift-1-03',
+          'rail-floor-2-lift-1-04': 'rail-floor-2-lift-1-04',
+          // 'rail-floor-2-lift-1-05': 'rail-floor-2-lift-1-05',
+          'rail-floor-2-lift-1-06': 'rail-floor-2-lift-1-06',
+          // 'rail-floor-2-lift-1-07': 'rail-floor-2-lift-1-07',
+          // 'rail-floor-2-shunt-0-0-00': 'rail-floor-2-shunt-0-0-00',
+          'rail-floor-2-shunt-0-0-01': 'rail-floor-2-shunt-0-0-01',
+          // 'rail-floor-2-shunt-0-0-02': 'rail-floor-2-shunt-0-0-02',
+          // 'rail-floor-2-shunt-0-1-00': 'rail-floor-2-shunt-0-1-00',
+          'rail-floor-2-shunt-0-1-01': 'rail-floor-2-shunt-0-1-01',
+          // 'rail-floor-2-shunt-0-1-02': 'rail-floor-2-shunt-0-1-02',
+          // 'rail-floor-2-shunt-1-0-00': 'rail-floor-2-shunt-1-0-00',
+          'rail-floor-2-shunt-1-0-01': 'rail-floor-2-shunt-1-0-01',
+          // 'rail-floor-2-shunt-1-0-02': 'rail-floor-2-shunt-1-0-02',
+          // 'rail-floor-2-shunt-1-1-00': 'rail-floor-2-shunt-1-1-00',
+          'rail-floor-2-shunt-1-1-01': 'rail-floor-2-shunt-1-1-01',
+          // 'rail-floor-2-shunt-1-1-02': 'rail-floor-2-shunt-1-1-02',
+          'rail-floor-2-traffic-00': 'rail-floor-2-traffic-00',
+          // 'rail-floor-2-traffic-01': 'rail-floor-2-traffic-01',
+          'rail-floor-2-traffic-02': 'rail-floor-2-traffic-02',
+          'rail-floor-2-traffic-03': 'rail-floor-2-traffic-03',
+          'rail-floor-2-traffic-04': 'rail-floor-2-traffic-04',
+          // 'rail-floor-2-traffic-05': 'rail-floor-2-traffic-05',
+          'rail-floor-2-traffic-06': 'rail-floor-2-traffic-06',
+          'rail-floor-2-traffic-07': 'rail-floor-2-traffic-07',
+          'rail-floor-2-traffic-08': 'rail-floor-2-traffic-08',
+          'rail-floor-2-traffic-09': 'rail-floor-2-traffic-09',
+          'rail-floor-2-traffic-10': 'rail-floor-2-traffic-10',
+          'rail-floor-2-traffic-11': 'rail-floor-2-traffic-11',
+          'rail-floor-2-traffic-12': 'rail-floor-2-traffic-12',
+          'rail-floor-2-traffic-13': 'rail-floor-2-traffic-13',
+          'rail-floor-2-traffic-14': 'rail-floor-2-traffic-14',
+          // 'rail-floor-2-traffic-15': 'rail-floor-2-traffic-15',
+          'rail-floor-2-traffic-16': 'rail-floor-2-traffic-16',
+          'rail-floor-2-traffic-17': 'rail-floor-2-traffic-17',
+          'rail-floor-2-traffic-18': 'rail-floor-2-traffic-18',
+          // 'rail-floor-2-traffic-19': 'rail-floor-2-traffic-19',
+          'rail-floor-2-traffic-20': 'rail-floor-2-traffic-20',
+          'rail-floor-2-traffic-21': 'rail-floor-2-traffic-21',
+          'rail-floor-2-traffic-22': 'rail-floor-2-traffic-22',
+          'rail-floor-2-traffic-23': 'rail-floor-2-traffic-23',
+          'rail-floor-2-traffic-24': 'rail-floor-2-traffic-24',
+          'rail-floor-2-traffic-25': 'rail-floor-2-traffic-25',
+          'rail-floor-2-traffic-26': 'rail-floor-2-traffic-26',
+          'rail-floor-2-traffic-27': 'rail-floor-2-traffic-27',
+          'rail-floor-2-traffic-28': 'rail-floor-2-traffic-28',
+          'rail-floor-2-traffic-29': 'rail-floor-2-traffic-29'
           }
         this.optionArray = [];
         for (var i in this.options) {
@@ -376,8 +609,8 @@
           var rail = new THREE.StraightRail(pointA, pointB);
           rail.name = node.railSeq;
           rail.speedLimit = node.speedLimit;
-          railsAndChannels.add(rail);
-          // rails.add(rail);
+          // railsAndChannels.add(rail);
+          rails.add(rail);
         } else {
           var center = new THREE.Vector3(node.centerLocation.x,
               node.centerLocation.y, node.centerLocation.z);
@@ -390,11 +623,12 @@
 
           rail.name = node.railSeq;
           rail.speedLimit = node.speedLimit;
-          railsAndChannels.add(rail);
-          // rails.add(rail);
+          // railsAndChannels.add(rail);
+          rails.add(rail);
         }
       }
-      scene.add(railsAndChannels);
+      // scene.add(railsAndChannels);
+      scene.add(rails);
       console.log("Rails are SUCCESSFULLY loaded!");
     }
 
@@ -411,18 +645,19 @@
         var channel = new THREE.LiftChannel(pointA, pointB);
         channel.name = node.railSeq;
         channel.speedLimit = node.speedLimit;
-        railsAndChannels.add(channel);
-        // channels.add(channel);
+        // railsAndChannels.add(channel);
+        channels.add(channel);
       }
 
       scene.add(railsAndChannels);
+      scene.add(channels);
       console.log("channels are SUCCESSFULLY loaded!");
     }
 
     function initializeMover() {
       mover = new THREE.Mover();
       mover.name = "mover-01";
-      mover.position.copy(railsAndChannels.getObjectByName("rail-floor-0-io-0-00").pointA);
+      mover.position.copy(rails.getObjectByName("rail-floor-0-io-0-00").pointA);
       mover.rotation.z += Math.PI / 2;
 
       scene.add(mover);
@@ -439,8 +674,15 @@
         var waypoints = [];
         var reversed = [];
         for(var i = 0; i < nodes.length; i++) {
-          waypoints[i] = railsAndChannels.getObjectByName(nodes[i].railSeq);
-          reversed[i] = nodes[i].reversed;
+          var pathwaySeq = nodes[i].pathwaySeq;
+          if (pathwaySeq.substring(0, 4) == 'rail') {
+            waypoints[i] = rails.getObjectByName(nodes[i].pathwaySeq);
+            reversed[i] = nodes[i].reversed;
+          } else if (pathwaySeq.substring(0, 7) == 'channel') {
+            waypoints[i] = channels.getObjectByName(nodes[i].pathwaySeq);
+            reversed[i] = nodes[i].reversed;
+          }
+
           // console.log(waypoints[i].name);
         }
         mover.reset();
@@ -481,14 +723,22 @@
 
     function renderPath(index, path) {
       if (index == 0 ){
-        for (var i = index; i < path.numOfRails; i++) {
-            var name = path.rails[i].name;
-            railsAndChannels.getObjectByName(name).material = renderMaterial;
+        for (var i = index; i < path.numOfPathways; i++) {
+            var name = path.pathways[i].name;
+            if ( path.pathways[i].type == 'LiftChannel') {
+                channels.getObjectByName(name).material = renderMaterial;
+            } else {
+              rails.getObjectByName(name).material = renderMaterial;
+            }
           }
         console.log('The path is rendered!');
       } else {
-        var name = path.rails[index-1].name;
-        railsAndChannels.getObjectByName(name).material = lineMaterial;
+        var name = path.pathways[index-1].name;
+        if ( path.pathways[index - 1].type == 'LiftChannel') {
+            channels.getObjectByName(name).material = lineMaterial;
+        } else {
+          rails.getObjectByName(name).material = lineMaterial;
+        }
         tempPathIndex = index;
       }
     }
@@ -539,7 +789,7 @@
         }
       }
 
-      path_controller.add(path, 'numOfRails');
+      path_controller.add(path, 'numOfPathways');
       path_controller.add(mover, 'pathIndex').listen();
       path_controller.add(path, 'startNode');
       path_controller.add(mover, 'currentNode').listen();

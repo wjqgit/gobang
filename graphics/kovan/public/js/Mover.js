@@ -17,7 +17,7 @@ THREE.Mover = function ( geometry, material ) {
 	// this.braking = false;
 	this.path;
 	this.pathIndex = 0;
-	this.rail;
+	this.pathway;
 	this.reversed = false;
 	this.finished = true;
 
@@ -127,6 +127,40 @@ THREE.Mover.prototype.moveAndStop = function ( fps, rail ) {
 	return false;
 };
 
+THREE.Mover.prototype.lift = function (fps, channel) {
+	if ( fps <= 10 ) return false;
+
+	var distance = channel.getLength(),
+		division = Math.floor(distance * 10), // 1/10 mm resolutionm
+		increment = division * this.speed / (distance * fps);
+
+		var t = (this.stopwatch % division) / division;
+		t = this.reversed ? 1 - t : t;
+
+		// LOCATION
+		this.position.copy(channel.reference);
+		var point = channel.curve.getPointAt(t);
+		// this.position.x += point.x;
+		this.position.z += point.y;
+
+		// DIRECTION
+		var direction = channel.curve.getTangentAt(t);
+		var angle = Math.atan(direction.y / direction.x);
+		this.rotation.z = angle;
+
+		// ACCELERATE
+		if ( this.speed < channel.speedLimit && this.speed < this.speedLimit ) this.accelerate(fps);
+		if ( this.speed > channel.speedLimit || this.speed > this.speedLimit ) this.accelerate(fps, - this.acceleration);
+
+		// RUN STOPWATCH
+		if (this.stopwatch + increment > division) {
+			return true;
+		}
+
+		this.stopwatch += increment;
+		return false;
+};
+
 THREE.Mover.prototype.accelerate = function ( fps, acceleration ) {
 	var convertedAcceleration = acceleration / fps || this.acceleration / fps;
 
@@ -148,18 +182,24 @@ THREE.Mover.prototype.executePath = function ( fps, path) {
 THREE.Mover.prototype.executePath = function (fps) {
 	if (this.path == undefined) return;
 
-	this.rail = this.path.rails[this.pathIndex];
+	this.pathway = this.path.pathways[this.pathIndex];
 	this.reversed = this.path.reversed[this.pathIndex];
 
-	if ( this.pathIndex < this.path.numOfRails - 1) {
-		var finished = this.move(fps, this.rail);
+	if (this.pathIndex < this.path.numOfPathways - 1) {
+		var finished;
+		if (this.pathway.type == "LiftChannel") {
+			finished = this.lift(fps, this.pathway);
+		} else {
+			finished = this.move(fps, this.pathway);
+		}
 		if ( finished ) {
 			this.stopwatch = 0;
 			this.pathIndex ++;
 		}
 	} else {
-		this.moveAndStop(fps, this.rail);
+		this.moveAndStop(fps, this.pathway)
 	}
+
 };
 
 THREE.Mover.prototype.drag = function () {
@@ -180,6 +220,6 @@ THREE.Mover.prototype.updateLocation = function () {
 	this.locationX = this.position.x;
 	this.locationY = this.position.y;
 	this.locationZ = this.position.z;
-	this.currentNode = this.path.rails[this.pathIndex].name;
+	this.currentNode = this.path.pathways[this.pathIndex].name;
 
 }

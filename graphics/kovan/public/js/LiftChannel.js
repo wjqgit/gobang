@@ -18,12 +18,12 @@
    this.curve = new THREE.CurvePath();
    this.curve.add(new THREE.LineCurve(
      new THREE.Vector2(0, 0),
-     new THREE.Vector2(this.vector.z, 0)
+     new THREE.Vector2(0, this.vector.z)
    ));
 
    this.geometry =  this.curve.createPointsGeometry(resolution);
 
-   this.rotateY( - Math.PI / 2);
+   this.rotateX( Math.PI / 2);
    this.position.set(pointA.x, pointA.y, pointA.z);
  }
 
