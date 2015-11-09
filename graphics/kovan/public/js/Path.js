@@ -2,19 +2,19 @@
  * @author wjq / http://wangjiaqi.xyz
  */
 
- Path = function (rails, reversed) {
+ Path = function (pathways, reversed) {
  	Object.call(this);
 
  	this.type = 'Path';
 
- 	this.numOfRails = rails.length;
- 	this.rails = [];
+ 	this.numOfPathways = pathways.length;
+ 	this.pathways = [];
   this.reversed = [];
   this.startNode;
   this.goalNode;
 
- 	for (var i in rails) {
- 		this.rails[i] = rails[i];
+ 	for (var i in pathways) {
+ 		this.pathways[i] = pathways[i];
     this.reversed[i] = reversed[i];
  	}
 
