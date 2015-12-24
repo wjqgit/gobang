@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <span>Load Map: </span><input type="file" id="map" name="files[]">
+  <script type="text/javascript">
+    var map;
+
+    function handleMapSelect(evt) {
+      var mapFile = evt.target.files[0];
+
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        map = JSON.parse(reader.result);
+        onMapLoad();
+      }
+
+      reader.readAsText(mapFile)
+    }
+
+    function onMapLoad(){
+      console.log(map);
+    }
+
+    document.getElementById('map').addEventListener('change', handleMapSelect, false);
+  </script>
+</body>
+
+</html>
