@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>web worker test</title>
+  </head>
+  <body>
+    <p>
+      The highest prime number found so far is <output name="result"></output>
+    </p>
+    <script>
+      var worker = new Worker('worker.js');
+      worker.addEventListener('message',  function(e) {
+        document.getElementsByName("result")[0].textContent = e.data;
+      })
+    </script>
+  </body>
+</html>
