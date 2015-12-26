@@ -4,7 +4,7 @@ search: while (true) {
   for (i = 2; i <= Math.sqrt(n); i++) {
     if (n % i == 0)
       continue search;
-
+      
     postMessage(n);
   }
 }
