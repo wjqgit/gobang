@@ -1,0 +1,44 @@
+{
+  "rails": [
+    {
+      "railSeq": "rail01",
+      "radius": -1,
+      "pointALocation": {
+        "x": 10000,
+        "y": 25000,
+        "z": 2000
+      },
+      "pointBLocation": {
+        "x": 40000,
+        "y": 25000,
+        "z": 2000
+      }
+    },
+    {
+      "railSeq": "rail02",
+      "radius": 1400,
+      "centerLocation": {
+        "x": 10000,
+        "y": 25000,
+        "z": 2000
+      },
+      "startAngle": 90,
+      "endAngle": 360,
+      "clockwise": true
+    },
+    {
+      "railSeq": "rail03",
+      "radius": -1,
+      "pointALocation": {
+        "x": 41400,
+        "y": 23600,
+        "z": 2000
+      },
+      "pointBLocation": {
+        "x": 41400,
+        "y": 13600,
+        "z": 2000
+      }
+    }
+  ]
+}

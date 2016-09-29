@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery Test Page</title>
+    <script src="/public/js/libs/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(function () {
+        var name = $('#name'),
+          greeting = $('#greeting');
+
+          name.keyup(function () {
+            greeting.text("Hello " + name.val() + " !");
+          })
+      })
+    </script>
+  </head>
+  <body>
+    <input type="text" id="name">
+    <h2 id="greeting"></h2>
+  </body>
+</html>
