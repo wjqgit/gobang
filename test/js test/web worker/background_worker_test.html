@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Background Worker Test</title>
+  </head>
+  <body>
+    <p>
+      Time interval:
+      <output id="result"></output>
+    </p>
+    <script type="text/javascript">
+      var worker = new Worker('js/backgroundWorker.js');
+      var clock = Date.now();
+
+      worker.addEventListener('message', function(e) {
+        let interval = Date.now() - clock;
+        clock = Date.now();
+        console.log(interval);
+        document.getElementById('result').textContent = interval;
+      })
+
+    </script>
+  </body>
+</html>
