@@ -1,0 +1,21 @@
+{
+  "name": "module-loader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --content-base src --inline --hot",
+    "build-win": "set NODE_ENV=production&&webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "lodash": "^4.17.2"
+  },
+  "devDependencies": {
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
