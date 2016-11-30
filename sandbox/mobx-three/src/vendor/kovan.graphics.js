@@ -1397,9 +1397,10 @@
 	  var gridGeometry, gridMaterial, grid;
 
 	  // CONTAINER
-	  container = document.createElement('div');
-	  container.className = "container";
-	  document.body.appendChild(container);
+    container = document.getElementById('app')
+	  // container = document.createElement('div');
+	  // container.className = "container";
+	  // document.body.appendChild(container);
 
 	  var viewportWidth = container.offsetWidth,
 	    viewportHeight = container.offsetHeight;
@@ -4631,7 +4632,7 @@
 
 	Crossroad.prototype.generatePointMarks = function(options) {
 	  var options = options || {};
-	  
+
 	  this.pointMarks = new THREE.Object3D();
 	  this.pointMarks.name = 'pointMarks';
 
