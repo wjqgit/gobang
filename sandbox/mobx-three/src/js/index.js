@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import Stats from 'stats.js'
+import { Animator } from './bothive3'
 
 window.THREE = THREE
 window.Stats = Stats

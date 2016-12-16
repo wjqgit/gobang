@@ -11,7 +11,6 @@ class Position {
     this.z = vector.z
   }
 
-
 }
 
 class Store {
@@ -27,8 +26,6 @@ class Store {
 
 }
 
-
 const store = window.store = new Store
-
 
 export default store;
