@@ -1,0 +1,34 @@
+cal year # cal month(1-12) year
+date '+Date: %m-%y%nTime: %H:%M:%S'
+
+touch file_name
+mkdir dir_name
+
+cat > file (CTRL+D to complete) # cat >> file # cat < file # cat file # cat source1 source2  > result
+
+mv source destination
+rm file # rm -r dir # rm -rf dir/content
+rmdir
+cp source destination
+ln source link # ln -s source link
+
+chmod 777(1-execute, 2-read, 4-write) file(or directory) 
+
+ls directory # ls -l # ls -a
+
+file file_name 
+
+wc text_file # wc -l # wc -w # wc -c 
+sort # sort file
+cut -d"deliminator" -f field_num1,field_num2 file_name
+
+dd if=input_file of=output_file conv=converter(ucase, ebcdic, etc.)
+
+man command
+
+banner fancy_text_to_be_print (not available in centos)
+
+compress (-v) large_file
+zcat compressed_file
+uncompress compressed_file
+
