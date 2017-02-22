@@ -32,3 +32,39 @@ compress (-v) large_file
 zcat compressed_file
 uncompress compressed_file
 
+sh # sh script
+
+set positional_parameters
+
+
+
+echo $* (all position parameters)
+echo $# (number of position parameters)
+echo $? (exit code of last command)
+
+tput
+
+grep -i (ignore case) -n (line number) -c (count) -v (reverse) keyword text_file
+
+tty
+
+first_cmd  ; second_cmd ; third_cmd (commands execute sequentially)
+
+first_cmd && second_cmd (second command will only execute if first command exit properly)
+first_cmd || second_cmd (second command will execute no matter what the exit status of first command is)
+
+sudo login
+
+write username (to communicate with other user)
+mesg y/n (to enable/disable message)
+finger (show users and whether they enabled message, not available by default in centos)
+
+. function_definition_script (to load functions to terminal)
+unset function_name (to unload the function)
+
+
+
+
+
+
+

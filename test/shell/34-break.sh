@@ -1,0 +1,14 @@
+#This is script#34
+#break
+count=1
+while [ $count -le 10 ]
+do
+	if [ $count -eq 6 ]
+	then
+		break
+	fi
+	echo $count
+	count=`expr $count + 1`
+done
+
+echo "Loop ended."
