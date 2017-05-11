@@ -1,0 +1,21 @@
+{
+  "debug": true, 
+  "window": {
+    "navigationBarTextStyle": "white", 
+    "navigationBarBackgroundColor": "#000000", 
+    "navigationBarTitleText": "\u5706\u5f62\u8fdb\u5ea6\u6761&\u6309\u94ae\u6548\u679c", 
+    "backgroundColor": "#000000", 
+    "enablePullDownRefresh": false, 
+    "backgroundTextStyle": "dark"
+  }, 
+  "pages": [
+    "page/index/index", 
+    "page/untitled1/untitled1"
+  ], 
+  "networkTimeout": {
+    "connectSocket": "", 
+    "request": "", 
+    "downloadFile": "", 
+    "uploadFile": ""
+  }
+}

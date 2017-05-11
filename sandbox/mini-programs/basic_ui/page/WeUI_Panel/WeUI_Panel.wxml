@@ -1,0 +1,91 @@
+<view class="page panel" data-c_e_id="wx_view_248cb242">
+    <view class="c-minheight page__hd" data-c_e_id="wx_view_2915533b">
+        <text class="c-block page__title" data-c_e_id="wx_text_1ac69349">Panel</text>
+        <text class="c-block page__desc" data-c_e_id="wx_text_25f500cd">面板</text>
+    </view>
+    <view class="c-minheight page__bd" data-c_e_id="wx_view_6690833e">
+        <view class="c-minheight weui-panel_access" data-c_e_id="wx_view_a6cc0615">
+            <view class="weui-panel__hd" data-c_e_id="wx_view_d8752d8b">
+                <text class="c-block wx-text_v5HHOl" data-c_e_id="wx_text_6ef864c2">图文组合列表</text>
+            </view>
+            <view class="weui-panel__bd" data-c_e_id="wx_view9760ff70">
+                <view class="weui-media-box__bd" data-c_e_id="wx_view62538c58"/>
+                <view class="weui-media-box_appmsg" data-c_e_id="wx_viewb87bd917">
+                    <view class="weui-media-box__hd" data-c_e_id="wx_view51ccbcd5"/>
+                    <view class="weui-media-box__bd" data-c_e_id="wx_view6420eefe">
+                        <text class="c-block weui-media-box__title" data-c_e_id="wx_text8b2735a8">标题一</text>
+                        <text class="c-block weui-media-box__desc" data-c_e_id="wx_text1766e89e">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</text>
+                    </view>
+                </view>
+                <view class="weui-media-box_appmsg" data-c_e_id="wx_view7a0abc7c">
+                    <view class="weui-media-box__hd" data-c_e_id="wx_view1de3394d"/>
+                    <view class="weui-media-box__bd" data-c_e_id="wx_viewfb49776c">
+                        <text class="c-block weui-media-box__title" data-c_e_id="wx_text907560aa">标题二</text>
+                        <text class="c-block weui-media-box__desc" data-c_e_id="wx_textaa79e272">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</text>
+                    </view>
+                </view>
+                <navigator class="weui-panel__ft" data-c_e_id="wx_navigator_0723e697" hover-class="navigator-hover">
+                    <text class="c-block wx-text_rH9twP" data-c_e_id="wx_text_946bccd6">查看更多</text>
+                    <text class="c-block wx-text_RxVFII" data-c_e_id="wx_text_08a7c3a8">❯</text>
+                </navigator>
+            </view>
+        </view>
+        <view class="c-minheight weui-panel_access" data-c_e_id="wx_viewdb8fc1b3">
+            <view class="weui-panel__hd" data-c_e_id="wx_view34ba284b">
+                <text class="c-block wx-text_v5HHOl" data-c_e_id="wx_textfddbb150">文字组合列表</text>
+            </view>
+            <view class="weui-panel__bd" data-c_e_id="wx_view06e5199c">
+                <view class="weui-media-box__bd" data-c_e_id="wx_viewdfd6c4f8"/>
+                <view class="weui-media-box_appmsg" data-c_e_id="wx_view4851235f">
+                    <view class="weui-media-box__bd" data-c_e_id="wx_viewe83dee3a">
+                        <text class="c-block weui-media-box__title weui-media-box_text" data-c_e_id="wx_text68da5937">标题一</text>
+                        <text class="c-block weui-media-box__desc" data-c_e_id="wx_text54d61f86">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</text>
+                    </view>
+                </view>
+                <view class="weui-media-box_appmsg" data-c_e_id="wx_viewbfe4c3f5">
+                    <view class="weui-media-box__bd" data-c_e_id="wx_viewccadb6b5">
+                        <text class="c-block weui-media-box__title weui-media-box_text" data-c_e_id="wx_textec7b7e9d">标题二</text>
+                        <text class="c-block weui-media-box__desc" data-c_e_id="wx_text58eba12a">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</text>
+                    </view>
+                </view>
+                <navigator class="weui-panel__ft" data-c_e_id="wx_navigatorab8aa0c5" hover-class="navigator-hover">
+                    <text class="c-block wx-text_rH9twP" data-c_e_id="wx_texta4e27cb4">查看更多</text>
+                    <text class="c-block wx-text_RxVFII" data-c_e_id="wx_text314b9682">❯</text>
+                </navigator>
+            </view>
+        </view>
+        <view class="c-minheight weui-panel_access" data-c_e_id="wx_viewbce5e3c6">
+            <view class="weui-panel__hd" data-c_e_id="wx_view7d082815">
+                <text class="c-block wx-text_v5HHOl" data-c_e_id="wx_textd15e3c13">文字列表附来源</text>
+            </view>
+            <view class="weui-panel__bd" data-c_e_id="wx_view9b781d75">
+                <view class="weui-media-box__bd" data-c_e_id="wx_view83758353"/>
+                <view class="weui-media-box_block" data-c_e_id="wx_view15311e3b">
+                    <view class="weui-media-box__bd" data-c_e_id="wx_viewf8df2a48">
+                        <text class="c-block weui-media-box__title weui-media-box_text" data-c_e_id="wx_textef6c966c">标题一</text>
+                        <text class="c-block weui-media-box__desc" data-c_e_id="wx_texta2a8ed82">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</text>
+                    </view>
+                    <view class="weui-media-box__info" data-c_e_id="wx_view_91713ae6">
+                        <text class="weui-media-box__info__meta" data-c_e_id="wx_text_a20670f6">文章来源</text>
+                        <text class="weui-media-box__info__meta" data-c_e_id="wx_text556e6cf8">时间</text>
+                        <text class="weui-media-box__info__meta_extra" data-c_e_id="wx_text08646f86">其他信息</text>
+                    </view>
+                </view>
+                <view class="weui-media-box_block" data-c_e_id="wx_viewbee54d99">
+                    <view class="weui-media-box__bd" data-c_e_id="wx_view87c0c1b0">
+                        <text class="c-block weui-media-box__title weui-media-box_text" data-c_e_id="wx_textd722085b">标题一</text>
+                        <text class="c-block weui-media-box__desc" data-c_e_id="wx_text93711796">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</text>
+                    </view>
+                    <view class="weui-media-box__info" data-c_e_id="wx_view022f33b5">
+                        <text class="weui-media-box__info__meta" data-c_e_id="wx_text13796206">文章来源</text>
+                        <text class="weui-media-box__info__meta" data-c_e_id="wx_text20b9890a">时间</text>
+                        <text class="weui-media-box__info__meta_extra" data-c_e_id="wx_text379a45ea">其他信息</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="c-minheight wx-view_oGrL3G" data-c_e_id="wx_view_db03c63e">
+            <text class="c-block wx-text_5EPSz7" data-c_e_id="wx_text_b9a5552a">Coolsite360</text>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,30 @@
+<view class="c-minheight wx-view_Qp4Scs" data-c_e_id="wx_view_fa1c18a0">
+    <view class="c-minheight clickBKstyle" data-c_e_id="wx_view_bcf3af3a">
+        <text class="c-block wx-text_OPtkIZ" data-c_e_id="wx_textf8d2e7de">clickBKstyle</text>
+    </view>
+    <text class="grayfontColor" data-c_e_id="wx_text_247746e1">text</text>
+    <view class="c-minheight bottomGrayboder" data-c_e_id="wx_view_fcfbf70f">
+        <text class="c-block wx-text_P3cI8S" data-c_e_id="wx_text_eddee6b6">bottomGrayboder</text>
+    </view>
+    <view class="c-minheight wx-view_BngLPK" data-c_e_id="wx_view_4ea2b587">
+        <text class="c-block placeholderstyle" data-c_e_id="wx_text_c5816536">placeholderstyle</text>
+    </view>
+    <view class="c-minheight rightGrayboder" data-c_e_id="wx_viewe9994826">
+        <text class="c-block wx-text_P3cI8S" data-c_e_id="wx_textf8f496ca">rightGrayboder</text>
+    </view>
+    <view bindtap="tap_5d3eb4bb" class="c-minheight topGrayboder" data-c_e_id="wx_viewdd13f818">
+        <text class="c-block wx-text_P3cI8S" data-c_e_id="wx_textdd0e8ae4">topGrayboder</text>
+    </view>
+    <view class="c-minheight padding1rem" data-c_e_id="wx_view18298015">
+        <text class="c-block wx-text_OPtkIZ" data-c_e_id="wx_text_be752582">padding1rem</text>
+    </view>
+    <view class="c-minheight paddinghalfrem" data-c_e_id="wx_viewc276deee">
+        <text class="c-block wx-text_OPtkIZ" data-c_e_id="wx_textb2d4a55a">paddinghalfrem</text>
+    </view>
+    <view class="c-minheight TBpaddinghalfrem" data-c_e_id="wx_viewd061dab8">
+        <text class="c-block wx-text_OPtkIZ" data-c_e_id="wx_text90cea9ac">TBpaddinghalfrem</text>
+    </view>
+    <view class="c-minheight BGwhite" data-c_e_id="wx_view5755f04f">
+        <text class="c-block wx-text_OPtkIZ" data-c_e_id="wx_text16a2286c">BGwhite</text>
+    </view>
+</view>

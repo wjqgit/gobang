@@ -1,0 +1,27 @@
+{
+  "debug": true, 
+  "window": {
+    "navigationBarTextStyle": "black", 
+    "navigationBarBackgroundColor": "#ededed", 
+    "navigationBarTitleText": "\u57fa\u7840UIdemo", 
+    "backgroundColor": "#969696", 
+    "enablePullDownRefresh": false, 
+    "backgroundTextStyle": "light"
+  }, 
+  "pages": [
+    "page/index/index", 
+    "page/card/card", 
+    "page/list/list", 
+    "page/infopage1/infopage1", 
+    "page/infopage2/infopage2", 
+    "page/WeUI_Panel/WeUI_Panel", 
+    "page/WeUI_Preview/WeUI_Preview", 
+    "page/basestyle/basestyle"
+  ], 
+  "networkTimeout": {
+    "connectSocket": "", 
+    "request": "", 
+    "downloadFile": "", 
+    "uploadFile": ""
+  }
+}

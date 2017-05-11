@@ -1,0 +1,145 @@
+<view class="c-minheight wx-view_o7tkfz" data-c_e_id="wx_view_9835d26b">
+    <view bindtap="tap_cbfc8749" class="c-minheight wx-view_sI5oLy" data-c_act_id="M_b4874deb6979cd50" data-c_e_id="wx_view_1c708689">
+        <view class="c-minheight wx-view_6JmDZL" data-c_e_id="wx_view_69905323">
+            <view class="wx-view_OBVIUa" data-c_e_id="wx_view_5aca5d44">
+                <image class="wx-image_4dYeI7" data-c_e_id="wx_image_0122d5f9" mode="scaleToFill" src="http://qty83k.creatby.com/materials/origin/9691dee74ea33a01f494c7e085956c8c_origin.jpg" style="background-size: 100% 100%; background-position: 0% 0%; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/9691dee74ea33a01f494c7e085956c8c_origin.jpg); "/>
+                <text class="c-block wx-text_7S6lKm" data-c_e_id="wx_text_af908f70">David</text>
+            </view>
+            <navigator class="wx-navigator_kzyimX" data-c_e_id="wx_navigator_c808d46d" hover-class="navigator-hover">
+                <text class="c-block wx-text_YBn1Rx" data-c_e_id="wx_text_eaec4f40">❯</text>
+            </navigator>
+        </view>
+        <view class="wx-view_6JmDZL2" data-c_e_id="wx_view43223cc8">
+            <view class="wx-view_OBVIUa" data-c_e_id="wx_view0eb2ab9d">
+                <text class="c-block wx-text_7S6lKm" data-c_e_id="wx_text6d1adb1b">安全扫码</text>
+            </view>
+            <navigator class="wx-navigator_kzyimX" data-c_e_id="wx_navigator70f7a71a" hover-class="navigator-hover">
+                <text class="c-block wx-text_YBn1Rx" data-c_e_id="wx_text271470a9">❯</text>
+            </navigator>
+        </view>
+        <view class="c-minheight wx-view_1AzTCw" data-c_e_id="wx_view_92b3582f">
+            <view class="wx-view_92df8n" data-c_e_id="wx_view_923f2978">
+                <view class="wx-view_8WO2ib" data-c_e_id="wx_view_a0f8c672">
+                    <text class="c-block wx-text_jqbhIA" data-c_e_id="wx_text_28346f88">93%</text>
+                    <text class="c-block wx-text_Zpi2Jk" data-c_e_id="wx_text_0fac0c8f">已用内存</text>
+                </view>
+                <view class="wx-view_8WO2ib" data-c_e_id="wx_viewface5f9a">
+                    <text class="c-block wx-text_jqbhIA" data-c_e_id="wx_textb0b43adf">15.5G</text>
+                    <text class="c-block wx-text_Zpi2Jk" data-c_e_id="wx_textf19fc92c">剩余空间</text>
+                </view>
+                <view class="wx-view_8WO2ib" data-c_e_id="wx_view1d8d1e57">
+                    <text class="c-block wx-text_jqbhIA" data-c_e_id="wx_text4d07a47e">93%</text>
+                    <text class="c-block wx-text_Zpi2Jk" data-c_e_id="wx_text57523d28">CPU占用</text>
+                </view>
+            </view>
+            <view class="wx-view_6JmDZL3" data-c_e_id="wx_viewbb2b6324">
+                <view class="wx-view_OBVIUa" data-c_e_id="wx_view05391f2c">
+                    <text class="c-block wx-text_7S6lKm" data-c_e_id="wx_text888d9704">硬件信息</text>
+                </view>
+                <navigator class="wx-navigator_kzyimX" data-c_e_id="wx_navigator80a62df9" hover-class="navigator-hover">
+                    <text class="c-block wx-text_YBn1Rx" data-c_e_id="wx_text8f248b55">❯</text>
+                </navigator>
+            </view>
+            <view class="wx-view_6JmDZL3" data-c_e_id="wx_view7026137f">
+                <view class="wx-view_OBVIUa" data-c_e_id="wx_view55801f38">
+                    <text class="c-block wx-text_7S6lKm" data-c_e_id="wx_textb9251f9c">充电管理</text>
+                </view>
+                <navigator class="wx-navigator_kzyimX" data-c_e_id="wx_navigator8a2316a3" hover-class="navigator-hover">
+                    <text class="c-block wx-text_YBn1Rx" data-c_e_id="wx_text1063d59f">❯</text>
+                </navigator>
+            </view>
+        </view>
+        <view class="c-minheight wx-view_1AzTCw" data-c_e_id="wx_viewd7717fb3">
+            <view class="wx-view_6JmDZL3" data-c_e_id="wx_viewe40956a7">
+                <view class="wx-view_OBVIUa" data-c_e_id="wx_view46343b3a">
+                    <text class="c-block wx-text_7S6lKm" data-c_e_id="wx_texta4aaea49">加密相册</text>
+                </view>
+                <navigator class="wx-navigator_kzyimX" data-c_e_id="wx_navigator1d9329d9" hover-class="navigator-hover">
+                    <text class="c-block wx-text_YBn1Rx" data-c_e_id="wx_text8b4abbfb">❯</text>
+                </navigator>
+            </view>
+            <view class="wx-view_6JmDZL3" data-c_e_id="wx_view32a9e926">
+                <view class="wx-view_OBVIUa" data-c_e_id="wx_viewb5a1573b">
+                    <text class="c-block wx-text_7S6lKm" data-c_e_id="wx_text98e9c5df">来电归属优化</text>
+                </view>
+                <navigator class="wx-navigator_kzyimX" data-c_e_id="wx_navigatorb6095252" hover-class="navigator-hover">
+                    <text class="c-block wx-text_YBn1Rx" data-c_e_id="wx_textba94a5b5">❯</text>
+                </navigator>
+            </view>
+            <view class="wx-view_6JmDZL3" data-c_e_id="wx_viewc2ac9707">
+                <view class="wx-view_OBVIUa" data-c_e_id="wx_viewcb52800d">
+                    <text class="c-block wx-text_7S6lKm" data-c_e_id="wx_text7812b2c9">来电秀</text>
+                </view>
+                <navigator class="wx-navigator_kzyimX" data-c_e_id="wx_navigator8828d942" hover-class="navigator-hover">
+                    <text class="c-block wx-text_YBn1Rx" data-c_e_id="wx_text935f3e1e">❯</text>
+                </navigator>
+            </view>
+        </view>
+        <view class="c-minheight wx-view_1AzTCw" data-c_e_id="wx_view7c87fa00">
+            <view class="wx-view_6JmDZL3" data-c_e_id="wx_view8d02c62b">
+                <view class="wx-view_OBVIUa" data-c_e_id="wx_viewa34fb132">
+                    <text class="c-block wx-text_7S6lKm" data-c_e_id="wx_textfedab6bc">我要反馈</text>
+                </view>
+                <navigator class="wx-navigator_kzyimX" data-c_e_id="wx_navigator4ba5c927" hover-class="navigator-hover">
+                    <text class="c-block wx-text_YBn1Rx" data-c_e_id="wx_textd3e74c21">❯</text>
+                </navigator>
+            </view>
+            <view class="wx-view_6JmDZL3" data-c_e_id="wx_viewacdee448">
+                <view class="wx-view_OBVIUa" data-c_e_id="wx_viewfdc76ddf">
+                    <text class="c-block wx-text_7S6lKm" data-c_e_id="wx_textdd7fb8dc">关于管家</text>
+                </view>
+                <navigator class="wx-navigator_kzyimX" data-c_e_id="wx_navigatorad28d729" hover-class="navigator-hover">
+                    <text class="c-block wx-text_YBn1Rx" data-c_e_id="wx_text82bf195a">❯</text>
+                </navigator>
+            </view>
+        </view>
+    </view>
+    <view class="wx-view_a4ST3v {{wx_view465aa220.class}}" data-c_e_id="wx_view465aa220">
+        <view class="c-minheight wx-view_5sIsYs" data-c_e_id="wx_view11b94666">
+            <view class="wx-view_d7uNfa" data-c_e_id="wx_view01bf2356">
+                <navigator bindtap="tap_120984e1" class="wx-navigator_OhKtFF" data-c_act_id="act_e6cbbb0d" data-c_e_id="wx_navigator7bc6abce" hover-class="navigator-hover">
+                    <image bindtap="tap_20b54177" class="wx-image_aZVWVN" data-c_e_id="wx_image181a0288" mode="aspectFit" src="http://qty83k.creatby.com/materials/origin/312b86f640c4c96694320b59b29a4f78_origin.png" style="background-size: contain; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/312b86f640c4c96694320b59b29a4f78_origin.png); "/>
+                </navigator>
+                <text class="c-block wx-text_uAlZ5A" data-c_e_id="wx_texte529cd56">腾讯手机管家</text>
+                <image class="wx-image_6SRp5A" data-c_e_id="wx_image1a30f8b9" mode="aspectFit" src="http://qty83k.creatby.com/materials/origin/dc4470fbd50c6f96c5847fa2ae475f2c_origin.png" style="background-size: contain; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/dc4470fbd50c6f96c5847fa2ae475f2c_origin.png); "/>
+            </view>
+            <view class="c-minheight wx-view_CBIpQN" data-c_e_id="wx_viewef4a0676">
+                <image class="wx-image_aMrgZC" data-c_e_id="wx_image0b7ff67e" mode="scaleToFill" src="http://qty83k.creatby.com/materials/origin/6f002765cc1e3935b64c63dcdf66dc0f_origin.png" style="background-size: 100% 100%; background-position: 0% 0%; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/6f002765cc1e3935b64c63dcdf66dc0f_origin.png); "/>
+            </view>
+            <view class="wx-view_v9iXER" data-c_e_id="wx_viewc660a9a9">
+                <text class="c-block wx-text_RcdYex" data-c_e_id="wx_text0c70fabf">发现4个可优化项</text>
+            </view>
+            <text class="c-block wx-text_Lc4AK3" data-c_e_id="wx_text4e817473">⬆︎ 点击按钮查看效果</text>
+        </view>
+        <navigator class="wx-navigator_Sr9KNE" data-c_e_id="wx_navigator03f4351e" hover-class="navigator-hover">
+            <view class="wx-view_IGoT1K" data-c_e_id="wx_viewf8674241">
+                <image class="wx-image_5jD4Rp" data-c_e_id="wx_image77d120d1" mode="scaleToFill" src="http://qty83k.creatby.com/materials/origin/3eaaad80591644c9eb05d28b083623e7_origin.png" style="background-size: 100% 100%; background-position: 0% 0%; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/3eaaad80591644c9eb05d28b083623e7_origin.png); "/>
+                <view class="wx-view_rqkHVb" data-c_e_id="wx_viewf9976347">
+                    <text class="c-block wx-text_w0RU50" data-c_e_id="wx_textb3bd1921">骚扰拦截</text>
+                    <text class="c-block wx-text_zHpbmX" data-c_e_id="wx_text122f7466">号码库有更新，点击更新</text>
+                </view>
+            </view>
+            <text class="c-block wx-text_AgHv9w" data-c_e_id="wx_textf9816f3c">❯</text>
+        </navigator>
+        <navigator class="wx-navigator_Sr9KNE" data-c_e_id="wx_navigatore2ee9a91" hover-class="navigator-hover">
+            <view class="wx-view_IGoT1K" data-c_e_id="wx_viewb56516a5">
+                <image class="wx-image_5jD4Rp" data-c_e_id="wx_image3bf2294c" mode="scaleToFill" src="http://qty83k.creatby.com/materials/origin/8c15ab601b46e12174b7710544f71bb4_origin.png" style="background-size: 100% 100%; background-position: 0% 0%; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/8c15ab601b46e12174b7710544f71bb4_origin.png); "/>
+                <view class="wx-view_rqkHVb" data-c_e_id="wx_view85f8b846">
+                    <text class="c-block wx-text_w0RU50" data-c_e_id="wx_texte6c78808">照片清理</text>
+                    <text class="c-block wx-text_zHpbmX" data-c_e_id="wx_textbbe8b253">约167张多余照片待清理</text>
+                </view>
+            </view>
+            <text class="c-block wx-text_AgHv9w" data-c_e_id="wx_text050b708e">❯</text>
+        </navigator>
+        <navigator class="wx-navigator_Sr9KNE" data-c_e_id="wx_navigator33ef7679" hover-class="navigator-hover">
+            <view class="wx-view_IGoT1K" data-c_e_id="wx_view503a7174">
+                <image class="wx-image_5jD4Rp" data-c_e_id="wx_image6811f531" mode="scaleToFill" src="http://qty83k.creatby.com/materials/origin/db20eb35ebccec714751ab885b116a03_origin.png" style="background-size: 100% 100%; background-position: 0% 0%; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/db20eb35ebccec714751ab885b116a03_origin.png); "/>
+                <view class="wx-view_rqkHVb" data-c_e_id="wx_view77939e28">
+                    <text class="c-block wx-text_w0RU50" data-c_e_id="wx_text73a24ed7">流量监控</text>
+                    <text class="c-block wx-text_zHpbmX" data-c_e_id="wx_text1318862a">设置流量套餐，避免超额扣费</text>
+                </view>
+            </view>
+            <text class="c-block wx-text_AgHv9w" data-c_e_id="wx_text0f5c9e2a">❯</text>
+        </navigator>
+    </view>
+</view>

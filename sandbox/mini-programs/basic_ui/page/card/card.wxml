@@ -1,0 +1,88 @@
+<view class="padding1rem cardWrap" data-c_e_id="wx_view_73b58de5">
+    <view class="c-minheight carditem01" data-c_e_id="wx_view_f06c2d54">
+        <view class="paddinghalfrem wx-view_QvvUkU" data-c_e_id="wx_view_e1af8dee">
+            <navigator class="wx-navigator_rv4BGW" data-c_e_id="wx_navigator_cd42463b" hover-class="navigator-hover">
+                <image class="wx-image_tBcdCT" data-c_e_id="wx_imageefd1b6ec" mode="aspectFill" src="http://qty83k.creatby.com/materials/origin/e08b7f406c49e68a972a05518afe2e9a_origin.jpg" style="background-size: cover; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/e08b7f406c49e68a972a05518afe2e9a_origin.jpg); "/>
+                <view class="wx-view_cPj0ok" data-c_e_id="wx_view8477e5c5">
+                    <text class="c-block wx-text_TvHPc9" data-c_e_id="wx_textfff17cdd">Angela</text>
+                    <text class="c-block wx-text_LS2Jup" data-c_e_id="wx_textc53e84be">November 5, 1955</text>
+                </view>
+            </navigator>
+        </view>
+        <navigator class="wx-navigator_PNd8QQ" data-c_e_id="wx_navigator_acf858d8" hover-class="navigator-hover">
+            <image class="wx-image_BEjy38" data-c_e_id="wx_image5f1f44f9" mode="aspectFill" src="http://qty83k.creatby.com/materials/origin/cc09a72b7456da9c074c33dfffc1f94b_origin_2.jpg" style="background-size: cover; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/cc09a72b7456da9c074c33dfffc1f94b_origin_2.jpg); "/>
+            <view class="padding1rem wx-view_KedDbI" data-c_e_id="wx_viewe830a9f8">
+                <text class="c-block wx-text_6zTs4l" data-c_e_id="wx_text57bd2ff7">Coolsite360推出国内第一款微信小程序可视化设计工具 集成小程序所有组件，在线进行小程序UI设计，支持Flex布局，可导出符合小程序标准的代码供后续开发。</text>
+            </view>
+        </navigator>
+        <view class="paddinghalfrem wx-view_adF7Mw" data-c_e_id="wx_view_db960618">
+            <view class="wx-view_2gazUr" data-c_e_id="wx_view_a714ad1f">
+                <view class="wx-view_DKe6UT" data-c_e_id="wx_view_6c05f14b">
+                    <image class="wx-image_6E2A1o" data-c_e_id="wx_image_ebb4405b" mode="aspectFit" src="http://qty83k.creatby.com/materials/origin/a67f2e79e6ed8ae5bf46237d4f88a4e7_origin.png" style="background-size: contain; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/a67f2e79e6ed8ae5bf46237d4f88a4e7_origin.png); "/>
+                    <text class="c-block wx-text_id0VJj" data-c_e_id="wx_text_3ce74bbd">235</text>
+                </view>
+                <view class="wx-view_DKe6UT" data-c_e_id="wx_view68441a05">
+                    <image class="wx-image_6E2A1o" data-c_e_id="wx_image0f877e3f" mode="aspectFit" src="http://qty83k.creatby.com/materials/origin/0564a45ab780222757935674e13d6919_origin.png" style="background-size: contain; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/0564a45ab780222757935674e13d6919_origin.png); "/>
+                    <text class="c-block wx-text_id0VJj" data-c_e_id="wx_textfbf5db39">143</text>
+                </view>
+            </view>
+            <text class="c-block wx-text_9Wn0Di" data-c_e_id="wx_text_b5ab79a9">1小时前</text>
+        </view>
+    </view>
+    <view class="c-minheight carditem01" data-c_e_id="wx_viewe12b79f9">
+        <view class="paddinghalfrem wx-view_QvvUkU" data-c_e_id="wx_view8102577d">
+            <navigator class="wx-navigator_rv4BGW" data-c_e_id="wx_navigatored15cc54" hover-class="navigator-hover">
+                <image class="wx-image_tBcdCT" data-c_e_id="wx_imagef3b6645b" mode="aspectFill" src="http://qty83k.creatby.com/materials/origin/e08b7f406c49e68a972a05518afe2e9a_origin.jpg" style="background-size: cover; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/e08b7f406c49e68a972a05518afe2e9a_origin.jpg); "/>
+                <view class="wx-view_cPj0ok" data-c_e_id="wx_viewe28030a7">
+                    <text class="c-block wx-text_TvHPc9" data-c_e_id="wx_text879a3e7a">Angela</text>
+                    <text class="c-block wx-text_LS2Jup" data-c_e_id="wx_texta062a0ab">November 5, 1955</text>
+                </view>
+            </navigator>
+        </view>
+        <navigator class="wx-navigator_PNd8QQ" data-c_e_id="wx_navigator572fa1e2" hover-class="navigator-hover">
+            <image class="wx-image_BEjy38" data-c_e_id="wx_image4d0298c6" mode="aspectFill" src="http://qty83k.creatby.com/materials/origin/1c25d49b6899798346a84bab493a398a_origin.jpg" style="background-size: cover; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/1c25d49b6899798346a84bab493a398a_origin.jpg); "/>
+        </navigator>
+        <view class="paddinghalfrem wx-view_adF7Mw" data-c_e_id="wx_view8073943b">
+            <view class="wx-view_2gazUr" data-c_e_id="wx_view1807af72">
+                <view class="wx-view_DKe6UT" data-c_e_id="wx_view15415f98">
+                    <image class="wx-image_6E2A1o" data-c_e_id="wx_image39d7dcbb" mode="aspectFit" src="http://qty83k.creatby.com/materials/origin/a67f2e79e6ed8ae5bf46237d4f88a4e7_origin.png" style="background-size: contain; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/a67f2e79e6ed8ae5bf46237d4f88a4e7_origin.png); "/>
+                    <text class="c-block wx-text_id0VJj" data-c_e_id="wx_text6e7e3f8e">235</text>
+                </view>
+                <view class="wx-view_DKe6UT" data-c_e_id="wx_viewf3118f37">
+                    <image class="wx-image_6E2A1o" data-c_e_id="wx_imagea661a6bc" mode="aspectFit" src="http://qty83k.creatby.com/materials/origin/0564a45ab780222757935674e13d6919_origin.png" style="background-size: contain; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/0564a45ab780222757935674e13d6919_origin.png); "/>
+                    <text class="c-block wx-text_id0VJj" data-c_e_id="wx_text5cd87cf2">143</text>
+                </view>
+            </view>
+            <text class="c-block wx-text_9Wn0Di" data-c_e_id="wx_text3f7456c5">1小时前</text>
+        </view>
+    </view>
+    <view class="c-minheight carditem01" data-c_e_id="wx_viewbee548c6">
+        <view class="paddinghalfrem bottomGrayboder wx-view_QvvUkU" data-c_e_id="wx_view67e12874">
+            <navigator class="wx-navigator_rv4BGW" data-c_e_id="wx_navigator0cc34424" hover-class="navigator-hover">
+                <image class="wx-image_tBcdCT" data-c_e_id="wx_image52481adf" mode="aspectFill" src="http://qty83k.creatby.com/materials/origin/e08b7f406c49e68a972a05518afe2e9a_origin.jpg" style="background-size: cover; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/e08b7f406c49e68a972a05518afe2e9a_origin.jpg); "/>
+                <view class="wx-view_cPj0ok" data-c_e_id="wx_view737daf93">
+                    <text class="c-block wx-text_TvHPc9" data-c_e_id="wx_text7797012b">Angela</text>
+                    <text class="c-block wx-text_LS2Jup" data-c_e_id="wx_textd3a35d6b">November 5, 1955</text>
+                </view>
+            </navigator>
+        </view>
+        <navigator class="wx-navigator_PNd8QQ" data-c_e_id="wx_navigator0c1de570" hover-class="navigator-hover">
+            <view class="padding1rem wx-view_KedDbI" data-c_e_id="wx_view8a560015">
+                <text class="c-block wx-text_6zTs4l" data-c_e_id="wx_texta879e21e">Coolsite360推出国内第一款微信小程序可视化设计工具 集成小程序所有组件，在线进行小程序UI设计，支持Flex布局，可导出符合小程序标准的代码供后续开发。</text>
+            </view>
+        </navigator>
+        <view class="paddinghalfrem wx-view_adF7Mw" data-c_e_id="wx_view0176a76c">
+            <view class="wx-view_2gazUr" data-c_e_id="wx_view8bd345ca">
+                <view class="wx-view_DKe6UT" data-c_e_id="wx_viewa19dac41">
+                    <image class="wx-image_6E2A1o" data-c_e_id="wx_imagef6eeb36c" mode="aspectFit" src="http://qty83k.creatby.com/materials/origin/a67f2e79e6ed8ae5bf46237d4f88a4e7_origin.png" style="background-size: contain; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/a67f2e79e6ed8ae5bf46237d4f88a4e7_origin.png); "/>
+                    <text class="c-block wx-text_id0VJj" data-c_e_id="wx_textecd0013b">235</text>
+                </view>
+                <view class="wx-view_DKe6UT" data-c_e_id="wx_view267679cc">
+                    <image class="wx-image_6E2A1o" data-c_e_id="wx_image4d06768f" mode="aspectFit" src="http://qty83k.creatby.com/materials/origin/0564a45ab780222757935674e13d6919_origin.png" style="background-size: contain; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/0564a45ab780222757935674e13d6919_origin.png); "/>
+                    <text class="c-block wx-text_id0VJj" data-c_e_id="wx_text1c8cf164">143</text>
+                </view>
+            </view>
+            <text class="c-block wx-text_9Wn0Di" data-c_e_id="wx_textd629f0a4">1小时前</text>
+        </view>
+    </view>
+</view>

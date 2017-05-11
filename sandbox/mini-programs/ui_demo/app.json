@@ -1,0 +1,21 @@
+{
+  "debug": true, 
+  "window": {
+    "navigationBarTextStyle": "white", 
+    "navigationBarBackgroundColor": "#000000", 
+    "navigationBarTitleText": "UI demo", 
+    "backgroundColor": "#b8b8b8", 
+    "enablePullDownRefresh": false, 
+    "backgroundTextStyle": "dark"
+  }, 
+  "pages": [
+    "page/index/index", 
+    "page/list/list"
+  ], 
+  "networkTimeout": {
+    "connectSocket": "", 
+    "request": "", 
+    "downloadFile": "", 
+    "uploadFile": ""
+  }
+}

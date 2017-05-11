@@ -1,0 +1,115 @@
+/* 基础样式 */
+view,scroll-view,swiper,swiper-item,icon,text,progress,button,checkbox-group,checkbox,form,input,label,picker,radio-group,radio,slider,switch,action-sheet,action-sheet-item,action-sheet-cancel,modal,toast,loading,navigator,audio,image,video,map,canvas {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+}
+page {
+        height: 100%;
+        font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+}
+
+
+
+
+checkbox-group,
+radio-group{
+        display:block;
+}
+
+
+
+
+:before,
+:after ,
+::before,
+::after{
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+}
+.c-minheight {
+        min-height: 80px;
+}
+.c-full {
+        width: 100%;
+        height: 100%;
+}
+.c-block {
+        display: block;
+}
+.c-autosize {
+        width: auto;
+        height: auto;
+}
+.c-fullwidth {
+        width: 100%;
+}
+.c-fullheight {
+        height: 100%;
+}
+.c-initHide{
+        opacity:0 !important;
+}
+.c-ellipse{
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow:hidden;
+}
+/* 自定义样式 */
+
+
+
+
+.sectionwrap{height: 100%; background-position: 50% 50%; background-size: cover; background-image: url("http://qty83k.creatby.com/materials/origin/3e4c4a2fd193e20a967214731c5c00f8_origin.jpg"); overflow: hidden; position: relative; }
+.wx-view_Lqjx6p{height: 100%; width: 100%; overflow: hidden; background-image: linear-gradient(-9deg, rgb(40, 43, 215) 0%, rgb(247, 18, 96) 100%); opacity: 0.7; position: absolute; bottom: 0px; right: 0px; top: 0px; left: 0px; z-index: 1; }
+.wx-view_FjJ4MZ{justify-content: center; align-items: center; position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; padding-top: 30px; }
+.wx-text_XUSaRP{font-size: 20px; color: rgb(255, 255, 255); margin-top: 4px; font-weight: lighter; text-align: center; }
+.wx-canvas-circle_fgVJly{height: 200px; }
+.wx-view_kwf4pi{width: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 20px 112.5rpx; height: 220px; font-size: 12px; background-color: rgba(52, 0, 84, 0.54902); flex: 1 1 0%; margin-top: 14px; padding-bottom: 20px; }
+.wx-progress_DQoL8a{color: rgb(255, 255, 255); font-size: 12px; flex-grow: 1; flex-shrink: 1; flex-basis: 0%; }
+.wx-progress-info{color: #fafafa; font-size: 12px; }
+.wx-progress-bar{background-color: rgba(255,255,255,0.15); }
+.wx-view_Lrqk0b{display: flex; color: #f0f0f0; }
+.wx-text_fLXBYA{margin-right: 10px; }
+.wx-text_XUSaRP2{font-size: 14px; color: rgb(255, 255, 255); margin-top: 16px; font-weight: lighter; text-align: center; }
+.wave{height: 40px; cursor: pointer; background-color: rgb(227, 0, 218); justify-content: center; align-items: center; overflow: hidden; border-radius: 4px; margin-top: 8px; box-shadow: rgba(0, 0, 0, 0.4) 1px 1px 5px 0px; position: relative; width: 100%; display: flex; }
+.wx-text_oAV8mj{color: rgb(255, 255, 255); font-size: 14px; margin: auto; left: 0px; right: 0px; top: 0px; bottom: 0px; text-align: center; position: absolute; padding-top: 10px; }
+.wx-navigator_kYWGiz{height: 34px; background-color: rgb(204, 0, 255); color: rgb(255, 255, 255); display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; cursor: pointer; font-size: 14px; border-radius: 4px; flex: 0 0 auto; }
+.wx-text_Xpsvq7{position: absolute; bottom: 0px; right: 0px; top: 0px; left: 0px; text-align: center; line-height: 34px; z-index: 4; }
+.wx-text_EqSXB4{-webkit-line-clamp: 3; }
+.wave::after{width: 300px; height: 300px; background-color: rgb(255, 255, 255); content: ""; border-radius: 300px; opacity: 0; transform: rotate(0deg) scale(1) translate(0%,0%); transition: All 1s ease; -ms-transform: rotate(0deg) scale(1) translate(0%,0%); -o-transform: rotate(0deg) scale(1) translate(0%,0%); -moz-transform: rotate(0deg) scale(1) translate(0%,0%); -webkit-transform: rotate(0deg) scale(1) translate(0%,0%); -ms-transition: All 1s ease; -o-transition: All 1s ease; -moz-transition: All 1s ease; -webkit-transition: All 1s ease;}
+.wave::after{width: 300px; height: 300px; background-color: rgb(255, 255, 255); content: ""; border-radius: 300px; opacity: 0; transform: rotate(0deg) scale(1) translate(0%,0%); transition: All 1s ease; -ms-transform: rotate(0deg) scale(1) translate(0%,0%); -o-transform: rotate(0deg) scale(1) translate(0%,0%); -moz-transform: rotate(0deg) scale(1) translate(0%,0%); -webkit-transform: rotate(0deg) scale(1) translate(0%,0%); -ms-transition: All 1s ease; -o-transition: All 1s ease; -moz-transition: All 1s ease; -webkit-transition: All 1s ease;}
+.wave::after{width: 300px; height: 300px; background-color: rgb(255, 255, 255); content: ""; border-radius: 300px; opacity: 0; transform: rotate(0deg) scale(1) translate(0%,0%); transition: All 1s ease; -ms-transform: rotate(0deg) scale(1) translate(0%,0%); -o-transform: rotate(0deg) scale(1) translate(0%,0%); -moz-transform: rotate(0deg) scale(1) translate(0%,0%); -webkit-transform: rotate(0deg) scale(1) translate(0%,0%); -ms-transition: All 1s ease; -o-transition: All 1s ease; -moz-transition: All 1s ease; -webkit-transition: All 1s ease;}
+.wave::after{width: 300px; height: 300px; background-color: rgb(255, 255, 255); content: ""; border-radius: 300px; opacity: 0; transform: rotate(0deg) scale(1) translate(0%,0%); transition: All 1s ease; -ms-transform: rotate(0deg) scale(1) translate(0%,0%); -o-transform: rotate(0deg) scale(1) translate(0%,0%); -moz-transform: rotate(0deg) scale(1) translate(0%,0%); -webkit-transform: rotate(0deg) scale(1) translate(0%,0%); -ms-transition: All 1s ease; -o-transition: All 1s ease; -moz-transition: All 1s ease; -webkit-transition: All 1s ease;}
+.wave::after{width: 300px; height: 300px; background-color: rgb(255, 255, 255); content: ""; border-radius: 300px; opacity: 0; transform: rotate(0deg) scale(1) translate(0%,0%); transition: All 1s ease; -ms-transform: rotate(0deg) scale(1) translate(0%,0%); -o-transform: rotate(0deg) scale(1) translate(0%,0%); -moz-transform: rotate(0deg) scale(1) translate(0%,0%); -webkit-transform: rotate(0deg) scale(1) translate(0%,0%); -ms-transition: All 1s ease; -o-transition: All 1s ease; -moz-transition: All 1s ease; -webkit-transition: All 1s ease;}
+.wave::after{width: 300px; height: 300px; background-color: rgb(255, 255, 255); content: ""; border-radius: 300px; opacity: 0; transform: rotate(0deg) scale(1) translate(0%,0%); transition: All 1s ease; -ms-transform: rotate(0deg) scale(1) translate(0%,0%); -o-transform: rotate(0deg) scale(1) translate(0%,0%); -moz-transform: rotate(0deg) scale(1) translate(0%,0%); -webkit-transform: rotate(0deg) scale(1) translate(0%,0%); -ms-transition: All 1s ease; -o-transition: All 1s ease; -moz-transition: All 1s ease; -webkit-transition: All 1s ease;}
+.wave::after{content: "22"; width: 300px; height: 300px; }
+.wx-navigator_kYWGiz::after{width: 300px; height: 300px; border-radius: 300px; background-color: rgb(250, 250, 250); content: ""; opacity: 0; transform: rotate(0deg) scale(1) translate(0%,0%); transition: All 1s ease; -ms-transform: rotate(0deg) scale(1) translate(0%,0%); -o-transform: rotate(0deg) scale(1) translate(0%,0%); -moz-transform: rotate(0deg) scale(1) translate(0%,0%); -webkit-transform: rotate(0deg) scale(1) translate(0%,0%); -ms-transition: All 1s ease; -o-transition: All 1s ease; -moz-transition: All 1s ease; -webkit-transition: All 1s ease; }
+.wave:focus::after{width: 300px; height: 300px; opacity: 0.26; transform: rotate(0deg) scale(1) translate(0%, 0%); transition: all 0.2s ease;}
+.wave:focus::after{width: 300px; height: 300px; opacity: 0.26; transform: rotate(0deg) scale(1) translate(0%, 0%); transition: all 0.2s ease;}
+.wave:focus::after{width: 300px; height: 300px; opacity: 0.26; transform: rotate(0deg) scale(1) translate(0%, 0%); transition: all 0.2s ease;}
+.wave:focus::after{width: 300px; height: 300px; opacity: 0.26; transform: rotate(0deg) scale(1) translate(0%, 0%); transition: all 0.2s ease;}
+.wave:focus::after{width: 300px; height: 300px; opacity: 0.26; transform: rotate(0deg) scale(1) translate(0%, 0%); transition: all 0.2s ease;}
+.wave:focus::after{width: 300px; height: 300px; opacity: 0.26; transform: rotate(0deg) scale(1) translate(0%, 0%); transition: all 0.2s ease;}
+.wave:focus::after{width: 300px; height: 300px; opacity: 0.26; transform: rotate(0deg) scale(1) translate(0%, 0%); transition: all 0.2s ease;}
+.wave:active::after{display: block; width: 0px; height: 0px; background-color: rgb(255, 255, 255); opacity: 0.51; transform: rotate(0deg) scale(1) translate(0%, 0%); transition: all 0s ease; }
+.wave:active::after{display: block; width: 0px; height: 0px; background-color: rgb(255, 255, 255); opacity: 0.51; transform: rotate(0deg) scale(1) translate(0%, 0%); transition: all 0s ease; }
+.wave:active::after{display: block; width: 0px; height: 0px; background-color: rgb(255, 255, 255); opacity: 0.51; transform: rotate(0deg) scale(1) translate(0%, 0%); transition: all 0s ease; }
+.wave:active::after{display: block; width: 0px; height: 0px; background-color: rgb(255, 255, 255); opacity: 0.51; transform: rotate(0deg) scale(1) translate(0%, 0%); transition: all 0s ease; }
+.wave:active::after{display: block; width: 0px; height: 0px; background-color: rgb(255, 255, 255); opacity: 0.51; transform: rotate(0deg) scale(1) translate(0%, 0%); transition: all 0s ease; }
+.wave:active::after{display: block; width: 0px; height: 0px; background-color: rgb(255, 255, 255); opacity: 0.51; transform: rotate(0deg) scale(1) translate(0%, 0%); transition: all 0s ease; }
+.wx-navigator_kYWGiz:active::after{content: ""; width: 0px; height: 0px; background-color: rgb(255, 255, 255); opacity: 0.46; transform: rotate(0deg) scale(1) translate(0%, 0%); transition: all 0s ;}
+.wave:active{box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px; transform: rotate(0deg) scale(1) translate(1px, 1px); transition: all 0.1s ease; }
+.wave:active{box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px; transform: rotate(0deg) scale(1) translate(1px, 1px); transition: all 0.1s ease; }
+.wave:active{box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px; transform: rotate(0deg) scale(1) translate(1px, 1px); transition: all 0.1s ease; }
+.wave:active{box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px; transform: rotate(0deg) scale(1) translate(1px, 1px); transition: all 0.1s ease; }
+.wave:active{box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px; transform: rotate(0deg) scale(1) translate(1px, 1px); transition: all 0.1s ease; }
+.wave:active{box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px; transform: rotate(0deg) scale(1) translate(1px, 1px); transition: all 0.1s ease; }
+.wave:active{box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px; transform: rotate(0deg) scale(1) translate(1px, 1px); transition: all 0.1s ease; }
+
+
+
+

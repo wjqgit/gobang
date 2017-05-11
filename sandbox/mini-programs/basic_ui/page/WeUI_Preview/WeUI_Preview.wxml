@@ -1,0 +1,62 @@
+<view class="page panel" data-c_e_id="wx_view_248cb242">
+    <view class="c-minheight page__hd" data-c_e_id="wx_view_2915533b">
+        <text class="c-block page__title" data-c_e_id="wx_text_1ac69349">Preview</text>
+        <text class="c-block page__desc" data-c_e_id="wx_text_25f500cd">表单预览</text>
+    </view>
+    <view class="c-minheight page__bd" data-c_e_id="wx_view_6690833e">
+        <view class="weui-form-preview" data-c_e_id="wx_view_a6cc0615">
+            <view class="weui-form-preview__hd" data-c_e_id="wx_view_d8752d8b">
+                <text class="weui-form-preview__label" data-c_e_id="wx_text_6ef864c2">付款金额</text>
+                <text class="c-block wx-text_n5HRT0" data-c_e_id="wx_text_39212643">￥2400.00</text>
+            </view>
+            <view class="weui-form-preview__hd2" data-c_e_id="wx_viewda26faee">
+                <view class="weui-form-preview__item" data-c_e_id="wx_view_6bc120f9">
+                    <text class="weui-form-preview__label2" data-c_e_id="wx_text_20bd4c37">商品</text>
+                    <text class="weui-form-preview__value" data-c_e_id="wx_text_2da876e1">电动打蛋机</text>
+                </view>
+                <view class="weui-form-preview__item" data-c_e_id="wx_view02f5c393">
+                    <text class="weui-form-preview__label2" data-c_e_id="wx_text0add0940">商品商品</text>
+                    <text class="weui-form-preview__value" data-c_e_id="wx_text367053fd">电动打蛋机电动打蛋机电动打蛋机电动打蛋机电动打蛋机</text>
+                </view>
+            </view>
+            <view class="weui-panel__bd" data-c_e_id="wx_view9760ff70">
+                <view class="weui-media-box__bd" data-c_e_id="wx_view62538c58"/>
+            </view>
+            <view class="weui-form-preview__btn_primary" data-c_e_id="wx_view594ec6ae">
+                <view class="clickBKstyle wx-view_coWu6c" data-c_e_id="_other_text27c163af">
+                    操作
+                </view>
+            </view>
+        </view>
+        <view class="weui-form-preview" data-c_e_id="wx_view608719b8">
+            <view class="weui-form-preview__hd" data-c_e_id="wx_view86ab6a67">
+                <text class="weui-form-preview__label" data-c_e_id="wx_text718fe432">付款金额</text>
+                <text class="c-block wx-text_n5HRT0" data-c_e_id="wx_text10789b3d">￥2400.00</text>
+            </view>
+            <view class="weui-form-preview__hd2" data-c_e_id="wx_viewd155624b">
+                <view class="weui-form-preview__item" data-c_e_id="wx_viewa64ccf42">
+                    <text class="weui-form-preview__label2" data-c_e_id="wx_text381c65f7">商品</text>
+                    <text class="weui-form-preview__value" data-c_e_id="wx_text3b32255d">电动打蛋机</text>
+                </view>
+                <view class="weui-form-preview__item" data-c_e_id="wx_viewfa5aec44">
+                    <text class="weui-form-preview__label2" data-c_e_id="wx_textb434c8b9">商品商品</text>
+                    <text class="weui-form-preview__value" data-c_e_id="wx_text59aae838">电动打蛋机电动打蛋机电动打蛋机电动打蛋机电动打蛋机</text>
+                </view>
+            </view>
+            <view class="weui-panel__bd" data-c_e_id="wx_viewcf7936c3">
+                <view class="weui-media-box__bd" data-c_e_id="wx_viewaf2776ed"/>
+            </view>
+            <view class="weui-form-preview__btn_primary" data-c_e_id="wx_viewc1d1f65c">
+                <view class="grayfontColor rightGrayboder wx-view_coWu6c" data-c_e_id="_other_text_4cd8286a">
+                    辅助操作
+                </view>
+                <view class="clickBKstyle wx-view_coWu6c" data-c_e_id="_other_textc21bcc36">
+                    操作
+                </view>
+            </view>
+        </view>
+        <view class="c-minheight wx-view_oGrL3G" data-c_e_id="wx_view_db03c63e">
+            <text class="c-block wx-text_5EPSz7" data-c_e_id="wx_text_b9a5552a">Coolsite360</text>
+        </view>
+    </view>
+</view>

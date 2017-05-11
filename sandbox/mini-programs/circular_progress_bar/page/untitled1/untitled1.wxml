@@ -1,0 +1,7 @@
+<canvas backgroundColor="#e0e0e0" borderColor="#fa00b4" borderWidth="5" canvas-id="wx_canvas_circle_13134778" class="wx-canvas-circle_VUNNa9" data-c_e_id="wx_canvas_circle_13134778" duration="1000" fontColor="#fa00b4" fontSize="50" fontWeight="normal" height="150" max="100" part_data="{{wx_canvas_circle_13134778.part_data}}" progress="70" showProgress="True" width="300"/>
+<canvas backgroundColor="#e0e0e0" borderColor="#fa00b4" borderWidth="5" canvas-id="wx_canvas_circle_13134778" class="wx-canvas-circle_VUNNa9" data-c_e_id="wx_canvas_circle16ffd1a4" duration="1000" fontColor="#fa00b4" fontSize="50" fontWeight="normal" height="150" max="100" part_data="{{wx_canvas_circle16ffd1a4.part_data}}" progress="70" showProgress="True" width="300"/>
+<view class="c-minheight wx-view_FU8ZY9" data-c_e_id="wx_view_8c94e836">
+    <navigator class="wx-navigator_Y76Uzq" data-c_e_id="wx_navigator_32bee5dd" hover-class="navigator-hover">
+        <text class="c-block c-ellipse wx-text_EqSXB4" data-c_e_id="wx_text_7efcb2dd">navigator1111</text>
+    </navigator>
+</view>

@@ -1,0 +1,21 @@
+{
+  "debug": true, 
+  "window": {
+    "navigationBarTextStyle": "white", 
+    "navigationBarBackgroundColor": "#000000", 
+    "navigationBarTitleText": "Grid demo", 
+    "backgroundColor": "#ffffff", 
+    "enablePullDownRefresh": false, 
+    "backgroundTextStyle": "dark"
+  }, 
+  "pages": [
+    "page/index/index", 
+    "page/page_826f50958a99a704/page_826f50958a99a704"
+  ], 
+  "networkTimeout": {
+    "connectSocket": "", 
+    "request": "", 
+    "downloadFile": "", 
+    "uploadFile": ""
+  }
+}

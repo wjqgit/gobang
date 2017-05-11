@@ -1,0 +1,45 @@
+<view class="sectionwrap" data-c_e_id="wx_view_62f8df99">
+    <view class="wx-view_Lqjx6p" data-c_e_id="wx_view_43fecd73">
+        <view class="wx-progress-bar" data-c_e_id="wx_view_92880ed1">
+            <view class="wx-progress-info" data-c_e_id="wx_view_fe9901bd"/>
+        </view>
+    </view>
+    <view class="c-minheight wx-view_FjJ4MZ" data-c_e_id="wx_view_a49edf2a">
+        <canvas backgroundColor="rgba(224,224,224,0.68)" borderColor="rgba(0,175,250,1)" borderWidth="5" canvas-id="wx_canvas_circle_4df80d9f" class="wx-canvas-circle_fgVJly" data-c_e_id="wx_canvas_circle_4df80d9f" duration="1000" fontColor="rgba(255,255,255,1)" fontSize="50" fontWeight="normal" height="200" max="100" part_data="{{wx_canvas_circle_4df80d9f.part_data}}" progress="70" showProgress="True" width="300"/>
+        <text class="c-block wx-text_XUSaRP2" data-c_e_id="wx_texte3f804e2">燃烧卡路里目标500</text>
+        <text class="c-block wx-text_XUSaRP" data-c_e_id="wx_textfcbd7416">今日完成385</text>
+        <view class="c-minheight wx-view_kwf4pi" data-c_e_id="wx_view_0ef5e785">
+            <view class="wx-view_Lrqk0b" data-c_e_id="wx_view_61fbb6d4">
+                <text class="c-block wx-text_fLXBYA" data-c_e_id="wx_text_e02c78b7">周一</text>
+                <progress active="True" class="wx-progress_DQoL8a" color="rgba(255,245,5,1)" data-c_e_id="wx_progress86a892d1" percent="90" show-info="True" stroke-width="4"/>
+            </view>
+            <view class="wx-view_Lrqk0b" data-c_e_id="wx_view69a7abfe">
+                <text class="c-block wx-text_fLXBYA" data-c_e_id="wx_textc6935555">周二</text>
+                <progress active="True" class="wx-progress_DQoL8a" color="rgba(255,245,5,1)" data-c_e_id="wx_progressd6250bd1" percent="100" show-info="True" stroke-width="4"/>
+            </view>
+            <view class="wx-view_Lrqk0b" data-c_e_id="wx_viewba4b2d25">
+                <text class="c-block wx-text_fLXBYA" data-c_e_id="wx_text141d194e">周三</text>
+                <progress active="True" class="wx-progress_DQoL8a" color="rgba(255,245,5,1)" data-c_e_id="wx_progress944d84b8" percent="69" show-info="True" stroke-width="4"/>
+            </view>
+            <view class="wx-view_Lrqk0b" data-c_e_id="wx_viewa05d5bc3">
+                <text class="c-block wx-text_fLXBYA" data-c_e_id="wx_text61b2fb3d">周四</text>
+                <progress active="True" class="wx-progress_DQoL8a" color="rgba(255,245,5,1)" data-c_e_id="wx_progress6a76c5b5" percent="79" show-info="True" stroke-width="4"/>
+            </view>
+            <view class="wx-view_Lrqk0b" data-c_e_id="wx_view5728c1b3">
+                <text class="c-block wx-text_fLXBYA" data-c_e_id="wx_textb300f8f9">周五</text>
+                <progress active="True" class="wx-progress_DQoL8a" color="rgba(255,245,5,1)" data-c_e_id="wx_progress036ddcc8" percent="65" show-info="True" stroke-width="4"/>
+            </view>
+            <view class="wx-view_Lrqk0b" data-c_e_id="wx_view72c1b8ac">
+                <text class="c-block wx-text_fLXBYA" data-c_e_id="wx_texta6d63a2a">周六</text>
+                <progress active="True" class="wx-progress_DQoL8a" color="rgba(255,245,5,1)" data-c_e_id="wx_progressa93b4e65" percent="36" show-info="True" stroke-width="4"/>
+            </view>
+            <view class="wx-view_Lrqk0b" data-c_e_id="wx_view29c5e631">
+                <text class="c-block wx-text_fLXBYA" data-c_e_id="wx_textd9347a49">周日</text>
+                <progress active="True" class="wx-progress_DQoL8a" color="rgba(255,245,5,1)" data-c_e_id="wx_progress9f98f5b9" percent="95" show-info="True" stroke-width="4"/>
+            </view>
+            <navigator class="wx-navigator_kYWGiz" data-c_e_id="wx_navigator_491f8888" hover-class="none">
+                <text catchtap="tap_b47052f5" class="c-block wx-text_Xpsvq7" data-c_act_id="M_27e822015b79e089" data-c_e_id="wx_text_9c08f69a">【点击按钮】</text>
+            </navigator>
+        </view>
+    </view>
+</view>

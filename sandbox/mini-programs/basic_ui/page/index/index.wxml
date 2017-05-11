@@ -1,0 +1,45 @@
+<view class="c-minheight wx-view_gf83X9" data-c_e_id="wx_view_ec82b70b">
+    <image class="wx-image_NT0HSX" data-c_e_id="wx_image_d5d7b733" mode="aspectFit" src="http://qty83k.creatby.com/materials/origin/4946a0bbac8594219fa6d68e0913aaa9_origin.png" style="background-size: contain; background-position: center center; background-repeat: no-repeat; background-image: url(http://qty83k.creatby.com/materials/origin/4946a0bbac8594219fa6d68e0913aaa9_origin.png); "/>
+</view>
+<view class="c-minheight bottomGrayboder wx-view_UOiqIL" data-c_e_id="wx_view_f4d42397">
+    <text class="c-block wx-text_sJIWVK" data-c_e_id="wx_text_c51dc871">部件</text>
+</view>
+<view class="bottomGrayboder wx-view_6ICPMp" data-c_e_id="wx_view_cd127cbd">
+    <navigator class="wx-navigator_N2rqMf" data-c_e_id="wx_navigatora12c71f1" hover-class="navigator-hover" url="../card/card">
+        <text class="c-block wx-text_dn8kud" data-c_e_id="wx_text1cda7f3d">卡片</text>
+        <text class="c-block wx-text_dn8kud" data-c_e_id="wx_text7a885564">❯</text>
+    </navigator>
+</view>
+<view class="bottomGrayboder wx-view_6ICPMp" data-c_e_id="wx_view3d2a49c1">
+    <navigator class="wx-navigator_N2rqMf" data-c_e_id="wx_navigator1bc94d29" hover-class="navigator-hover" url="../list/list">
+        <text class="c-block wx-text_dn8kud" data-c_e_id="wx_text3652089b">列表</text>
+        <text class="c-block wx-text_dn8kud" data-c_e_id="wx_textcd065026">❯</text>
+    </navigator>
+</view>
+<view class="c-minheight bottomGrayboder wx-view_UOiqIL" data-c_e_id="wx_view7fa286ca">
+    <text class="c-block wx-text_sJIWVK" data-c_e_id="wx_texte7ee2ff4">WeUI示例</text>
+</view>
+<view class="bottomGrayboder wx-view_6ICPMp" data-c_e_id="wx_view35fe7765">
+    <navigator class="wx-navigator_N2rqMf" data-c_e_id="wx_navigatorae9231ca" hover-class="navigator-hover" url="../infopage1/infopage1">
+        <text class="c-block wx-text_dn8kud" data-c_e_id="wx_text985e7352">操作成功提示页</text>
+        <text class="c-block wx-text_dn8kud" data-c_e_id="wx_text6200df42">❯</text>
+    </navigator>
+</view>
+<view class="bottomGrayboder wx-view_6ICPMp" data-c_e_id="wx_viewd2e63428">
+    <navigator class="wx-navigator_N2rqMf" data-c_e_id="wx_navigator6d51727f" hover-class="navigator-hover" url="../infopage2/infopage2">
+        <text class="c-block wx-text_dn8kud" data-c_e_id="wx_text95d18d22">操作失败提示页</text>
+        <text class="c-block wx-text_dn8kud" data-c_e_id="wx_textbcf1b564">❯</text>
+    </navigator>
+</view>
+<view class="bottomGrayboder wx-view_6ICPMp" data-c_e_id="wx_view29ad2e9d">
+    <navigator class="wx-navigator_N2rqMf" data-c_e_id="wx_navigatorb43fd20a" hover-class="navigator-hover" url="../WeUI_Panel/WeUI_Panel">
+        <text class="c-block wx-text_dn8kud" data-c_e_id="wx_text535d2778">WeUI—Panel面板</text>
+        <text class="c-block wx-text_dn8kud" data-c_e_id="wx_textc707691f">❯</text>
+    </navigator>
+</view>
+<view class="bottomGrayboder wx-view_6ICPMp" data-c_e_id="wx_view0eb89d3c">
+    <navigator class="wx-navigator_N2rqMf" data-c_e_id="wx_navigator39782c5b" hover-class="navigator-hover" url="../WeUI_Preview/WeUI_Preview">
+        <text class="c-block wx-text_dn8kud" data-c_e_id="wx_text2ca2b1b5">WeUI—表单预览</text>
+        <text class="c-block wx-text_dn8kud" data-c_e_id="wx_text81f0581f">❯</text>
+    </navigator>
+</view>
