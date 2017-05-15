@@ -34,16 +34,22 @@ fs.lstat(inputName, (err, states) => {
         console.log(`${inputName} is a file`)
 
         const rs = fs.createReadStream(inputName)
+        const ws = fs.createWriteStream(outputName)
 
+        rs.pipe(ws)
+/*
         rs.on('error', err => { if (err) throw err }) 
+
+        let i = 0;
 
         rs.on('readable', () => {
             let buf = rs.read();
 
             if (!buf) return 
 
-            for (let i = 0; i < buf.length; i++) {
+            for (; i < buf.length; i++) {
                 if (buf[i] === 0x0a) {
+                    console.dir(i)
                     console.dir(buf.slice(0, i).toString())
                     buf = buf.slice(i + 1)
                     rs.unshift(buf)
@@ -53,5 +59,6 @@ fs.lstat(inputName, (err, states) => {
 
             rs.unshift(buf)
         })
+        */
     }
 } )
