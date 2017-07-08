@@ -12,7 +12,7 @@ Page({
    */
   name: "index",
   /**
-   * 页面的初始数据
+   * 页面的初始数据 Animation Data??? animation.js -> resig() -> addDataAni()
    */
 
   data: {
