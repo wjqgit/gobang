@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "corecrt_malloc.h": "c",
+        "corecrt.h": "c",
+        "vcruntime.h": "c"
+    }
+}

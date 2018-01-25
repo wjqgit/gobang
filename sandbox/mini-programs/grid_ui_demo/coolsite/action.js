@@ -3,7 +3,7 @@ var _tar;
 var register = function(tar,data){
     _tar = tar;
     addDataClass(data,_tar.data)
-    getApp().coolsite360._coolsite.register(_tar);
+    getApp().coolsite360._coolsite.register(_tar); // ???
     eventBind(data);
 }
 //事件绑定

@@ -2,7 +2,7 @@
 var _target = {};
 
 /**
- * 注册事件源 [每个page载入或切换须注册或重新注册事件源 最好是在onShow中注册]
+ * 注册事件源 [每个page载入或切换须注册或重新注册事件源 最好是在onShow中注册]???
  */
 var register = function (target) {
     _target = target;
