@@ -1,6 +1,6 @@
 const stream = require('stream')
 const fs = require('fs')
-const split = require('./split')
+const split = require('split')
 
 const Readable = stream.Readable
 const Writable = stream.Writable
@@ -27,6 +27,8 @@ fs.lstat(inputName, (err, states) => {
                 rs.pause()
                 console.log('readable stream paused.')
                 console.log(`${animation.length}`)
+                console.log(`animation length is now ${animation.length}`)
+                // rs.destroy()
             }
 
         })
@@ -40,7 +42,7 @@ fs.lstat(inputName, (err, states) => {
                 animation = animation.slice(0, len - 100);
             }
             
-            if (rs.paused && animation.length < 100) {
+            if (rs && rs.paused && animation.length < 100) {
                 rs.resume()
                 console.log('readable stream resumed.')
             }

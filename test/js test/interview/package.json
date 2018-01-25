@@ -1,0 +1,15 @@
+{
+  "name": "interview",
+  "version": "1.0.0",
+  "description": "bothive front-end interview programming challenges",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "WANG Jiaqi <wang.jiaqi@bothivesystems.com> (http://wangjiaqi.xyz)",
+  "license": "MIT",
+  "dependencies": {
+    "mocha": "^4.0.1",
+    "sinon": "^4.0.1"
+  }
+}
