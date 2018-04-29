@@ -216,6 +216,7 @@ function downloadAllImages() {
     let actualBatchSize = 0
     let concurrentCount = 0
     let finishedCount = 0
+    let currentIndex = 0
 
     function downloadBatch(size) {
         // get pending specimen batch
@@ -241,8 +242,6 @@ function downloadAllImages() {
             speciesScientificName = specimen.species.scientificName,
             imgName = imgPath.split('/')[4]
 
-        concurrentCount++
-
         // console.log(`start to download ${imgName}`)
 
         // download and save image
@@ -253,7 +252,6 @@ function downloadAllImages() {
 
             Species.updateSpecimen(specimen).then(() => {
                 // console.log(`${imgName} updated`)
-
                 finishedCount++
                 concurrentCount--
 
@@ -265,6 +263,7 @@ function downloadAllImages() {
                 if (finishedCount === actualBatchSize) {
                     actualBatchSize = 0
                     finishedCount = 0
+                    currentIndex = 0
 
                     setTimeout(() => downloadBatch(batchSize), 1000)
                 }
@@ -280,7 +279,11 @@ function downloadAllImages() {
     function next(index) {
         
         // set next download task
-        if (index < actualBatchSize - 1 && concurrentCount < concurrenceLimit) setTimeout(() => { downloadImage(index+1) }, 1000)
+        if (index >= currentIndex && index < actualBatchSize - 1 && concurrentCount < concurrenceLimit) {
+            currentIndex = index+1
+            concurrentCount++
+            setTimeout(() => { downloadImage(currentIndex) }, 1000)
+        }
 
     }
 
